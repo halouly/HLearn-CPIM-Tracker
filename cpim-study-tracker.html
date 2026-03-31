@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPIM 8.0 Study Tracker — 10-Day Sprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-deep:#0a0c10;--bg-surface:#11141b;--bg-card:#181c27;--bg-card-hover:#1e2332;
+  --border:#252a3a;--border-bright:#3a4158;
+  --text:#d4d8e8;--text-dim:#7a819a;--text-bright:#f0f2fa;
+  --accent:#4ecdc4;--accent-glow:#4ecdc433;--accent-dim:#2a7a74;
+  --red:#ff6b6b;--orange:#ffa94d;--green:#51cf66;--blue:#5c9dff;--purple:#b197fc;
+  --yellow:#ffd43b;
+  --sidebar-w:300px;--header-h:60px;
+  --mod1:#1a2332;--mod2:#1a2a2a;--mod3:#2a1a2a;--mod4:#1a1a2a;--mod5:#2a2a1a;--mod6:#2a1a1a;--mod7:#1a2a1a;--mod8:#2a1a2a;
+  --mod1-border:#3a5070;--mod2-border:#3a7070;--mod3-border:#703a70;--mod4-border:#3a3a70;--mod5-border:#70703a;--mod6-border:#703a3a;--mod7-border:#3a703a;--mod8-border:#703a70;
+}
+[data-theme="light"]{
+  --bg-deep:#f5f7fa;--bg-surface:#ffffff;--bg-card:#f0f2f5;--bg-card-hover:#e8eaed;
+  --border:#d0d5dd;--border-bright:#b0b5bd;
+  --text:#1a1a2e;--text-dim:#5a5a7a;--text-bright:#0a0a1e;
+  --accent:#0d9488;--accent-glow:#0d948822;--accent-dim:#99f6e4;
+  --red:#dc2626;--orange:#ea580c;--green:#16a34a;--blue:#2563eb;--purple:#7c3aed;
+  --yellow:#ca8a04;
+  --mod1:#e8f4fc;--mod2:#e8fcf8;--mod3:#f8e8fc;--mod4:#e8e8fc;--mod5:#fcfce8;--mod6:#fce8e8;--mod7:#e8fce8;--mod8:#fce8f8;
+  --mod1-border:#a0c4e8;--mod2-border:#a0e8e0;--mod3-border:#e0a0e8;--mod4-border:#a0a0e8;--mod5-border:#e8e8a0;--mod6-border:#e8a0a0;--mod7-border:#a0e8a0;--mod8-border:#e8a0e0;
+}
+html{scroll-behavior:smooth;background:var(--bg-deep)}
+body{font-family:'Outfit',sans-serif;color:var(--text);background:var(--bg-deep);line-height:1.65;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.top-bar{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--bg-surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;z-index:1000;gap:16px}
+.top-bar .logo{font-weight:800;font-size:15px;color:var(--text-bright);white-space:nowrap;display:flex;align-items:center;gap:8px}
+.top-bar .logo span{color:var(--accent)}
+.top-bar .logo .badge{font-size:10px;background:var(--accent-dim);color:var(--accent);padding:2px 7px;border-radius:4px;font-weight:600;letter-spacing:.5px}
+.progress-wrap{flex:1;max-width:480px;display:flex;align-items:center;gap:12px}
+.progress-bar-outer{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-bar-inner{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:3px;transition:width .5s}
+.progress-text{font-size:13px;color:var(--text-dim);font-weight:500;white-space:nowrap;font-family:'JetBrains Mono',monospace}
+.top-actions{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.btn-sm{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-dim);font-size:12px;font-family:'Outfit',sans-serif;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm.danger:hover{border-color:var(--red);color:var(--red)}
+.btn-sm.save{border-color:var(--green);color:var(--green)}
+.btn-sm.save:hover{background:rgba(0,200,100,.1)}
+.btn-sm.load{border-color:var(--blue);color:var(--blue)}
+.btn-sm.load:hover{background:rgba(0,150,255,.1)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg-card);border:1px solid var(--border);color:var(--text-bright);padding:12px 24px;border-radius:10px;font-size:14px;font-weight:500;z-index:9999;opacity:0;transition:all .35s ease;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:var(--green)}.toast.success .toast-icon{color:var(--green)}
+.toast.error{border-color:var(--red)}.toast.error .toast-icon{color:var(--red)}
+.toast.info{border-color:var(--blue)}.toast.info .toast-icon{color:var(--blue)}
+.hamburger{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;padding:4px 8px}
+.sidebar{position:fixed;top:var(--header-h);left:0;width:var(--sidebar-w);height:calc(100vh - var(--header-h));background:var(--bg-surface);border-right:1px solid var(--border);overflow-y:auto;z-index:900;padding:16px 0;transition:transform .3s}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.sidebar .nav-section{padding:8px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-dim);margin-top:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:13px;color:var(--text-dim);cursor:pointer;transition:all .15s;border-left:2px solid transparent;font-weight:400}
+.nav-item:hover{background:var(--bg-card);color:var(--text)}
+.nav-item.completed .nav-check{color:var(--green)}
+.nav-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;transition:all .3s}
+.nav-item.completed .nav-check{border-color:var(--green);background:var(--green);color:var(--bg-deep)}
+.nav-pct{margin-left:auto;font-size:11px;font-family:'JetBrains Mono',monospace;opacity:.6}
+.day-label{font-size:9px;background:var(--purple);color:var(--bg-deep);padding:1px 5px;border-radius:3px;margin-left:auto;font-weight:600}
+.note-count{font-size:10px;color:var(--orange);margin-left:4px}
+.main{margin-left:var(--sidebar-w);margin-top:var(--header-h);padding:32px 40px 80px;max-width:1000px}
+.module{margin-bottom:40px;border:1px solid var(--border);border-radius:12px;background:var(--bg-surface);overflow:hidden}
+.module[data-mod="1"]{background:var(--mod1);border-color:var(--mod1-border)}
+.module[data-mod="2"]{background:var(--mod2);border-color:var(--mod2-border)}
+.module[data-mod="3"]{background:var(--mod3);border-color:var(--mod3-border)}
+.module[data-mod="4"]{background:var(--mod4);border-color:var(--mod4-border)}
+.module[data-mod="5"]{background:var(--mod5);border-color:var(--mod5-border)}
+.module[data-mod="6"]{background:var(--mod6);border-color:var(--mod6-border)}
+.module[data-mod="7"]{background:var(--mod7);border-color:var(--mod7-border)}
+.module[data-mod="8"]{background:var(--mod8);border-color:var(--mod8-border)}
+.module-header{padding:20px 24px;cursor:pointer;display:flex;align-items:center;gap:16px;transition:background .2s;user-select:none}
+.module-header:hover{background:var(--bg-card)}
+.module-number{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--bg-deep);background:var(--accent);width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.module.completed .module-number{background:var(--green)}
+.module-title{font-size:18px;font-weight:700;color:var(--text-bright);flex:1}
+.module-meta{display:flex;align-items:center;gap:12px}
+.module-pct{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim)}
+.module-mini-bar{width:60px;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.module-mini-bar-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s}
+.module.completed .module-mini-bar-fill{background:var(--green)}
+.module-chevron{color:var(--text-dim);font-size:18px;transition:transform .3s}
+.module.open .module-chevron{transform:rotate(180deg)}
+.module-body{display:none;padding:0 24px 24px;border-top:1px solid var(--border)}
+.module.open .module-body{display:block}
+.module-weight{font-size:11px;background:var(--orange);color:var(--bg-deep);padding:2px 6px;border-radius:4px;font-weight:600}
+.v9-map{display:block;font-size:11px;font-weight:500;color:var(--blue);margin-top:2px}
+.topic-group{margin-top:16px}
+.topic-group-title{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--border-bright);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all .2s;font-size:13px;color:transparent;position:relative}
+.step-check:hover{border-color:var(--accent);background:var(--accent-glow)}
+.step-check.checked{border-color:var(--green);background:var(--green);color:var(--bg-deep)}
+.step-check.has-note::after{content:'';position:absolute;top:-3px;right:-3px;width:8px;height:8px;background:var(--orange);border-radius:50%;border:2px solid var(--bg-surface)}
+.step-content{flex:1;min-width:0}
+.step-content.checked-text{opacity:.55}
+.step-content.checked-text .step-title{text-decoration:line-through;text-decoration-color:var(--text-dim)}
+.step-header{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.step-title{font-weight:600;font-size:14px;color:var(--text-bright)}
+.step-desc{font-size:13px;color:var(--text-dim);line-height:1.6}
+.tag{font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600;margin-left:4px}
+.tag.high{background:var(--red);color:#fff}
+.tag.medium{background:var(--orange);color:var(--bg-deep)}
+.tag.formula{background:var(--purple);color:#fff}
+.key-terms{margin-top:8px;padding:8px 12px;background:var(--bg-card);border-radius:6px;border-left:3px solid var(--blue)}
+.key-terms-label{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.key-terms-list{font-size:12px;color:var(--text);line-height:1.8}
+.key-terms-list .term{display:inline-block;background:var(--bg-deep);padding:2px 8px;border-radius:4px;margin:2px 4px 2px 0;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11px}
+.note-btn{background:none;border:1px solid var(--border);color:var(--text-dim);font-size:12px;padding:2px 8px;border-radius:5px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;flex-shrink:0}
+.note-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.note-btn.has-note{border-color:var(--orange);color:var(--orange)}
+.note-btn.open{border-color:var(--accent);color:var(--accent)}
+.note-area{margin-top:8px;display:none}
+.note-area.open{display:block}
+.note-area textarea{width:100%;min-height:60px;max-height:200px;padding:10px 12px;background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;line-height:1.5;resize:vertical;outline:none;transition:border-color .2s}
+.note-area textarea:focus{border-color:var(--accent)}
+.note-area textarea::placeholder{color:var(--text-dim);opacity:.5}
+.note-saved{font-size:11px;color:var(--green);margin-top:4px;opacity:0;transition:opacity .3s}
+.note-saved.show{opacity:1}
+.day-header{background:linear-gradient(135deg,var(--day-bg-start),var(--day-bg-end));border:2px solid var(--day-border);border-radius:14px;padding:24px 28px;margin-bottom:28px;display:flex;align-items:center;gap:20px;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.day-header[data-day="1"]{--day-bg-start:#1e3a5f;--day-bg-end:#0d1f33;--day-border:#3b82f6;--day-accent:#60a5fa}
+.day-header[data-day="2"]{--day-bg-start:#1e4d4d;--day-bg-end:#0d2626;--day-border:#14b8a6;--day-accent:#2dd4bf}
+.day-header[data-day="3"]{--day-bg-start:#4a1e5c;--day-bg-end:#2a0d33;--day-border:#a855f7;--day-accent:#c084fc}
+.day-header[data-day="4"]{--day-bg-start:#5c1e1e;--day-bg-end:#330d0d;--day-border:#ef4444;--day-accent:#f87171}
+.day-header[data-day="5"]{--day-bg-start:#5c4a1e;--day-bg-end:#332a0d;--day-border:#f59e0b;--day-accent:#fbbf24}
+.day-header[data-day="6"]{--day-bg-start:#1e5c3a;--day-bg-end:#0d3320;--day-border:#22c55e;--day-accent:#4ade80}
+.day-header[data-day="7"]{--day-bg-start:#5c1e4a;--day-bg-end:#330d26;--day-border:#ec4899;--day-accent:#f472b6}
+.day-header[data-day="8"]{--day-bg-start:#1e2e5c;--day-bg-end:#0d1833;--day-border:#6366f1;--day-accent:#818cf8}
+.day-header[data-day="9"]{--day-bg-start:#3a5c1e;--day-bg-end:#203a0d;--day-border:#84cc16;--day-accent:#a3e635}
+.day-header[data-day="10"]{--day-bg-start:#5c5c1e;--day-bg-end:#33330d;--day-border:#eab308;--day-accent:#facc15}
+[data-theme="light"] .day-header[data-day="1"]{--day-bg-start:#dbeafe;--day-bg-end:#eff6ff;--day-border:#3b82f6;--day-accent:#2563eb}
+[data-theme="light"] .day-header[data-day="2"]{--day-bg-start:#ccfbf1;--day-bg-end:#f0fdfa;--day-border:#14b8a6;--day-accent:#0d9488}
+[data-theme="light"] .day-header[data-day="3"]{--day-bg-start:#f3e8ff;--day-bg-end:#faf5ff;--day-border:#a855f7;--day-accent:#9333ea}
+[data-theme="light"] .day-header[data-day="4"]{--day-bg-start:#fee2e2;--day-bg-end:#fef2f2;--day-border:#ef4444;--day-accent:#dc2626}
+[data-theme="light"] .day-header[data-day="5"]{--day-bg-start:#fef3c7;--day-bg-end:#fffbeb;--day-border:#f59e0b;--day-accent:#d97706}
+[data-theme="light"] .day-header[data-day="6"]{--day-bg-start:#dcfce7;--day-bg-end:#f0fdf4;--day-border:#22c55e;--day-accent:#16a34a}
+[data-theme="light"] .day-header[data-day="7"]{--day-bg-start:#fce7f3;--day-bg-end:#fdf2f8;--day-border:#ec4899;--day-accent:#db2777}
+[data-theme="light"] .day-header[data-day="8"]{--day-bg-start:#e0e7ff;--day-bg-end:#eef2ff;--day-border:#6366f1;--day-accent:#4f46e5}
+[data-theme="light"] .day-header[data-day="9"]{--day-bg-start:#ecfccb;--day-bg-end:#f7fee7;--day-border:#84cc16;--day-accent:#65a30d}
+[data-theme="light"] .day-header[data-day="10"]{--day-bg-start:#fef9c3;--day-bg-end:#fefce8;--day-border:#eab308;--day-accent:#ca8a04}
+.day-number{font-size:42px;font-weight:900;color:var(--day-accent,var(--accent));font-family:'JetBrains Mono',monospace;text-shadow:0 2px 8px rgba(0,0,0,.3);letter-spacing:-2px}
+.day-info h2{font-size:24px;font-weight:800;color:var(--text-bright);margin-bottom:6px;letter-spacing:-0.5px}
+.day-info p{font-size:14px;color:var(--text);font-weight:500}
+.day-hours{margin-left:auto;font-size:16px;color:var(--day-accent,var(--orange));font-weight:700;background:rgba(0,0,0,.2);padding:8px 16px;border-radius:8px}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:24px 16px 80px}
+  .hamburger{display:block}
+  .top-bar .logo .full-title{display:none}
+  .progress-wrap{max-width:200px}
+}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:899}
+.sidebar-overlay.show{display:block}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg-deep)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.module-body{animation:fadeIn .25s ease}
+.exam-info{background:linear-gradient(135deg,var(--bg-card) 0%,var(--accent-dim) 100%);border:1px solid var(--accent);border-radius:12px;padding:20px;margin-bottom:32px}
+.exam-info h3{font-size:16px;font-weight:700;color:var(--accent);margin-bottom:12px}
+.exam-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.exam-stat{background:var(--bg-deep);border-radius:8px;padding:12px;text-align:center}
+.exam-stat-value{font-size:24px;font-weight:800;color:var(--text-bright);font-family:'JetBrains Mono',monospace}
+.exam-stat-label{font-size:11px;color:var(--text-dim);margin-top:4px}
+</style>
+</head>
+<body>
+<header class="top-bar">
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
+  <div class="logo"><span>CPIM</span> <span class="full-title">8.0 Study Tracker</span><span class="badge">10-DAY</span></div>
+  <div class="progress-wrap">
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar"></div></div>
+    <span class="progress-text" id="progressText">0%</span>
+  </div>
+  <div class="top-actions">
+    <button class="btn-sm theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌓</button>
+    <button class="btn-sm" onclick="collapseAll()">Collapse</button>
+    <button class="btn-sm" onclick="expandAll()">Expand</button>
+    <button class="btn-sm save" onclick="exportProgress()">💾 Save</button>
+    <button class="btn-sm load" onclick="document.getElementById('importFile').click()">📂 Load</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importProgress(event)">
+    <button class="btn-sm danger" onclick="resetAll()">Reset</button>
+  </div>
+</header>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<nav class="sidebar" id="sidebar"></nav>
+<div class="toast" id="toast"><span class="toast-icon"></span><span class="toast-msg"></span></div>
+<main class="main" id="mainContent"></main>
+
+<script>
+const studyPlan = [
+  {
+    id: 'day1', day: 1, title: 'Modules 1-2: Strategy & S&OP', hours: 4, focus: 'Business Strategy Alignment + Sales & Operations Planning',
+    modules: [
+      {
+        id: 'mod1', number: 1, title: 'Align Supply Chain to Business Strategy', weight: '15%', v9: '→ LS 9.0 Module 1 (12%)',
+        topics: [
+          {
+            group: 'A. Business Environment & Corporate Strategy',
+            items: [
+              { id: 'm1a1', title: 'External environment scanning', desc: 'Industry analysis, competitive landscape', terms: ['benchmarking', 'industry standards'] },
+              { id: 'm1a2', title: 'Five-force model analysis', desc: 'Porter\'s framework: suppliers, buyers, substitutes, new entrants, rivalry', priority: 'medium', terms: ['five forces', 'competitive analysis'] },
+              { id: 'm1a3', title: 'SWOT analysis', desc: 'Strengths, Weaknesses, Opportunities, Threats', terms: ['SWOT', 'strategic planning'] },
+              { id: 'm1a4', title: 'Value chain analysis', desc: 'Identify activities that create customer value', terms: ['value chain', 'core competency'] },
+              { id: 'm1a5', title: 'Order winners vs qualifiers', desc: 'What wins orders vs minimum requirements', priority: 'high', terms: ['order winner', 'order qualifier', 'competitive priority'] },
+              { id: 'm1a6', title: 'Competitive priorities', desc: 'Cost, quality, delivery, flexibility, availability', terms: ['competitive priority', 'trade-off'] }
+            ]
+          },
+          {
+            group: 'B. Functional & Operational Strategies',
+            items: [
+              { id: 'm1b1', title: 'Make-buy analysis', desc: 'Cost, capacity, quality, strategic considerations', terms: ['make-or-buy decision', 'outsourcing', 'insourcing'] },
+              { id: 'm1b2', title: 'Production strategies', desc: 'Chase, level, hybrid, subcontracting', priority: 'high', terms: ['chase strategy', 'level strategy', 'hybrid strategy'] },
+              { id: 'm1b3', title: 'Capacity strategies', desc: 'Lead vs lag capacity', terms: ['capacity strategy', 'lead capacity strategy', 'lag capacity strategy'] },
+              { id: 'm1b4', title: 'Manufacturing environments', desc: 'MTS, ATO/CTO, MTO, ETO — know the push-pull boundary', priority: 'high', terms: ['make-to-stock', 'assemble-to-order', 'make-to-order', 'engineer-to-order', 'decoupling point'] }
+            ]
+          },
+          {
+            group: 'C. Process Design & Layout',
+            items: [
+              { id: 'm1c1', title: 'Product-process matrix', desc: 'Project, job shop, batch, line, continuous flow', terms: ['product-process matrix', 'job shop', 'batch', 'continuous flow', 'repetitive manufacturing'] },
+              { id: 'm1c2', title: 'Layout types', desc: 'Fixed position, process/functional, cellular, assembly line', terms: ['fixed-position layout', 'process layout', 'product layout', 'cellular manufacturing', 'group technology'] },
+              { id: 'm1c3', title: 'Product life cycle alignment', desc: 'Match process choices to life cycle stage', terms: ['product life cycle', 'introduction', 'growth', 'maturity', 'decline'] }
+            ]
+          },
+          {
+            group: 'D. KPIs & Performance',
+            items: [
+              { id: 'm1d1', title: 'Financial metrics', desc: 'Cash-to-cash cycle, cash conversion cycle, cash flow', terms: ['cash-to-cash cycle time', 'cash flow', 'working capital'] },
+              { id: 'm1d2', title: 'Operational metrics', desc: 'Service levels, fill rate, stockout %', terms: ['customer service level', 'fill rate', 'stockout'] },
+              { id: 'm1d3', title: 'Balanced scorecard', desc: 'Financial, customer, internal, learning perspectives', terms: ['balanced scorecard', 'key performance indicator (KPI)'] }
+            ]
+          },
+          {
+            group: 'E. Risk Management',
+            items: [
+              { id: 'm1e1', title: 'Risk types', desc: 'Supply disruption, financial, environmental, cyber, IP, political', terms: ['supply chain risk', 'risk management'] },
+              { id: 'm1e2', title: 'FMEA', desc: 'Failure Modes and Effects Analysis', priority: 'medium', terms: ['failure mode and effects analysis (FMEA)', 'risk priority number'] },
+              { id: 'm1e3', title: 'Risk mitigation strategies', desc: 'Prevention, mitigation, recovery, pooling, resiliency', terms: ['risk mitigation', 'contingency planning', 'resiliency'] }
+            ]
+          },
+          {
+            group: 'G. Sustainability',
+            items: [
+              { id: 'm1g1', title: 'Triple Bottom Line (TBL)', desc: 'Environmental, financial, social sustainability', terms: ['triple bottom line', 'sustainability', 'carbon footprint'] },
+              { id: 'm1g2', title: 'GRI & UN Global Compact', desc: 'Sustainability reporting standards', terms: ['Global Reporting Initiative', 'ISO 14001'] }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'mod2', number: 2, title: 'Sales & Operations Planning (S&OP)', weight: '9%', v9: '→ LS 9.0 Module 2 (10%)',
+        topics: [
+          {
+            group: 'A. S&OP Process',
+            items: [
+              { id: 'm2a1', title: 'S&OP role in planning hierarchy', desc: 'Links business plan to master schedule', priority: 'high', terms: ['sales and operations planning (S&OP)', 'production plan', 'aggregate planning'] },
+              { id: 'm2a2', title: 'S&OP steps', desc: 'Data gathering → demand planning → supply planning → pre-meeting → executive meeting', priority: 'high', terms: ['demand planning', 'supply planning', 'executive S&OP'] },
+              { id: 'm2a3', title: 'Planning horizon & aggregation', desc: 'Typically 12-24 months, product families', terms: ['planning horizon', 'product family', 'aggregate plan'] },
+              { id: 'm2a4', title: 'Management involvement', desc: 'Cross-functional: sales, ops, finance, exec', terms: ['cross-functional team', 'consensus'] }
+            ]
+          },
+          {
+            group: 'B. Aggregate Demand Plan',
+            items: [
+              { id: 'm2b1', title: 'Product portfolio review', desc: 'NPI, life cycles, competitive priorities', terms: ['new product introduction (NPI)', 'product portfolio'] },
+              { id: 'm2b2', title: 'Demand sources', desc: 'Forecast, customer orders, safety stock, internal requirements', terms: ['demand', 'forecast', 'customer order', 'interplant demand'] }
+            ]
+          },
+          {
+            group: 'C. Aggregate Supply Plan',
+            items: [
+              { id: 'm2c1', title: 'Production plan development', desc: 'Validate against resource plan', terms: ['production plan', 'resource planning', 'resource requirements planning'] },
+              { id: 'm2c2', title: 'Strategic buffers', desc: 'Identify bottlenecks, CCR, buffer types (lead time, inventory, capacity)', priority: 'medium', terms: ['buffer', 'bottleneck', 'capacity-constrained resource (CCR)', 'protective capacity'] }
+            ]
+          },
+          {
+            group: 'D. Reconciliation',
+            items: [
+              { id: 'm2d1', title: 'Balancing supply & demand', desc: 'Adjust supply (OT, outsource) or demand (lead time, shaping)', terms: ['demand shaping', 'demand management', 'load leveling'] },
+              { id: 'm2d2', title: 'Trade-offs', desc: 'Customer service vs inventory vs backlog levels', terms: ['trade-off', 'backlog', 'service level'] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day2', day: 2, title: 'Modules 3-4: Demand & Supply Planning', hours: 4, focus: 'Forecasting + Master Scheduling + MRP',
+    modules: [
+      {
+        id: 'mod3', number: 3, title: 'Plan and Manage Demand', weight: '9%', v9: '→ LS 9.0 Module 3 (12%)',
+        topics: [
+          {
+            group: 'A. Customer Management',
+            items: [
+              { id: 'm3a1', title: 'Customer segmentation', desc: 'Segment by needs, strategies, capabilities', terms: ['customer segmentation', 'customer relationship management (CRM)'] },
+              { id: 'm3a2', title: 'Service policies & performance', desc: 'Safety stock levels, performance targets', terms: ['service level', 'customer service ratio'] },
+              { id: 'm3a3', title: 'CPFR', desc: 'Collaborative Planning, Forecasting, and Replenishment', terms: ['collaborative planning, forecasting, and replenishment (CPFR)', 'vendor-managed inventory (VMI)'] }
+            ]
+          },
+          {
+            group: 'B. Product Management',
+            items: [
+              { id: 'm3b1', title: 'Product life cycle management', desc: 'Introduction, growth, maturity, decline', terms: ['product life cycle', 'end-of-life (EOL)'] },
+              { id: 'm3b2', title: 'Engineering changes', desc: 'Effectivity plans, revision control', terms: ['engineering change', 'effectivity', 'revision level'] },
+              { id: 'm3b3', title: 'QFD & VOC', desc: 'Quality Function Deployment, Voice of Customer', terms: ['quality function deployment (QFD)', 'voice of the customer (VOC)'] }
+            ]
+          },
+          {
+            group: 'C. Demand Sources',
+            items: [
+              { id: 'm3c1', title: 'Independent demand', desc: 'Forecast, customer orders, service parts, samples, distribution', terms: ['independent demand', 'service parts'] },
+              { id: 'm3c2', title: 'Dependent demand', desc: 'Calculated from parent item demand via BOM', terms: ['dependent demand', 'bill of material (BOM)'] },
+              { id: 'm3c3', title: 'Demand channels', desc: 'Retail, wholesale, e-commerce, B2B, B2C', terms: ['distribution channel', 'e-commerce'] }
+            ]
+          },
+          {
+            group: 'D. Forecasting Methods',
+            items: [
+              { id: 'm3d1', title: 'Qualitative methods', desc: 'Delphi, panel consensus, sales force polling, historical analogy', priority: 'medium', terms: ['qualitative forecasting', 'Delphi method', 'panel consensus', 'market research'] },
+              { id: 'm3d2', title: 'Time series decomposition', desc: 'Level, trend, seasonality, random variation', priority: 'high', terms: ['time series', 'trend', 'seasonality', 'level', 'random variation', 'cyclical'] },
+              { id: 'm3d3', title: 'Moving average', desc: 'Simple MA, weighted MA — smooths random variation', priority: 'formula', terms: ['moving average', 'weighted moving average', 'smoothing constant'] },
+              { id: 'm3d4', title: 'Exponential smoothing', desc: 'α factor, recent data weighted more heavily', priority: 'formula', terms: ['exponential smoothing', 'alpha factor', 'smoothing constant'] },
+              { id: 'm3d5', title: 'Regression & leading indicators', desc: 'Associative/causal techniques', terms: ['regression analysis', 'leading indicator', 'correlation'] }
+            ]
+          },
+          {
+            group: 'E. Forecast Monitoring',
+            items: [
+              { id: 'm3e1', title: 'Forecast error metrics', desc: 'Bias, CFE, MFE, MAD, MAPE, tracking signal', priority: 'formula', terms: ['mean absolute deviation (MAD)', 'mean absolute percentage error (MAPE)', 'tracking signal', 'bias', 'cumulative forecast error (CFE)'] },
+              { id: 'm3e2', title: 'Bullwhip effect', desc: 'Demand variability amplification upstream', terms: ['bullwhip effect', 'demand amplification'] }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'mod4', number: 4, title: 'Plan and Manage Supply', weight: '16%', v9: '→ LS 9.0 Modules 4+5 (Internal 12% + External 11%)',
+        topics: [
+          {
+            group: 'A. Master Scheduling',
+            items: [
+              { id: 'm4a1', title: 'MPS role', desc: 'Disaggregates production plan into specific items/timing', priority: 'high', terms: ['master production schedule (MPS)', 'master schedule', 'master scheduler'] },
+              { id: 'm4a2', title: 'MPS level in BOM', desc: 'Depends on manufacturing environment (MTS vs ATO vs MTO)', terms: ['planning bill', 'super bill', 'modular bill of material'] },
+              { id: 'm4a3', title: 'Available-to-Promise (ATP)', desc: 'Discrete vs cumulative ATP calculation', priority: 'formula', terms: ['available-to-promise (ATP)', 'uncommitted inventory'] },
+              { id: 'm4a4', title: 'Capable-to-Promise (CTP)', desc: 'ATP + capacity/material check', terms: ['capable-to-promise (CTP)', 'order promising'] },
+              { id: 'm4a5', title: 'Time fences', desc: 'Demand time fence, planning time fence — change control', priority: 'high', terms: ['time fence', 'demand time fence', 'planning time fence', 'frozen zone'] },
+              { id: 'm4a6', title: 'Planning bills', desc: 'Super bill, modular bill — for ATO environments', terms: ['planning bill of material', 'super bill of material', 'modular bill of material', 'option overplanning'] }
+            ]
+          },
+          {
+            group: 'B. Rough-Cut Capacity Planning (RCCP)',
+            items: [
+              { id: 'm4b1', title: 'Bill of resources', desc: 'Hours/unit at critical work centers', terms: ['bill of resources', 'rough-cut capacity planning (RCCP)'] },
+              { id: 'm4b2', title: 'Critical work centers', desc: 'Validate MPS feasibility before MRP', terms: ['critical work center', 'gateway work center'] },
+              { id: 'm4b3', title: 'Efficiency & utilization', desc: 'Efficiency = standard/actual time; Utilization = actual/available time', priority: 'formula', terms: ['efficiency', 'utilization', 'productivity'] }
+            ]
+          },
+          {
+            group: 'C. Material Requirements Planning (MRP)',
+            items: [
+              { id: 'm4c1', title: 'MRP inputs', desc: 'MPS, BOM, inventory status, lead times', priority: 'high', terms: ['material requirements planning (MRP)', 'MRP inputs', 'closed-loop MRP'] },
+              { id: 'm4c2', title: 'MRP record', desc: 'Gross req, scheduled receipts, PAB, net req, planned receipts, planned releases', priority: 'formula', terms: ['gross requirements', 'scheduled receipts', 'projected available balance (PAB)', 'net requirements', 'planned order release', 'planned order receipt'] },
+              { id: 'm4c3', title: 'Firm planned orders (FPO)', desc: 'Frozen orders that MRP won\'t change', terms: ['firm planned order (FPO)', 'frozen order'] },
+              { id: 'm4c4', title: 'Pegging', desc: 'Traces component requirements to parent orders', terms: ['pegging', 'where-used', 'full pegging'] },
+              { id: 'm4c5', title: 'Action messages', desc: 'Release, reschedule in/out, cancel — system feedback', terms: ['action message', 'exception message', 'reschedule'] },
+              { id: 'm4c6', title: 'Low-level code', desc: 'Ensures components processed after parents in BOM explosion', terms: ['low-level code', 'BOM explosion', 'netting'] }
+            ]
+          },
+          {
+            group: 'D. Final Assembly Schedule (FAS)',
+            items: [
+              { id: 'm4d1', title: 'FAS purpose', desc: 'Schedules final configuration for ATO/CTO environments', terms: ['final assembly schedule (FAS)', 'finishing schedule'] },
+              { id: 'm4d2', title: 'FAS vs MPS', desc: 'FAS is more detailed, shorter horizon, customer-order driven', terms: ['customer order', 'configuration'] }
+            ]
+          },
+          {
+            group: 'E-F. Supplier Management',
+            items: [
+              { id: 'm4e1', title: 'Sourcing strategies', desc: 'Sole, single, multi-sourcing; domestic vs foreign', terms: ['sole source', 'single source', 'multiple sourcing', 'strategic sourcing'] },
+              { id: 'm4e2', title: 'Supplier relationships', desc: 'Transactional → partnership → strategic alliance → joint venture', terms: ['supplier partnership', 'strategic alliance', 'supplier relationship management (SRM)'] },
+              { id: 'm4e3', title: 'Procurement methods', desc: 'PO, blanket orders, kanban, VMI, consignment, EDI', terms: ['purchase order', 'blanket order', 'vendor-managed inventory (VMI)', 'consignment', 'electronic data interchange (EDI)'] },
+              { id: 'm4e4', title: 'Supplier metrics', desc: 'On-time delivery, quality, cost, lead time', terms: ['supplier scorecard', 'on-time delivery', 'supplier certification'] }
+            ]
+          },
+          {
+            group: 'G. Product Costing',
+            items: [
+              { id: 'm4g1', title: 'Cost types', desc: 'Direct, indirect, overhead, fixed, variable, landed, TCO', terms: ['direct cost', 'indirect cost', 'overhead', 'fixed cost', 'variable cost', 'landed cost', 'total cost of ownership (TCO)'] },
+              { id: 'm4g2', title: 'Costing methods', desc: 'Absorption, variable, job, activity-based (ABC)', terms: ['absorption costing', 'variable costing', 'activity-based costing (ABC)', 'standard cost'] },
+              { id: 'm4g3', title: 'Quality costs', desc: 'Prevention, appraisal, internal failure, external failure (COPQ)', terms: ['cost of quality', 'prevention cost', 'appraisal cost', 'internal failure cost', 'external failure cost'] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day3', day: 3, title: 'Module 5: Inventory Deep Dive', hours: 4, focus: 'Inventory Planning, Management & Formulas — HEAVILY TESTED',
+    modules: [
+      {
+        id: 'mod5', number: 5, title: 'Plan and Manage Inventory', weight: '19%', v9: '→ LS 9.0 Module 6 (14%)',
+        topics: [
+          {
+            group: 'A. Inventory Planning',
+            items: [
+              { id: 'm5a1', title: 'Inventory types', desc: 'Raw materials, WIP, finished goods, MRO, floor stock', priority: 'high', terms: ['raw materials', 'work in process (WIP)', 'finished goods', 'maintenance, repair, and operating supplies (MRO)'] },
+              { id: 'm5a2', title: 'Inventory classifications', desc: 'Cycle stock, safety stock, seasonal, anticipation, hedge, decoupling, pipeline, consignment', priority: 'high', terms: ['cycle stock', 'safety stock', 'anticipation inventory', 'hedge inventory', 'decoupling inventory', 'pipeline inventory', 'consignment'] },
+              { id: 'm5a3', title: 'ABC classification', desc: 'A=80% value/20% items, B=15%/30%, C=5%/50%', priority: 'high', terms: ['ABC classification', 'Pareto analysis', 'Pareto\'s law', '80/20 rule'] },
+              { id: 'm5a4', title: 'Centralized vs decentralized', desc: 'Trade-offs: service level vs inventory investment', terms: ['centralized inventory', 'decentralized inventory', 'inventory pooling'] }
+            ]
+          },
+          {
+            group: 'B. Replenishment Methods',
+            items: [
+              { id: 'm5b1', title: 'Push vs pull', desc: 'MRP (push) vs ROP/kanban (pull)', terms: ['push system', 'pull system', 'material requirements planning', 'kanban'] },
+              { id: 'm5b2', title: 'Reorder Point (ROP)', desc: 'ROP = (demand during LT) + safety stock', priority: 'formula', terms: ['reorder point (ROP)', 'order point', 'statistical order point'] },
+              { id: 'm5b3', title: 'Periodic review system', desc: 'Order up to target at fixed intervals', terms: ['periodic review system', 'fixed-interval reorder system'] },
+              { id: 'm5b4', title: 'Min-max system', desc: 'Order when inventory hits min, order up to max', terms: ['min-max system', 'order point'] },
+              { id: 'm5b5', title: 'Two-bin system', desc: 'Visual trigger when first bin empties', terms: ['two-bin system', 'visual review system'] },
+              { id: 'm5b6', title: 'Kanban', desc: 'Signal-based pull replenishment', priority: 'high', terms: ['kanban', 'pull signal', 'kanban size'] }
+            ]
+          },
+          {
+            group: 'B. Lot Sizing',
+            items: [
+              { id: 'm5b7', title: 'EOQ formula', desc: 'EOQ = √(2DS/H) — minimize total ordering + carrying cost', priority: 'formula', terms: ['economic order quantity (EOQ)', 'order quantity', 'lot size'] },
+              { id: 'm5b8', title: 'Fixed order quantity', desc: 'Order same quantity each time', terms: ['fixed order quantity', 'lot size'] },
+              { id: 'm5b9', title: 'Lot-for-lot (L4L)', desc: 'Order exact net requirement each period', terms: ['lot-for-lot', 'discrete order quantity'] },
+              { id: 'm5b10', title: 'Period order quantity (POQ)', desc: 'Cover fixed number of periods', terms: ['period order quantity', 'fixed period requirements'] },
+              { id: 'm5b11', title: 'Least total cost / least unit cost', desc: 'Dynamic lot sizing methods', terms: ['least total cost', 'least unit cost', 'part-period balancing'] }
+            ]
+          },
+          {
+            group: 'B. Safety Stock',
+            items: [
+              { id: 'm5b12', title: 'Safety stock calculation', desc: 'SS = Z × σ × √LT (for demand variability)', priority: 'formula', terms: ['safety stock', 'buffer stock', 'service level'] },
+              { id: 'm5b13', title: 'Service level vs safety stock', desc: 'Higher service level = more safety stock', terms: ['service level', 'fill rate', 'stockout probability'] },
+              { id: 'm5b14', title: 'Safety factor (Z)', desc: 'Z=1.65 for 95%, Z=2.33 for 99%', priority: 'high', terms: ['safety factor', 'standard deviation', 'normal distribution'] }
+            ]
+          },
+          {
+            group: 'C. Inventory Costs',
+            items: [
+              { id: 'm5c1', title: 'Carrying costs', desc: 'Capital, storage, insurance, obsolescence, taxes — typically 20-30%/year', priority: 'high', terms: ['carrying cost', 'holding cost', 'inventory carrying cost'] },
+              { id: 'm5c2', title: 'Ordering costs', desc: 'PO processing, receiving, inspection', terms: ['ordering cost', 'setup cost', 'procurement cost'] },
+              { id: 'm5c3', title: 'Stockout costs', desc: 'Lost sales, backorder costs, expediting', terms: ['stockout cost', 'shortage cost', 'backorder cost'] },
+              { id: 'm5c4', title: 'Inventory valuation', desc: 'FIFO, LIFO, weighted average, transfer pricing', priority: 'high', terms: ['first in, first out (FIFO)', 'last in, first out (LIFO)', 'weighted average', 'average cost'] },
+              { id: 'm5c5', title: 'Inventory turns', desc: 'Turns = COGS / Avg Inventory; Days of supply = 365 / turns', priority: 'formula', terms: ['inventory turnover', 'inventory turns', 'days of supply', 'weeks of supply'] }
+            ]
+          },
+          {
+            group: 'D. Inventory Control',
+            items: [
+              { id: 'm5d1', title: 'Cycle counting', desc: 'Count subset regularly based on ABC classification', priority: 'high', terms: ['cycle counting', 'perpetual inventory', 'inventory accuracy'] },
+              { id: 'm5d2', title: 'Physical inventory', desc: 'Annual wall-to-wall count', terms: ['physical inventory', 'wall-to-wall inventory'] },
+              { id: 'm5d3', title: 'Accuracy targets', desc: 'A items: 99.5%, B items: 99%, C items: 95%', terms: ['inventory record accuracy', 'count tolerance'] },
+              { id: 'm5d4', title: 'Sources of inaccuracy', desc: 'Put-away errors, BOM errors, transaction errors, theft', terms: ['shrinkage', 'transaction error', 'count error'] },
+              { id: 'm5d5', title: 'Traceability', desc: 'Bar coding, RFID, lot control, serial numbers', terms: ['traceability', 'lot control', 'serial number', 'RFID', 'bar coding'] }
+            ]
+          },
+          {
+            group: 'E. Returns & Disposition',
+            items: [
+              { id: 'm5e1', title: 'Waste hierarchy', desc: 'Reduce → Reuse → Remanufacture → Recycle → Recover → Dispose', terms: ['waste hierarchy', 'reduce', 'reuse', 'recycle'] },
+              { id: 'm5e2', title: 'Reverse logistics', desc: 'Managing product returns, recalls, end-of-life', terms: ['reverse logistics', 'returns management', 'product recall'] },
+              { id: 'm5e3', title: 'Circular economy', desc: 'Design for reuse, closed-loop supply chains', terms: ['circular economy', 'closed-loop supply chain', 'remanufacturing'] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day4', day: 4, title: 'Module 6: Detailed Scheduling', hours: 4, focus: 'Capacity Planning, Shop Floor Control, TOC',
+    modules: [
+      {
+        id: 'mod6', number: 6, title: 'Plan, Manage, Execute Detailed Schedules', weight: '16%', v9: '→ LS 9.0 Module 7 (12%)',
+        topics: [
+          {
+            group: 'A. Lead Time & Load',
+            items: [
+              { id: 'm6a1', title: 'Lead time elements', desc: 'Queue + Setup + Run + Wait + Move time', priority: 'high', terms: ['lead time', 'manufacturing lead time', 'queue time', 'setup time', 'run time', 'wait time', 'move time'] },
+              { id: 'm6a2', title: 'Queue time', desc: 'Often 80-90% of total lead time — biggest reduction opportunity', terms: ['queue time', 'queue', 'wait time'] },
+              { id: 'm6a3', title: 'Load calculation', desc: 'Sum of standard hours from all order sources', terms: ['load', 'machine load', 'shop load'] },
+              { id: 'm6a4', title: 'Throughput measures', desc: 'Efficiency, utilization, productivity, takt time, cycle time', priority: 'formula', terms: ['throughput', 'efficiency', 'utilization', 'productivity', 'takt time', 'cycle time'] },
+              { id: 'm6a5', title: 'Input/Output control (I/O)', desc: 'Compare planned vs actual input and output at work centers', priority: 'high', terms: ['input/output control', 'I/O analysis', 'queue management'] }
+            ]
+          },
+          {
+            group: 'A. Sequencing & Scheduling',
+            items: [
+              { id: 'm6a6', title: 'Forward vs backward scheduling', desc: 'Forward from release date vs backward from due date', terms: ['forward scheduling', 'backward scheduling', 'back scheduling'] },
+              { id: 'm6a7', title: 'Dispatch rules', desc: 'FCFS, SPT, EDD, Critical Ratio, slack time', priority: 'high', terms: ['dispatching', 'dispatch list', 'priority rules', 'first come first served', 'shortest processing time', 'earliest due date'] },
+              { id: 'm6a8', title: 'Critical Ratio', desc: 'CR = time remaining / work remaining; CR<1 = behind schedule', priority: 'formula', terms: ['critical ratio', 'priority', 'slack', 'slack time'] },
+              { id: 'm6a9', title: 'Lot splitting', desc: 'Split order to run parallel operations', terms: ['lot splitting', 'order splitting'] },
+              { id: 'm6a10', title: 'Overlapped scheduling', desc: 'Start next operation before previous completes', terms: ['overlapped schedule', 'operation overlapping', 'lap phasing'] }
+            ]
+          },
+          {
+            group: 'A. Pull Environment',
+            items: [
+              { id: 'm6a11', title: 'Mixed-model scheduling', desc: 'Level production of multiple products', terms: ['mixed-model scheduling', 'level schedule', 'heijunka'] },
+              { id: 'm6a12', title: 'Rate-based scheduling', desc: 'Produce at constant rate (repetitive manufacturing)', terms: ['rate-based scheduling', 'repetitive manufacturing', 'flow manufacturing'] },
+              { id: 'm6a13', title: 'Line balancing', desc: 'Distribute work evenly across workstations', priority: 'medium', terms: ['line balancing', 'workstation', 'balance delay'] },
+              { id: 'm6a14', title: 'Takt time', desc: 'Available time / demand rate = required pace', priority: 'formula', terms: ['takt time', 'cycle time', 'production rate'] }
+            ]
+          },
+          {
+            group: 'A. Theory of Constraints (TOC)',
+            items: [
+              { id: 'm6a15', title: 'Five focusing steps', desc: 'Identify → Exploit → Subordinate → Elevate → Repeat', priority: 'high', terms: ['theory of constraints (TOC)', 'constraint', 'bottleneck', 'five focusing steps'] },
+              { id: 'm6a16', title: 'Drum-Buffer-Rope (DBR)', desc: 'Drum=constraint pace, Buffer=protect constraint, Rope=release timing', terms: ['drum-buffer-rope', 'drum', 'buffer', 'rope', 'constraint buffer'] },
+              { id: 'm6a17', title: 'Constraint types', desc: 'Physical (machine, labor) vs policy constraints', terms: ['physical constraint', 'policy constraint', 'market constraint'] }
+            ]
+          },
+          {
+            group: 'B. Capacity Planning',
+            items: [
+              { id: 'm6b1', title: 'Capacity types', desc: 'Theoretical, demonstrated, rated, available', priority: 'high', terms: ['theoretical capacity', 'demonstrated capacity', 'rated capacity', 'available capacity', 'productive capacity'] },
+              { id: 'm6b2', title: 'Infinite vs finite loading', desc: 'Infinite ignores capacity limits; finite respects them', terms: ['infinite loading', 'finite loading', 'finite scheduling'] },
+              { id: 'm6b3', title: 'CRP (Capacity Requirements Planning)', desc: 'Time-phased capacity requirements from MRP orders', priority: 'medium', terms: ['capacity requirements planning (CRP)', 'load profile', 'capacity profile'] },
+              { id: 'm6b4', title: 'Balancing capacity & load', desc: 'Reschedule, split orders, OT, outsource, add capacity', terms: ['capacity management', 'load leveling', 'capacity adjustment'] },
+              { id: 'm6b5', title: 'Safety capacity / capacity cushion', desc: 'Buffer for variability and unplanned demand', terms: ['safety capacity', 'capacity cushion', 'protective capacity', 'surge capacity'] }
+            ]
+          },
+          {
+            group: 'C. Execution & Control',
+            items: [
+              { id: 'm6c1', title: 'Order release', desc: 'Release manufacturing orders, issue materials', terms: ['order release', 'manufacturing order', 'work order', 'shop order'] },
+              { id: 'm6c2', title: 'Production activity control (PAC)', desc: 'Executing and controlling shop floor operations', terms: ['production activity control (PAC)', 'shop floor control', 'manufacturing execution system (MES)'] },
+              { id: 'm6c3', title: 'Queue management', desc: 'Monitor queue length, prioritize, expedite', terms: ['queue management', 'expediting', 'dispatching'] },
+              { id: 'm6c4', title: 'Backflushing', desc: 'Auto-deduct materials based on production completion', terms: ['backflush', 'post-deduct', 'count point'] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day5', day: 5, title: 'Modules 7-8: Distribution & Quality', hours: 4, focus: 'Distribution Planning + Continuous Improvement + Technology',
+    modules: [
+      {
+        id: 'mod7', number: 7, title: 'Plan and Manage Distribution', weight: '5%', v9: '→ LS 9.0 Module 8 (8%)',
+        topics: [
+          {
+            group: 'A. Distribution Planning',
+            items: [
+              { id: 'm7a1', title: 'Network configuration', desc: 'Trade-offs: cost, inventory, service, lead time', terms: ['distribution network', 'network design', 'distribution center'] },
+              { id: 'm7a2', title: 'DRP (Distribution Requirements Planning)', desc: 'Time-phased planning for distribution network', priority: 'high', terms: ['distribution requirements planning (DRP)', 'distribution resource planning', 'echelon'] },
+              { id: 'm7a3', title: 'SKU-level planning', desc: 'Replenishment parameters by location', terms: ['stock-keeping unit (SKU)', 'replenishment', 'allocation'] },
+              { id: 'm7a4', title: 'Distribution KPIs', desc: 'Service level, inventory turns, lead time, stockouts', terms: ['fill rate', 'on-time delivery', 'perfect order'] }
+            ]
+          },
+          {
+            group: 'B. Customer Order Management',
+            items: [
+              { id: 'm7b1', title: 'Order promising', desc: 'ATP/CTP for customer delivery dates', terms: ['order promising', 'available-to-promise', 'delivery lead time'] },
+              { id: 'm7b2', title: 'Backlog management', desc: 'Monitor and expedite past-due orders', terms: ['backlog', 'backorder', 'expediting'] }
+            ]
+          },
+          {
+            group: 'C. Reverse Logistics',
+            items: [
+              { id: 'm7c1', title: 'Reverse logistics design', desc: 'Returns processing, 3PL, brick-and-mortar returns', terms: ['reverse logistics', 'third-party logistics (3PL)', 'returns processing'] },
+              { id: 'm7c2', title: 'Waste hierarchy policies', desc: 'Reduce, reuse, recycle, recover, dispose', terms: ['waste hierarchy', 'disposition', 'scrap'] }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'mod8', number: 8, title: 'Quality, Continuous Improvement & Technology', weight: '11%', v9: '→ LS 9.0 Module 9 (9%)',
+        topics: [
+          {
+            group: 'A. Quality Management',
+            items: [
+              { id: 'm8a1', title: 'Cost of quality (COPQ)', desc: 'Prevention + Appraisal + Internal failure + External failure', priority: 'high', terms: ['cost of quality', 'cost of poor quality (COPQ)', 'prevention cost', 'appraisal cost', 'failure cost'] },
+              { id: 'm8a2', title: 'Seven basic tools (B7)', desc: 'Pareto, fishbone, histogram, control chart, scatter, flowchart, check sheet', priority: 'high', terms: ['seven tools of quality', 'Pareto chart', 'cause-and-effect diagram', 'fishbone diagram', 'histogram', 'control chart', 'scatter diagram', 'check sheet', 'flowchart'] },
+              { id: 'm8a3', title: 'Seven new tools (N7)', desc: 'Affinity, tree, matrix, interrelationship, PDPC, arrow, matrix data', terms: ['seven new tools', 'affinity diagram', 'tree diagram', 'matrix diagram', 'interrelationship diagram'] },
+              { id: 'm8a4', title: 'Root cause analysis', desc: '5 Whys, fishbone/Ishikawa diagram', terms: ['root cause analysis', '5 whys', 'Ishikawa diagram'] }
+            ]
+          },
+          {
+            group: 'B. Lean & Continuous Improvement',
+            items: [
+              { id: 'm8b1', title: 'Shingo\'s seven wastes', desc: 'Overproduction, waiting, transport, processing, inventory, motion, defects (TIMWOOD)', priority: 'high', terms: ['seven wastes', 'muda', 'overproduction', 'waiting', 'transportation', 'overprocessing', 'inventory', 'motion', 'defects'] },
+              { id: 'm8b2', title: 'Kaizen', desc: 'Continuous incremental improvement events', terms: ['kaizen', 'kaizen event', 'continuous improvement'] },
+              { id: 'm8b3', title: '5S', desc: 'Sort, Set in order, Shine, Standardize, Sustain', priority: 'high', terms: ['5S', 'sort', 'set in order', 'shine', 'standardize', 'sustain', 'workplace organization'] },
+              { id: 'm8b4', title: 'Value stream mapping', desc: 'Map current and future state material/information flow', terms: ['value stream mapping', 'current state', 'future state', 'value stream'] },
+              { id: 'm8b5', title: 'SMED', desc: 'Single Minute Exchange of Die — quick changeover', terms: ['single-minute exchange of die (SMED)', 'quick changeover', 'setup reduction', 'internal setup', 'external setup'] },
+              { id: 'm8b6', title: 'TPM', desc: 'Total Productive Maintenance — operator-driven maintenance', terms: ['total productive maintenance (TPM)', 'autonomous maintenance', 'preventive maintenance'] },
+              { id: 'm8b7', title: 'Poka-yoke', desc: 'Mistake-proofing devices and methods', terms: ['poka-yoke', 'mistake-proofing', 'error-proofing'] },
+              { id: 'm8b8', title: 'Andon', desc: 'Visual signal system for problems', terms: ['andon', 'visual management', 'visual control'] }
+            ]
+          },
+          {
+            group: 'B. Problem Solving',
+            items: [
+              { id: 'm8b9', title: 'PDCA cycle', desc: 'Plan-Do-Check-Act continuous improvement cycle', priority: 'high', terms: ['plan-do-check-act (PDCA)', 'Deming cycle', 'Shewhart cycle'] },
+              { id: 'm8b10', title: 'DMAIC', desc: 'Define-Measure-Analyze-Improve-Control (Six Sigma)', terms: ['DMAIC', 'Six Sigma', 'define-measure-analyze-improve-control'] },
+              { id: 'm8b11', title: 'A3 problem solving', desc: 'One-page structured problem-solving format', terms: ['A3', 'A3 report', 'problem solving'] }
+            ]
+          },
+          {
+            group: 'B. Statistical Process Control',
+            items: [
+              { id: 'm8b12', title: 'Variation types', desc: 'Common cause (random) vs special/assignable cause', priority: 'high', terms: ['common cause variation', 'special cause variation', 'assignable cause', 'random variation'] },
+              { id: 'm8b13', title: 'Control charts', desc: 'X-bar, R charts (variables); P charts (attributes)', terms: ['control chart', 'X-bar chart', 'R chart', 'p-chart', 'statistical process control (SPC)'] },
+              { id: 'm8b14', title: 'Process capability', desc: 'Cp, Cpk indices — measure process vs spec limits', terms: ['process capability', 'Cp', 'Cpk', 'capability index'] }
+            ]
+          },
+          {
+            group: 'C. Technology',
+            items: [
+              { id: 'm8c1', title: 'ERP systems', desc: 'Enterprise Resource Planning — integrated business systems', terms: ['enterprise resources planning (ERP)', 'ERP system'] },
+              { id: 'm8c2', title: 'MES', desc: 'Manufacturing Execution Systems — shop floor control', terms: ['manufacturing execution system (MES)', 'shop floor control'] },
+              { id: 'm8c3', title: 'Emerging tech', desc: 'AI, IoT, 3D printing, blockchain, RPA, machine learning', terms: ['Internet of Things (IoT)', 'artificial intelligence (AI)', 'blockchain', 'robotic process automation (RPA)', '3D printing', 'additive manufacturing'] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day6', day: 6, title: 'Practice Exam #1', hours: 4, focus: 'Full simulation (150 Qs, timed)',
+    modules: [
+      {
+        id: 'practice1', number: '★', title: 'Full Practice Exam', weight: 'DRILL',
+        topics: [
+          {
+            group: 'Exam Execution',
+            items: [
+              { id: 'p1a1', title: 'Set up exam environment', desc: 'Quiet space, 3.5 hours, no interruptions', terms: [] },
+              { id: 'p1a2', title: 'Take full 150-question practice exam', desc: 'Use Pocket Prep or third-party test bank', terms: [] },
+              { id: 'p1a3', title: 'Note questions you\'re unsure about', desc: 'Mark for review but don\'t stop', terms: [] },
+              { id: 'p1a4', title: 'Complete all questions', desc: 'No penalty for guessing — answer everything', terms: [] }
+            ]
+          },
+          {
+            group: 'Initial Review',
+            items: [
+              { id: 'p1b1', title: 'Record your score', desc: 'Note overall % and by module if available', terms: [] },
+              { id: 'p1b2', title: 'Identify weak modules', desc: 'Which modules had most wrong answers?', terms: [] },
+              { id: 'p1b3', title: 'Don\'t review wrong answers yet', desc: 'Save detailed review for Day 7', terms: [] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day7', day: 7, title: 'Gap Analysis', hours: 4, focus: 'Review every wrong answer — categorize errors',
+    modules: [
+      {
+        id: 'gap', number: '⚡', title: 'Deep Error Analysis', weight: 'CRITICAL',
+        topics: [
+          {
+            group: 'Error Categorization',
+            items: [
+              { id: 'g1a1', title: 'Review every wrong answer', desc: 'Read explanation, understand why correct answer is right', terms: [] },
+              { id: 'g1a2', title: 'Categorize: Terminology miss', desc: 'You knew the concept but not ASCM\'s specific term', terms: [] },
+              { id: 'g1a3', title: 'Categorize: Concept gap', desc: 'You didn\'t understand the underlying concept', terms: [] },
+              { id: 'g1a4', title: 'Categorize: Calculation error', desc: 'Formula wrong or arithmetic mistake', terms: [] },
+              { id: 'g1a5', title: 'Categorize: Misread question', desc: 'You misunderstood what was being asked', terms: [] }
+            ]
+          },
+          {
+            group: 'Remediation',
+            items: [
+              { id: 'g1b1', title: 'Tally errors by module', desc: 'Which 2-3 modules have most errors?', terms: [] },
+              { id: 'g1b2', title: 'Create flashcards for terminology', desc: 'ASCM term → your explanation', terms: [] },
+              { id: 'g1c1', title: 'List top 3 weak modules', desc: 'These get priority on Day 8-9', terms: [] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day8', day: 8, title: 'Official Practice Exam', hours: 4, focus: 'Learning System practice exam',
+    modules: [
+      {
+        id: 'official', number: '🎯', title: 'Learning System Practice Exam', weight: 'OFFICIAL',
+        topics: [
+          {
+            group: 'Exam',
+            items: [
+              { id: 'o1a1', title: 'Quick review of weak areas', desc: '30 min max before starting', terms: [] },
+              { id: 'o1b1', title: 'Take full official practice exam', desc: 'Learning System — your one official test', terms: [] },
+              { id: 'o1b2', title: 'Time yourself strictly', desc: '3.5 hours maximum', terms: [] },
+              { id: 'o1c1', title: 'Record your score', desc: 'Compare to Day 6 — should be higher', terms: [] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day9', day: 9, title: 'Deep Review & Formulas', hours: 4, focus: 'Wrong answers + Formula drilling',
+    modules: [
+      {
+        id: 'deepreview', number: '📚', title: 'Final Gap Closure', weight: 'REVIEW',
+        topics: [
+          {
+            group: 'Review',
+            items: [
+              { id: 'r1a1', title: 'Review every wrong answer from Day 8', desc: 'Same process as Day 7', terms: [] },
+              { id: 'r1a2', title: 'Cross-reference with Day 7 gaps', desc: 'Are you repeating the same mistakes?', terms: [] }
+            ]
+          },
+          {
+            group: 'Formula Drilling',
+            items: [
+              { id: 'r1b1', title: 'EOQ calculation practice', desc: '√(2DS/H) — do 5 problems', terms: ['economic order quantity'] },
+              { id: 'r1b2', title: 'Safety stock calculation', desc: 'Z × σ × √LT — do 5 problems', terms: ['safety stock', 'safety factor'] },
+              { id: 'r1b3', title: 'MRP record completion', desc: 'PAB, net req, planned orders — do 3 problems', terms: ['MRP', 'projected available balance'] },
+              { id: 'r1b4', title: 'ATP calculation', desc: 'Discrete method — do 3 problems', terms: ['available-to-promise'] },
+              { id: 'r1b5', title: 'Critical Ratio', desc: 'Time remaining / work remaining — do 3 problems', terms: ['critical ratio'] },
+              { id: 'r1b6', title: 'Inventory turns', desc: 'COGS/Avg Inv; 365/turns — do 3 problems', terms: ['inventory turnover'] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'day10', day: 10, title: 'Final Polish & Rest', hours: 2, focus: 'Light review — no cramming',
+    modules: [
+      {
+        id: 'final', number: '✓', title: 'Pre-Exam Day', weight: 'REST',
+        topics: [
+          {
+            group: 'Morning',
+            items: [
+              { id: 'f1a1', title: 'Light review of summary notes', desc: 'Your 1-page gap summary', terms: [] },
+              { id: 'f1a2', title: 'Formula quick review', desc: 'One pass through formula sheet', terms: [] }
+            ]
+          },
+          {
+            group: 'Afternoon & Evening',
+            items: [
+              { id: 'f1b1', title: 'Stop studying by 2pm', desc: 'No new material after this', terms: [] },
+              { id: 'f1b2', title: 'Prepare exam logistics', desc: 'ID, confirmation, directions', terms: [] },
+              { id: 'f1c1', title: 'Sleep 7-8 hours', desc: 'This is the most important thing', terms: [] }
+            ]
+          },
+          {
+            group: 'Exam Tips',
+            items: [
+              { id: 'f1d1', title: 'Read each question fully', desc: 'Exam asks for BEST answer', terms: [] },
+              { id: 'f1d2', title: 'Flag and move on', desc: 'Don\'t get stuck — come back later', terms: [] },
+              { id: 'f1d3', title: 'Answer every question', desc: 'No penalty for guessing', terms: [] }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
+const STORAGE_KEY = 'cpim_tracker_v2';
+let state = {};
+let openNotes = new Set();
+
+function loadState() { try { const s = localStorage.getItem(STORAGE_KEY); if (s) state = JSON.parse(s); } catch(e) { state = {}; } }
+function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {} }
+function isChecked(id) { return !!state[id]; }
+function toggleCheck(id) { state[id] = !state[id]; saveState(); updateUI(); }
+function hasNote(id) { return !!state['note_'+id]; }
+function getNote(id) { return state['note_'+id] || ''; }
+function saveNote(id) {
+  const ta = document.getElementById('note_ta_'+id);
+  if (!ta) return;
+  const val = ta.value.trim();
+  if (val) { state['note_'+id] = val; } else { delete state['note_'+id]; }
+  saveState();
+  const saved = document.getElementById('note_saved_'+id);
+  if (saved) { saved.classList.add('show'); setTimeout(() => saved.classList.remove('show'), 1500); }
+  updateUI();
+}
+function toggleNote(id) {
+  const area = document.getElementById('note_area_'+id);
+  const btn = document.getElementById('note_btn_'+id);
+  if (!area) return;
+  const opening = !area.classList.contains('open');
+  if (opening) { openNotes.add(id); } else { openNotes.delete(id); }
+  area.classList.toggle('open');
+  if (btn) btn.classList.toggle('open', opening);
+  if (opening) { const ta = document.getElementById('note_ta_'+id); if(ta) ta.focus(); }
+}
+
+function renderSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  let html = '<div class="nav-section">10-Day Study Plan</div>';
+  studyPlan.forEach(day => {
+    const allItems = [];
+    day.modules.forEach(m => m.topics.forEach(t => t.items.forEach(i => allItems.push(i.id))));
+    const done = allItems.filter(id => isChecked(id)).length;
+    const total = allItems.length;
+    const pct = total ? Math.round(done/total*100) : 0;
+    const completed = done === total && total > 0;
+    const noteCount = allItems.filter(id => hasNote(id)).length;
+    html += `<div class="nav-item ${completed ? 'completed' : ''}" onclick="scrollToDay('${day.id}')">
+      <span class="nav-check">${completed ? '✓' : ''}</span>
+      <span>Day ${day.day}${noteCount ? `<span class="note-count">📝${noteCount}</span>` : ''}</span>
+      <span class="day-label">${day.hours}h</span>
+      <span class="nav-pct">${pct}%</span>
+    </div>`;
+  });
+  sidebar.innerHTML = html;
+}
+
+function renderMain() {
+  const main = document.getElementById('mainContent');
+  let html = `<div class="exam-info"><h3>📋 CPIM 8.0 Exam Overview</h3>
+    <div class="exam-info-grid">
+      <div class="exam-stat"><div class="exam-stat-value">150</div><div class="exam-stat-label">Questions</div></div>
+      <div class="exam-stat"><div class="exam-stat-value">3.5h</div><div class="exam-stat-label">Time Limit</div></div>
+      <div class="exam-stat"><div class="exam-stat-value">300</div><div class="exam-stat-label">Pass Score</div></div>
+      <div class="exam-stat"><div class="exam-stat-value">8</div><div class="exam-stat-label">Modules</div></div>
+    </div>
+    <p style="margin-top:12px;font-size:12px;color:var(--text-dim)"><strong style="color:var(--blue)">Using LS 9.0?</strong> Your Learning System has 9 modules (v9.0 splits Supply into Internal + External). Each 8.0 module header shows the corresponding 9.0 module reference. Content is ~95% identical.</p>
+    </div>`;
+  
+  studyPlan.forEach(day => {
+    html += `<div id="${day.id}"><div class="day-header" data-day="${day.day}">
+      <div class="day-number">D${day.day}</div>
+      <div class="day-info"><h2>${day.title}</h2><p>${day.focus}</p></div>
+      <div class="day-hours">${day.hours} hours</div>
+    </div>`;
+    
+    day.modules.forEach(mod => {
+      const allItems = [];
+      mod.topics.forEach(t => t.items.forEach(i => allItems.push(i.id)));
+      const done = allItems.filter(id => isChecked(id)).length;
+      const total = allItems.length;
+      const pct = total ? Math.round(done/total*100) : 0;
+      const completed = done === total && total > 0;
+      const isOpen = state['open_'+mod.id] !== false;
+      
+      html += `<div class="module ${completed ? 'completed' : ''} ${isOpen ? 'open' : ''}" id="module_${mod.id}" data-mod="${mod.number}">
+        <div class="module-header" onclick="toggleModule('${mod.id}')">
+          <div class="module-number">${mod.number}</div>
+          <div class="module-title">${mod.title}${mod.v9 ? `<span class="v9-map">${mod.v9}</span>` : ''}</div>
+          <span class="module-weight">${mod.weight}</span>
+          <div class="module-meta">
+            <span class="module-pct">${pct}%</span>
+            <div class="module-mini-bar"><div class="module-mini-bar-fill" style="width:${pct}%"></div></div>
+          </div>
+          <span class="module-chevron">▼</span>
+        </div>
+        <div class="module-body">`;
+      
+      mod.topics.forEach(topic => {
+        html += `<div class="topic-group"><div class="topic-group-title">${topic.group}</div>`;
+        topic.items.forEach(item => {
+          const checked = isChecked(item.id);
+          const noteText = getNote(item.id);
+          const noteExists = !!noteText;
+          const noteOpen = openNotes.has(item.id);
+          const escapedNote = (noteText || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+          let tag = '';
+          if (item.priority === 'high') tag = '<span class="tag high">HIGH</span>';
+          else if (item.priority === 'medium') tag = '<span class="tag medium">MEDIUM</span>';
+          else if (item.priority === 'formula') tag = '<span class="tag formula">FORMULA</span>';
+          
+          let termsHtml = '';
+          if (item.terms && item.terms.length > 0) {
+            termsHtml = `<div class="key-terms"><div class="key-terms-label">Key Terms (APICS Dictionary)</div><div class="key-terms-list">${item.terms.map(t => `<span class="term">${t}</span>`).join('')}</div></div>`;
+          }
+          
+          html += `<div class="step">
+            <div class="step-check ${checked ? 'checked' : ''} ${noteExists ? 'has-note' : ''}" onclick="toggleCheck('${item.id}')">✓</div>
+            <div class="step-content ${checked ? 'checked-text' : ''}">
+              <div class="step-header">
+                <div class="step-title">${item.title}${tag}</div>
+                <button class="note-btn ${noteExists ? 'has-note' : ''} ${noteOpen ? 'open' : ''}" id="note_btn_${item.id}" onclick="toggleNote('${item.id}')">${noteExists ? '📝 Note' : '📝'}</button>
+              </div>
+              <div class="note-area ${noteOpen ? 'open' : ''}" id="note_area_${item.id}">
+                <textarea id="note_ta_${item.id}" placeholder="Add your notes here…" oninput="saveNote('${item.id}')">${escapedNote}</textarea>
+                <div class="note-saved" id="note_saved_${item.id}">✓ Saved</div>
+              </div>
+              <div class="step-desc">${item.desc}</div>
+              ${termsHtml}
+            </div>
+          </div>`;
+        });
+        html += '</div>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+  });
+  main.innerHTML = html;
+}
+
+function updateProgress() {
+  let total = 0, done = 0, notes = 0;
+  studyPlan.forEach(d => d.modules.forEach(m => m.topics.forEach(t => t.items.forEach(i => { total++; if (isChecked(i.id)) done++; if (hasNote(i.id)) notes++; }))));
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done}/${total} (${pct}%)${notes ? ` · 📝${notes}` : ''}`;
+}
+
+function updateUI() { renderSidebar(); renderMain(); updateProgress(); }
+function toggleModule(id) { state['open_'+id] = !state['open_'+id]; saveState(); document.getElementById('module_'+id)?.classList.toggle('open'); }
+function scrollToDay(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'}); document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('show'); }
+function collapseAll() { studyPlan.forEach(d => d.modules.forEach(m => state['open_'+m.id] = false)); saveState(); updateUI(); }
+function expandAll() { studyPlan.forEach(d => d.modules.forEach(m => state['open_'+m.id] = true)); saveState(); updateUI(); }
+function resetAll() { if (!confirm('Reset ALL progress and notes? Cannot be undone.')) return; state = {}; openNotes.clear(); studyPlan.forEach(d => d.modules.forEach(m => state['open_'+m.id] = true)); saveState(); updateUI(); showToast('Progress reset', 'info'); }
+function showToast(msg, type='success') { const t = document.getElementById('toast'); t.querySelector('.toast-icon').textContent = type==='success'?'✓':type==='error'?'✗':'ℹ'; t.querySelector('.toast-msg').textContent = msg; t.className = 'toast ' + type + ' show'; clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2500); }
+function exportProgress() {
+  let total=0, done=0, notes=0;
+  studyPlan.forEach(d => d.modules.forEach(m => m.topics.forEach(t => t.items.forEach(i => { total++; if(isChecked(i.id)) done++; if(hasNote(i.id)) notes++; }))));
+  const pct = total ? Math.round(done/total*100) : 0;
+  const data = { _meta: { guide:'CPIM 8.0 Study Tracker v2', exported:new Date().toISOString(), progress:`${done}/${total} (${pct}%)`, notes:notes }, state: state };
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `cpim-progress_${new Date().toISOString().slice(0,10)}_${pct}pct.json`; a.click();
+  showToast(`Saved — ${pct}% complete, ${notes} notes`, 'success');
+}
+function importProgress(e) {
+  const file = e.target.files[0]; if (!file) return; e.target.value = '';
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try { const data = JSON.parse(ev.target.result); state = data.state || data; openNotes.clear(); saveState(); updateUI(); showToast('Progress loaded', 'success'); }
+    catch(err) { showToast('Invalid file', 'error'); }
+  };
+  reader.readAsText(file);
+}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cpim_theme', next);
+  showToast(`${next === 'light' ? '☀️ Light' : '🌙 Dark'} mode`, 'info');
+}
+function loadTheme() {
+  const saved = localStorage.getItem('cpim_theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+}
+
+loadTheme();
+loadState();
+if (Object.keys(state).length === 0) { studyPlan.forEach(d => d.modules.forEach(m => state['open_'+m.id] = true)); saveState(); }
+updateUI();
+</script>
+</body>
+</html>
