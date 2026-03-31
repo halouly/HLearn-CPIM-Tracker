@@ -892,7 +892,7 @@ function renderMain() {
           }
           
           html += `<div class="step">
-            <div class="step-check ${checked ? 'checked' : ''} ${noteExists ? 'has-note' : ''}" onclick="toggleCheck('${item.id}')">✓</div>
+            <div id="step_check_${item.id}" class="step-check ${checked ? 'checked' : ''} ${noteExists ? 'has-note' : ''}" onclick="toggleCheck('${item.id}')">✓</div>
             <div class="step-content ${checked ? 'checked-text' : ''}">
               <div class="step-header">
                 <div class="step-title">${item.title}${tag}</div>
