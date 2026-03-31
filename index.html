@@ -784,9 +784,21 @@ function saveNote(id) {
   const val = ta.value.trim();
   if (val) { state['note_'+id] = val; } else { delete state['note_'+id]; }
   saveState();
+
   const saved = document.getElementById('note_saved_'+id);
-  if (saved) { saved.classList.add('show'); setTimeout(() => saved.classList.remove('show'), 1500); }
-  updateUI();
+  if (saved) {
+    saved.classList.add('show');
+    setTimeout(() => saved.classList.remove('show'), 1500);
+  }
+
+  const btn = document.getElementById('note_btn_'+id);
+  if (btn) btn.classList.toggle('has-note', !!val);
+
+  const check = document.getElementById('step_check_'+id);
+  if (check) check.classList.toggle('has-note', !!val);
+
+  renderSidebar();
+  updateProgress();
 }
 function toggleNote(id) {
   const area = document.getElementById('note_area_'+id);
