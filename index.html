@@ -310,6 +310,32 @@ html[data-font="xl"]{--font-scale:1.2}
   .day-number{font-size:28px}
   .day-info h2{font-size:16px}
 }
+/* Carousel Mode */
+.view-toggle{display:flex;gap:4px;margin-left:auto}
+.view-btn{padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-dim);font-size:11px;cursor:pointer;transition:all .2s}
+.view-btn:hover{border-color:var(--accent);color:var(--accent)}
+.view-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.carousel-container{position:relative;overflow:hidden}
+.carousel-nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0;margin-bottom:16px}
+.carousel-nav-btn{width:48px;height:48px;border-radius:50%;border:2px solid var(--border);background:var(--bg-card);color:var(--text);font-size:20px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.carousel-nav-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.carousel-nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.carousel-indicator{display:flex;align-items:center;gap:12px}
+.carousel-dots{display:flex;gap:6px}
+.carousel-dot{width:10px;height:10px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .2s}
+.carousel-dot:hover{background:var(--text-dim)}
+.carousel-dot.active{background:var(--accent);transform:scale(1.2)}
+.carousel-label{font-size:14px;font-weight:600;color:var(--text-bright);font-family:'JetBrains Mono',monospace}
+.carousel-slide{display:none;animation:slideIn .3s ease}
+.carousel-slide.active{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInReverse{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+.carousel-slide.slide-reverse{animation:slideInReverse .3s ease}
+.carousel-swipe-hint{text-align:center;font-size:11px;color:var(--text-dim);padding:8px 0;display:none}
+@media(max-width:900px){.carousel-swipe-hint{display:block}}
+.list-view .carousel-nav,.list-view .carousel-swipe-hint{display:none}
+.list-view .carousel-slide{display:block;animation:none}
+.carousel-view .main{padding-bottom:120px}
 </style>
 </head>
 <body>
@@ -828,6 +854,8 @@ let state = {};
 let openNotes = new Set();
 let studyPeriods = 10;
 let timeUnit = 'day';
+let viewMode = 'list';
+let currentSlide = 0;
 
 const TIME_UNIT_LABELS = {
   day: { singular: 'Day', plural: 'Days', abbrev: 'DAY', perLabel: 'day' },
@@ -1007,6 +1035,7 @@ function renderMain() {
   const studyPlan = generateStudyPlan(studyPeriods);
   const unit = TIME_UNIT_LABELS[timeUnit];
   const main = document.getElementById('mainContent');
+  const isCarousel = viewMode === 'carousel';
   
   let html = `<div class="exam-info"><h3>📋 CPIM 8.0 Exam Overview</h3>
     <div class="exam-info-grid">
@@ -1032,14 +1061,33 @@ function renderMain() {
           <button class="preset-btn ${studyPeriods===14?'active':''}" data-periods="14" onclick="setDuration(14)">14</button>
           <button class="preset-btn ${studyPeriods===21?'active':''}" data-periods="21" onclick="setDuration(21)">21</button>
         </div>
+        <div class="view-toggle">
+          <button class="view-btn ${viewMode==='list'?'active':''}" onclick="setViewMode('list')" title="List view - See all days">☰ List</button>
+          <button class="view-btn ${viewMode==='carousel'?'active':''}" onclick="setViewMode('carousel')" title="Carousel view - One day at a time">◀▶ Flip</button>
+        </div>
       </div>
       <div class="duration-summary" id="durationSummary"><span><strong>${TOTAL_STUDY_HOURS.toFixed(1)}</strong> total hours</span><span><strong>${(TOTAL_STUDY_HOURS / studyPeriods).toFixed(1)}</strong> hrs/${unit.perLabel}</span><span><strong>8</strong> modules + practice</span></div>
     </div>
     <div class="version-note"><strong>Note:</strong> CPIM 8.0 is current until May 31, 2026. CPIM 9.0 becomes effective June 1, 2026. Each module shows its 9.0 Learning System mapping.</div>
   </div>`;
   
-  studyPlan.forEach(p => {
-    html += `<div id="${p.id}"><div class="day-header" data-day="${((p.period - 1) % 14) + 1}"><div class="day-number">${unit.singular.charAt(0)}${p.period}</div><div class="day-info"><h2>${p.title}</h2><p>${p.focus}</p></div><div class="day-hours">${p.hours} hrs</div></div>`;
+  if (isCarousel) {
+    html += `<div class="carousel-nav">
+      <button class="carousel-nav-btn" onclick="carouselPrev()" ${currentSlide === 0 ? 'disabled' : ''}>◀</button>
+      <div class="carousel-indicator">
+        <span class="carousel-label">${unit.singular} ${currentSlide + 1} of ${studyPlan.length}</span>
+        <div class="carousel-dots">${studyPlan.map((_, i) => `<div class="carousel-dot ${i === currentSlide ? 'active' : ''}" onclick="goToSlide(${i})"></div>`).join('')}</div>
+      </div>
+      <button class="carousel-nav-btn" onclick="carouselNext()" ${currentSlide === studyPlan.length - 1 ? 'disabled' : ''}>▶</button>
+    </div>
+    <div class="carousel-swipe-hint">👆 Swipe left/right to navigate</div>`;
+  }
+  
+  html += `<div class="carousel-container" id="carouselContainer">`;
+  
+  studyPlan.forEach((p, idx) => {
+    const slideClass = isCarousel ? `carousel-slide ${idx === currentSlide ? 'active' : ''}` : 'carousel-slide active';
+    html += `<div id="${p.id}" class="${slideClass}" data-slide="${idx}"><div class="day-header" data-day="${((p.period - 1) % 14) + 1}"><div class="day-number">${unit.singular.charAt(0)}${p.period}</div><div class="day-info"><h2>${p.title}</h2><p>${p.focus}</p></div><div class="day-hours">${p.hours} hrs</div></div>`;
     p.modules.forEach(mod => {
       const allItems = []; mod.topics.forEach(t => t.items.forEach(i => allItems.push(i.id)));
       const done = allItems.filter(id => isChecked(id)).length, total = allItems.length;
@@ -1080,7 +1128,11 @@ function renderMain() {
     });
     html += '</div>';
   });
+  html += '</div>';
   main.innerHTML = html;
+  document.body.classList.toggle('carousel-view', isCarousel);
+  document.body.classList.toggle('list-view', !isCarousel);
+  if (isCarousel) setupSwipeGestures();
 }
 
 function updateProgress() {
@@ -1141,6 +1193,86 @@ function importProgress(e) {
   reader.readAsText(file);
 }
 
+// ========== CAROUSEL ==========
+function setViewMode(mode) {
+  viewMode = mode;
+  localStorage.setItem('cpim8_viewmode', mode);
+  if (mode === 'carousel') currentSlide = 0;
+  updateUI();
+}
+
+function carouselNext() {
+  const studyPlan = generateStudyPlan(studyPeriods);
+  if (currentSlide < studyPlan.length - 1) {
+    currentSlide++;
+    updateCarouselView();
+  }
+}
+
+function carouselPrev() {
+  if (currentSlide > 0) {
+    currentSlide--;
+    updateCarouselView(true);
+  }
+}
+
+function goToSlide(idx) {
+  const studyPlan = generateStudyPlan(studyPeriods);
+  if (idx >= 0 && idx < studyPlan.length) {
+    const reverse = idx < currentSlide;
+    currentSlide = idx;
+    updateCarouselView(reverse);
+  }
+}
+
+function updateCarouselView(reverse = false) {
+  const studyPlan = generateStudyPlan(studyPeriods);
+  const unit = TIME_UNIT_LABELS[timeUnit];
+  const slides = document.querySelectorAll('.carousel-slide');
+  slides.forEach((slide, i) => {
+    slide.classList.remove('active', 'slide-reverse');
+    if (i === currentSlide) {
+      slide.classList.add('active');
+      if (reverse) slide.classList.add('slide-reverse');
+    }
+  });
+  const dots = document.querySelectorAll('.carousel-dot');
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+  const label = document.querySelector('.carousel-label');
+  if (label) label.textContent = `${unit.singular} ${currentSlide + 1} of ${studyPlan.length}`;
+  const prevBtn = document.querySelector('.carousel-nav-btn:first-child');
+  const nextBtn = document.querySelector('.carousel-nav-btn:last-child');
+  if (prevBtn) prevBtn.disabled = currentSlide === 0;
+  if (nextBtn) nextBtn.disabled = currentSlide === studyPlan.length - 1;
+}
+
+function setupSwipeGestures() {
+  const container = document.getElementById('carouselContainer');
+  if (!container) return;
+  let startX = 0, startY = 0, distX = 0, distY = 0;
+  const threshold = 50;
+  container.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+  container.addEventListener('touchmove', e => {
+    distX = e.touches[0].clientX - startX;
+    distY = e.touches[0].clientY - startY;
+  }, { passive: true });
+  container.addEventListener('touchend', () => {
+    if (Math.abs(distX) > Math.abs(distY) && Math.abs(distX) > threshold) {
+      if (distX > 0) carouselPrev();
+      else carouselNext();
+    }
+    distX = 0; distY = 0;
+  });
+}
+
+function loadViewMode() {
+  const saved = localStorage.getItem('cpim8_viewmode');
+  if (saved && (saved === 'list' || saved === 'carousel')) viewMode = saved;
+}
+
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
 function toggleTheme() {
   const html = document.documentElement, current = html.getAttribute('data-theme');
@@ -1187,6 +1319,7 @@ function initApp() {
 
 loadTheme();
 loadFontSize();
+loadViewMode();
 </script>
 </body>
 </html>
