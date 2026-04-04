@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CPIM 8.0 Study Tracker — Flexible Duration</title>
+<title>CPIM 8.0 Study Tracker — With Case Studies — Flexible Duration</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -96,21 +96,6 @@ a:hover{text-decoration:underline}
 .module.open .module-body{display:block}
 .module-weight{font-size:11px;background:var(--orange);color:var(--bg-deep);padding:2px 6px;border-radius:4px;font-weight:600}
 .module-v9{font-size:10px;color:var(--teal);margin-left:8px;font-weight:500}
-.v9-mapping{margin-top:10px;padding:8px 12px;background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:6px;font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.v9-mapping .v9-arrow{font-weight:600;color:var(--text);font-family:'JetBrains Mono',monospace}
-.v9-mapping .v9-note{color:var(--text-dim);font-style:italic}
-.v9-mapping .v9-status{padding:2px 8px;border-radius:4px;font-weight:700;font-size:9px;letter-spacing:.5px;text-transform:uppercase}
-.v9-mapping .v9-status.same{background:var(--green);color:var(--bg-deep)}
-.v9-mapping .v9-status.moved{background:var(--orange);color:var(--bg-deep)}
-.v9-mapping .v9-status.enhanced{background:var(--blue);color:#fff}
-.v9-mapping .v9-status.new{background:var(--purple);color:#fff;animation:pulse 2s infinite}
-.v9-mapping .v9-status.removed{background:var(--red);color:#fff}
-.v9-mapping .v9-status.split{background:var(--yellow);color:var(--bg-deep)}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
-.topic-group-v9-summary{font-size:10px;color:var(--teal);margin-left:8px;padding:3px 8px;background:var(--bg-card);border:1px solid var(--teal);border-radius:4px;font-weight:500;vertical-align:middle}
-.v9-legend{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:var(--bg-card);border-radius:8px;margin-bottom:16px;font-size:11px}
-.v9-legend-item{display:flex;align-items:center;gap:4px}
-.v9-legend-item .v9-status{font-size:8px;padding:2px 6px}
 .topic-group{margin-top:16px}
 .topic-group-title{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 .step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start}
@@ -325,32 +310,8 @@ html[data-font="xl"]{--font-scale:1.2}
   .day-number{font-size:28px}
   .day-info h2{font-size:16px}
 }
-/* Carousel Mode */
-.view-toggle{display:flex;gap:4px;margin-left:auto}
-.view-btn{padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-dim);font-size:11px;cursor:pointer;transition:all .2s}
-.view-btn:hover{border-color:var(--accent);color:var(--accent)}
-.view-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
-.carousel-container{position:relative;overflow:hidden}
-.carousel-nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0;margin-bottom:16px}
-.carousel-nav-btn{width:48px;height:48px;border-radius:50%;border:2px solid var(--border);background:var(--bg-card);color:var(--text);font-size:20px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.carousel-nav-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
-.carousel-nav-btn:disabled{opacity:.3;cursor:not-allowed}
-.carousel-indicator{display:flex;align-items:center;gap:12px}
-.carousel-dots{display:flex;gap:6px}
-.carousel-dot{width:10px;height:10px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .2s}
-.carousel-dot:hover{background:var(--text-dim)}
-.carousel-dot.active{background:var(--accent);transform:scale(1.2)}
-.carousel-label{font-size:14px;font-weight:600;color:var(--text-bright);font-family:'JetBrains Mono',monospace}
-.carousel-slide{display:none;animation:slideIn .3s ease}
-.carousel-slide.active{display:block}
-@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-@keyframes slideInReverse{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
-.carousel-slide.slide-reverse{animation:slideInReverse .3s ease}
-.carousel-swipe-hint{text-align:center;font-size:11px;color:var(--text-dim);padding:8px 0;display:none}
-@media(max-width:900px){.carousel-swipe-hint{display:block}}
-.list-view .carousel-nav,.list-view .carousel-swipe-hint{display:none}
-.list-view .carousel-slide{display:block;animation:none}
-.carousel-view .main{padding-bottom:120px}
+
+.tag.case{background:var(--green);color:#fff;font-size:10px}
 </style>
 </head>
 <body>
@@ -638,246 +599,173 @@ const allModules = [
   {
     id: 'mod1', number: 1, title: 'Align Supply Chain to Business Strategy', weight: 15, hours: 3.5, v9: '→ LS 9.0 Module 1 (12%)',
     topics: [
-      { group: 'A. Business Environment & Corporate Strategy', v9group: '→ 9.0 Mod1 Sec B + Sec C', items: [
-        { id: 'm1a1', title: 'External environment scanning', desc: 'Industry analysis, competitive landscape', terms: ['benchmarking', 'industry standards'], v9map: { status: 'same', to: '1.B.T01', note: 'Analyzing External Environment' } },
-        { id: 'm1a2', title: 'Five-force model analysis', desc: "Porter's framework: suppliers, buyers, substitutes, new entrants, rivalry", priority: 'medium', terms: ['five forces', 'competitive analysis'], v9map: { status: 'same', to: '1.B.T01', note: 'Part of Analyzing External Environment' } },
-        { id: 'm1a3', title: 'SWOT analysis', desc: 'Strengths, Weaknesses, Opportunities, Threats', terms: ['SWOT', 'strategic planning'], v9map: { status: 'split', to: '1.B.T01 + 1.B.T02', note: 'External in T01, Internal in T02' } },
-        { id: 'm1a4', title: 'Internal analysis (capabilities)', desc: 'Core competencies and capabilities', terms: ['core competency', 'capabilities'], v9map: { status: 'same', to: '1.B.T02', note: 'Analyzing Internal Environment' } },
-        { id: 'm1a5', title: 'Value chain analysis', desc: 'Identify activities that create customer value', terms: ['value chain', 'customer value'], v9map: { status: 'same', to: '1.B.T02', note: 'Part of internal environment analysis' } },
-        { id: 'm1a6', title: 'Mission, vision, values', desc: 'Corporate mission statement and values alignment', terms: ['mission', 'vision', 'values'], v9map: { status: 'same', to: '1.A.T03', note: 'Mission, Vision, and Values' } },
-        { id: 'm1a7', title: 'Order winners vs qualifiers', desc: 'What wins orders vs minimum requirements', priority: 'high', terms: ['order winner', 'order qualifier'], v9map: { status: 'same', to: '1.C.T01', note: 'Order Qualifiers and Winners' } },
-        { id: 'm1a8', title: 'Competitive priorities', desc: 'Cost, quality, delivery, flexibility, availability', priority: 'high', terms: ['competitive priority', 'differentiation'], v9map: { status: 'same', to: '1.C.T01', note: 'Order Qualifiers and Winners' } },
-        { id: 'm1a9', title: 'Strategic scope', desc: 'Geographic, vertical integration, diversification', terms: ['strategic scope', 'integration'], v9map: { status: 'same', to: '1.B.T03', note: 'Strategic Scope' } }
+      { group: 'A. Business Environment & Corporate Strategy', items: [
+        { id: 'm1a1', title: 'External environment scanning', desc: 'Industry analysis, competitive landscape', terms: ['benchmarking', 'industry standards'] },
+        { id: 'm1a2', title: 'Five-force model analysis', desc: "Porter's framework: suppliers, buyers, substitutes, new entrants, rivalry", priority: 'medium', terms: ['five forces', 'competitive analysis'] },
+        { id: 'm1a3', title: 'SWOT analysis', desc: 'Strengths, Weaknesses, Opportunities, Threats', terms: ['SWOT', 'strategic planning'] },
+        { id: 'm1a4', title: 'Value chain analysis', desc: 'Identify activities that create customer value', terms: ['value chain', 'core competency'] },
+        { id: 'm1a5', title: 'Order winners vs qualifiers', desc: 'What wins orders vs minimum requirements', priority: 'high', terms: ['order winner', 'order qualifier', 'competitive priority'] },
+        { id: 'm1a6', title: 'Competitive priorities', desc: 'Cost, quality, delivery, flexibility, availability', terms: ['competitive priority', 'trade-off'] }
       ]},
-      { group: 'B. Functional & Operational Strategies', v9group: '→ 9.0 Mod1 Sec C + Mod4 Sec A-B', items: [
-        { id: 'm1b1', title: 'Generic strategies', desc: 'Cost leadership, differentiation, focus', terms: ['cost leadership', 'differentiation', 'focus strategy'], v9map: { status: 'same', to: '1.C.T02', note: 'Generic Strategies' } },
-        { id: 'm1b2', title: 'Functional & operational strategies', desc: 'Align functions with corporate strategy', terms: ['functional strategy', 'operational strategy'], v9map: { status: 'same', to: '1.C.T03', note: 'Functional and Operational Strategies' } },
-        { id: 'm1b3', title: 'Make-buy analysis', desc: 'Cost, capacity, quality, strategic considerations', terms: ['make-or-buy decision', 'outsourcing', 'insourcing'], v9map: { status: 'moved', to: '4.A.T01', note: '★ MOVED to Mod4 Analysis for Functional Strategies' } },
-        { id: 'm1b4', title: 'Production strategies', desc: 'Chase, level, hybrid, subcontracting', priority: 'high', terms: ['chase strategy', 'level strategy', 'hybrid strategy'], v9map: { status: 'moved', to: '2.B.T02', note: '★ MOVED to S&OP Production Planning Grid' } },
-        { id: 'm1b5', title: 'Capacity strategies', desc: 'Lead vs lag capacity', terms: ['lead capacity', 'lag capacity'], v9map: { status: 'moved', to: '2.B.T03', note: '★ MOVED to S&OP Resource Planning' } },
-        { id: 'm1b6', title: 'Marketing strategies (4 Ps)', desc: 'Product, price, promotion, place', terms: ['marketing mix', 'four Ps'], v9map: { status: 'moved', to: '3.A.T06', note: '★ MOVED to Demand: Influencing Demand' } },
-        { id: 'm1b7', title: 'Push-pull boundary', desc: 'MTS, ATO, CTO, MTO, ETO, remanufacturing', priority: 'high', terms: ['make-to-stock', 'assemble-to-order', 'make-to-order', 'engineer-to-order', 'decoupling point'], v9map: { status: 'moved', to: '4.B.T01', note: '★ MOVED to Mod4 Push-Pull Strategy' } },
-        { id: 'm1b8', title: 'Facilities strategy', desc: 'Align facilities with manufacturing/service strategies', terms: ['facilities strategy'], v9map: { status: 'same', to: '1.C.T04', note: 'Aligning Facility Strategy' } },
-        { id: 'm1b9', title: 'Strategy execution & monitoring', desc: 'Execute, monitor, and change strategy', terms: ['strategy execution', 'change management'], v9map: { status: 'same', to: '1.C.T05', note: 'Executing, Monitoring and Changing Strategy' } }
+      { group: 'B. Functional & Operational Strategies', items: [
+        { id: 'm1b1', title: 'Make-buy analysis', desc: 'Cost, capacity, quality, strategic considerations', terms: ['make-or-buy decision', 'outsourcing', 'insourcing'] },
+        { id: 'm1b2', title: 'Production strategies', desc: 'Chase, level, hybrid, subcontracting', caseRef: 'Case 13', priority: 'high', terms: ['chase strategy', 'level strategy', 'hybrid strategy'] },
+        { id: 'm1b3', title: 'Capacity strategies', desc: 'Lead vs lag capacity', terms: ['capacity strategy', 'lead capacity strategy', 'lag capacity strategy'] },
+        { id: 'm1b4', title: 'Manufacturing environments', desc: 'MTS, ATO/CTO, MTO, ETO — know the push-pull boundary', priority: 'high', terms: ['make-to-stock', 'assemble-to-order', 'make-to-order', 'engineer-to-order', 'decoupling point'] }
       ]},
-      { group: 'C. Process Design & Layout', v9group: '→ 9.0 Mod4 Sec B', items: [
-        { id: 'm1c1', title: 'Product-process matrix', desc: 'Project, job shop, batch, line, continuous flow', terms: ['product-process matrix', 'job shop', 'batch', 'continuous flow', 'repetitive'], v9map: { status: 'moved', to: '4.B.T02', note: '★ MOVED to Mod4 Product-Process Matrix' } },
-        { id: 'm1c2', title: 'Process type & layout', desc: 'Fixed position, process, cellular, product layout', terms: ['fixed-position layout', 'process layout', 'product layout', 'cellular manufacturing'], v9map: { status: 'moved', to: '4.B.T03', note: '★ MOVED to Mod4 Process Type and Layout' } },
-        { id: 'm1c3', title: 'Service design & project management', desc: 'Service process, project management, ETO', terms: ['service design', 'project management'], v9map: { status: 'moved', to: '4.B.T04', note: '★ MOVED to Mod4 Service Design/PM/ETO' } },
-        { id: 'm1c4', title: 'Product life cycle alignment', desc: 'Match process choices to life cycle stage', terms: ['product life cycle', 'introduction', 'growth', 'maturity', 'decline'], v9map: { status: 'same', to: '1.C.T03', note: 'Part of functional strategies' } }
+      { group: 'C. Process Design & Layout', items: [
+        { id: 'm1c1', title: 'Product-process matrix', desc: 'Project, job shop, batch, line, continuous flow', terms: ['product-process matrix', 'job shop', 'batch', 'continuous flow', 'repetitive manufacturing'] },
+        { id: 'm1c2', title: 'Layout types', desc: 'Fixed position, process/functional, cellular, assembly line', terms: ['fixed-position layout', 'process layout', 'product layout', 'cellular manufacturing', 'group technology'] },
+        { id: 'm1c3', title: 'Product life cycle alignment', desc: 'Match process choices to life cycle stage', terms: ['product life cycle', 'introduction', 'growth', 'maturity', 'decline'] }
       ]},
-      { group: 'D. KPIs & Performance', v9group: '→ 9.0 Mod1 Sec D', items: [
-        { id: 'm1d1', title: 'Performance monitoring systems', desc: 'Balanced scorecard, maturity assessment, SCOR', terms: ['balanced scorecard', 'SCOR', 'maturity assessment'], v9map: { status: 'same', to: '1.D.T01', note: 'Performance Monitoring Systems' } },
-        { id: 'm1d2', title: 'Financial metrics', desc: 'Cash-to-cash cycle, cash flow, ROI', terms: ['cash-to-cash cycle time', 'cash flow', 'return on investment'], v9map: { status: 'same', to: '1.D.T02', note: 'Strategic, Financial and Operational Metrics' } },
-        { id: 'm1d3', title: 'Operational metrics', desc: 'Service levels, fill rate, stockout %, schedule adherence', terms: ['customer service level', 'fill rate', 'stockout'], v9map: { status: 'same', to: '1.D.T02', note: 'Strategic, Financial and Operational Metrics' } }
+      { group: 'D. KPIs & Performance', items: [
+        { id: 'm1d1', title: 'Financial metrics', desc: 'Cash-to-cash cycle, cash conversion cycle, cash flow', caseRef: 'Case 12', terms: ['cash-to-cash cycle time', 'cash flow', 'working capital'] },
+        { id: 'm1d2', title: 'Operational metrics', desc: 'Service levels, fill rate, stockout %', terms: ['customer service level', 'fill rate', 'stockout'] },
+        { id: 'm1d3', title: 'Balanced scorecard', desc: 'Financial, customer, internal, learning perspectives', terms: ['balanced scorecard', 'key performance indicator (KPI)'] }
       ]},
-      { group: 'E. Risk Management', v9group: '★ MOVED → 9.0 Mod5 Sec C', items: [
-        { id: 'm1e1', title: 'Risk management process', desc: 'Identify, assess, manage risks', terms: ['risk management', 'risk identification'], v9map: { status: 'moved', to: '5.C.T01', note: '★ MOVED to Mod5 Risk Management Process' } },
-        { id: 'm1e2', title: 'Risk types & assessment', desc: 'Supply, financial, environmental, cyber, political risks', terms: ['supply chain risk', 'risk assessment'], v9map: { status: 'moved', to: '5.C.T02', note: '★ MOVED to Mod5 Identifying/Assessing/Managing Risks' } },
-        { id: 'm1e3', title: 'Risk mitigation strategies', desc: 'Prevention, mitigation, recovery, pooling, BCP', terms: ['risk mitigation', 'business continuity planning', 'resiliency'], v9map: { status: 'moved', to: '5.C.T02', note: '★ MOVED to Mod5 + BCP added' } },
-        { id: 'm1e4', title: 'FMEA & risk tools', desc: 'Failure Modes and Effects Analysis, ISO standards', priority: 'medium', terms: ['FMEA', 'ISO 31000'], v9map: { status: 'moved', to: '5.C.T02', note: '★ MOVED to Mod5' } }
+      { group: 'E. Risk Management', items: [
+        { id: 'm1e1', title: 'Risk types', desc: 'Supply disruption, financial, environmental, cyber, IP, political', terms: ['supply chain risk', 'risk management'] },
+        { id: 'm1e2', title: 'FMEA', desc: 'Failure Modes and Effects Analysis', priority: 'medium', terms: ['failure mode and effects analysis (FMEA)', 'risk priority number'] },
+        { id: 'm1e3', title: 'Risk mitigation strategies', desc: 'Prevention, mitigation, recovery, pooling, resiliency', terms: ['risk mitigation', 'contingency planning', 'resiliency'] }
       ]},
-      { group: 'F. Capital Equipment & Facilities', v9group: '★ MOVED → 9.0 Mod9 Sec B', items: [
-        { id: 'm1f1', title: 'Capital budgeting', desc: 'Capital budgeting goals and performance', terms: ['capital budgeting', 'ROI', 'payback'], v9map: { status: 'moved', to: '9.B.T01', note: '★ MOVED to Mod9 Business Planning/Capital Budgeting' } },
-        { id: 'm1f2', title: 'Total productive maintenance (TPM)', desc: 'Maintenance programs and OEE', terms: ['total productive maintenance', 'OEE'], v9map: { status: 'moved', to: '9.B.T02', note: '★ MOVED to Mod9 TPM and HSE' } },
-        { id: 'm1f3', title: 'Health, safety, environment (HSE)', desc: 'HSE requirements and regulations', terms: ['health safety environment', 'HSE'], v9map: { status: 'moved', to: '9.B.T02', note: '★ MOVED to Mod9 TPM and HSE' } }
-      ]},
-      { group: 'G. Sustainability', v9group: '★ MOVED → 9.0 Mod5 Sec D', items: [
-        { id: 'm1g1', title: 'Sustainability overview', desc: 'Triple bottom line (TBL) and sustainability goals', terms: ['triple bottom line', 'sustainability'], v9map: { status: 'moved', to: '5.D.T01', note: '★ MOVED to Mod5 Sustainability Overview' } },
-        { id: 'm1g2', title: 'Sustainability strategy & standards', desc: 'GRI, ISO, UN Global Compact', terms: ['Global Reporting Initiative', 'ISO 14001', 'UN Global Compact'], v9map: { status: 'moved', to: '5.D.T02', note: '★ MOVED to Mod5 Sustainability Strategy/Standards' } },
-        { id: 'm1g3', title: 'Sustainability metrics & reporting', desc: 'Impact mitigation, metrics, reporting', terms: ['sustainability metrics', 'ESG', 'carbon footprint'], v9map: { status: 'moved', to: '5.D.T03', note: '★ MOVED to Mod5 Impact/Metrics/Reporting' } }
+      { group: 'F. Sustainability', items: [
+        { id: 'm1f1', title: 'Triple Bottom Line (TBL)', desc: 'Environmental, financial, social sustainability', terms: ['triple bottom line', 'sustainability', 'carbon footprint'] },
+        { id: 'm1f2', title: 'GRI & UN Global Compact', desc: 'Sustainability reporting standards', terms: ['Global Reporting Initiative', 'ISO 14001'] }
       ]}
     ]
   },
   {
     id: 'mod2', number: 2, title: 'Sales & Operations Planning (S&OP)', weight: 9, hours: 2, v9: '→ LS 9.0 Module 2 (10%)',
     topics: [
-      { group: 'A. S&OP Process', v9group: '→ 9.0 Mod2 Sec A', items: [
-        { id: 'm2a1', title: 'S&OP overview & linkages', desc: 'Links business plan to master schedule', priority: 'high', terms: ['sales and operations planning', 'production plan', 'aggregate planning'], v9map: { status: 'same', to: '2.A.T01', note: 'S&OP Overview and Key Linkages' } },
-        { id: 'm2a2', title: 'S&OP roles & process', desc: 'Cross-functional: sales, ops, finance, exec', terms: ['cross-functional team', 'consensus'], v9map: { status: 'same', to: '2.A.T02', note: 'S&OP Roles and Process' } },
-        { id: 'm2a3', title: 'Integrating & balancing S&OP', desc: 'Steps, inputs, outputs of S&OP process', priority: 'high', terms: ['demand planning', 'supply planning', 'executive S&OP'], v9map: { status: 'same', to: '2.A.T03', note: 'Integrating and Balancing Roles of S&OP' } }
+      { group: 'A. S&OP Process', items: [
+        { id: 'm2a1', title: 'S&OP role in planning hierarchy', desc: 'Links business plan to master schedule', caseRef: 'Case 13', priority: 'high', terms: ['sales and operations planning (S&OP)', 'production plan', 'aggregate planning'] },
+        { id: 'm2a2', title: 'S&OP steps', desc: 'Data gathering → demand planning → supply planning → pre-meeting → executive meeting', priority: 'high', terms: ['demand planning', 'supply planning', 'executive S&OP'] },
+        { id: 'm2a3', title: 'Planning horizon & aggregation', desc: 'Typically 12-24 months, product families', terms: ['planning horizon', 'product family', 'aggregate plan'] },
+        { id: 'm2a4', title: 'Management involvement', desc: 'Cross-functional: sales, ops, finance, exec', terms: ['cross-functional team', 'consensus'] }
       ]},
-      { group: 'B. Aggregate Plans', v9group: '→ 9.0 Mod2 Sec B', items: [
-        { id: 'm2b1', title: 'Aggregate demand & supply plans', desc: 'Product portfolio, NPI, life cycles', terms: ['aggregate plan', 'product portfolio', 'new product introduction'], v9map: { status: 'same', to: '2.B.T01', note: 'Aggregate Demand and Supply Plans' } },
-        { id: 'm2b2', title: 'Production planning grid', desc: 'Chase, level, hybrid production methods', priority: 'high', terms: ['chase strategy', 'level strategy', 'hybrid strategy'], v9map: { status: 'same', to: '2.B.T02', note: 'Production Planning Grid and Methods' } },
-        { id: 'm2b3', title: 'Resource planning: capacity & marketing', desc: 'Capacity, marketing strategy impact', terms: ['resource planning', 'capacity strategy'], v9map: { status: 'same', to: '2.B.T03', note: 'Resource Planning: Capacity, Marketing' } },
-        { id: 'm2b4', title: 'Resource planning: HR & buffers', desc: 'HR considerations, strategic buffers', terms: ['HR planning', 'strategic buffer'], v9map: { status: 'same', to: '2.B.T04', note: 'Resource Planning: HR and Strategic Buffers' } }
-      ]},
-      { group: 'C. Reconciling Plans', v9group: '→ 9.0 Mod2 Sec C', items: [
-        { id: 'm2c1', title: 'Synchronizing supply & demand', desc: 'Balance supply with demand', terms: ['demand shaping', 'load leveling'], v9map: { status: 'same', to: '2.C.T01', note: 'Synchronizing Supply and Demand' } },
-        { id: 'm2c2', title: 'Tradeoffs & approved plan', desc: 'Evaluate alternatives, financial implications', priority: 'high', terms: ['trade-off', 'financial plan'], v9map: { status: 'same', to: '2.C.T02', note: 'Tradeoffs, Alternatives, and Approved Plan' } }
+      { group: 'B. Aggregate Plans', items: [
+        { id: 'm2b1', title: 'Product portfolio review', desc: 'NPI, life cycles, competitive priorities', terms: ['new product introduction (NPI)', 'product portfolio'] },
+        { id: 'm2b2', title: 'Demand sources', desc: 'Forecast, customer orders, safety stock, internal requirements', terms: ['demand', 'forecast', 'customer order', 'interplant demand'] },
+        { id: 'm2b3', title: 'Resource planning', desc: 'Validate resource requirements to support production plan', caseRef: 'Case 14', terms: ['resource planning', 'resource requirements planning'] },
+        { id: 'm2b4', title: 'Reconciliation', desc: 'Balance supply/demand, financial implications', caseRef: 'Case 13', priority: 'high', terms: ['demand shaping', 'load leveling'] }
       ]}
     ]
   },
   {
     id: 'mod3', number: 3, title: 'Demand Management', weight: 9, hours: 2.5, v9: '→ LS 9.0 Module 3 (12%)',
     topics: [
-      { group: 'A. Demand Management', v9group: '→ 9.0 Mod3 Sec A', items: [
-        { id: 'm3a1', title: 'Demand management overview', desc: 'Linking demand with supply capabilities', terms: ['demand management', 'demand planning'], v9map: { status: 'same', to: '3.A.T01', note: 'Demand Management Overview' } },
-        { id: 'm3a2', title: 'Customer segments & objectives', desc: 'Segment by needs, align with strategy', terms: ['customer segmentation', 'strategic objectives'], v9map: { status: 'same', to: '3.A.T02', note: 'Customer Segments and Strategic Objectives' } },
-        { id: 'm3a3', title: 'Customer relationship management', desc: 'CRM systems and processes', terms: ['CRM', 'customer relationship management'], v9map: { status: 'same', to: '3.A.T03', note: 'Customer Relationship Management' } },
-        { id: 'm3a4', title: 'Customer service methods', desc: 'Service policies, CPFR, VMI', terms: ['customer service', 'CPFR', 'VMI'], v9map: { status: 'same', to: '3.A.T04', note: 'Customer Service Methods' } },
-        { id: 'm3a5', title: 'Customer metrics', desc: 'Order delivery performance metrics', priority: 'high', terms: ['fill rate', 'on-time delivery', 'customer service level'], v9map: { status: 'same', to: '3.A.T05', note: 'Customer Metrics' } },
-        { id: 'm3a6', title: 'Influencing demand & product designs', desc: 'Marketing promotions, QFD, product changes', terms: ['demand shaping', 'QFD', 'engineering change'], v9map: { status: 'same', to: '3.A.T06', note: 'Influencing Demand and Product Designs' } }
+      { group: 'A. Demand Sources', items: [
+        { id: 'm3a1', title: 'Independent vs dependent demand', desc: 'Forecast vs calculated from BOM', priority: 'high', terms: ['independent demand', 'dependent demand', 'bill of material (BOM)'] },
+        { id: 'm3a2', title: 'Demand types', desc: 'Customer orders, service parts, interplant, samples', terms: ['service parts', 'interplant demand'] },
+        { id: 'm3a3', title: 'Customer segmentation', desc: 'Segment by needs, service level requirements', terms: ['customer segmentation', 'customer relationship management (CRM)'] }
       ]},
-      { group: 'B. Sources of Demand & Forecasting', v9group: '→ 9.0 Mod3 Sec B', items: [
-        { id: 'm3b1', title: 'Demand channels & sources', desc: 'Retail, wholesale, B2B, B2C, omnichannel, service', terms: ['demand channel', 'independent demand', 'dependent demand', 'omnichannel'], v9map: { status: 'same', to: '3.B.T01', note: 'Demand Channels and Sources' } },
-        { id: 'm3b2', title: 'Forecasting overview & selection', desc: 'Forecast method selection, horizons, aggregation', terms: ['forecasting', 'time horizon', 'aggregation level'], v9map: { status: 'same', to: '3.B.T02', note: 'Forecasting Overview and Selection' } },
-        { id: 'm3b3', title: 'Qualitative forecasting', desc: 'Delphi, panel consensus, sales force polling', priority: 'medium', terms: ['qualitative forecasting', 'Delphi method', 'panel consensus'], v9map: { status: 'same', to: '3.B.T03', note: 'Qualitative Forecasting' } },
-        { id: 'm3b4', title: 'Quantitative forecasting', desc: 'Time series, moving avg, exponential smoothing, regression', priority: 'formula', terms: ['time series', 'moving average', 'exponential smoothing', 'regression'], v9map: { status: 'same', to: '3.B.T04', note: 'Quantitative Forecasting' } }
+      { group: 'B. Forecasting Methods', items: [
+        { id: 'm3b1', title: 'Qualitative techniques', desc: 'Historical analogy, panel consensus, Delphi, sales force polling', priority: 'medium', terms: ['qualitative forecasting', 'Delphi method', 'panel consensus', 'market research'] },
+        { id: 'm3b2', title: 'Time series decomposition', desc: 'Level, trend, seasonality, cyclical, random variation', priority: 'high', terms: ['time series', 'trend', 'seasonality', 'level', 'random variation'] },
+        { id: 'm3b3', title: 'Moving average & exponential smoothing', desc: 'Simple MA, weighted MA, single/double exponential smoothing', caseRef: 'Case 10', priority: 'formula', terms: ['moving average', 'weighted moving average', 'exponential smoothing', 'smoothing constant'] },
+        { id: 'm3b4', title: 'Regression & causal', desc: 'Linear regression, leading indicators', terms: ['regression analysis', 'leading indicator', 'correlation'] }
       ]},
-      { group: 'C. Forecast Performance', v9group: '→ 9.0 Mod3 Sec C', items: [
-        { id: 'm3c1', title: 'Evaluating forecast performance', desc: 'Bias, MAD, MAPE, MSE, tracking signal', priority: 'formula', terms: ['MAD', 'MAPE', 'tracking signal', 'bias', 'CFE'], v9map: { status: 'same', to: '3.C.T01', note: 'Evaluating Forecast Performance' } },
-        { id: 'm3c2', title: 'Forecast management', desc: 'Collaboration, bullwhip mitigation, adjustments', terms: ['bullwhip effect', 'collaborative forecasting'], v9map: { status: 'same', to: '3.C.T02', note: 'Forecast Management' } }
+      { group: 'C. Forecast Error', items: [
+        { id: 'm3c1', title: 'Error metrics', desc: 'Bias, CFE, MAD, MAPE, MSE, tracking signal', caseRef: 'Case 7', priority: 'formula', terms: ['mean absolute deviation (MAD)', 'mean absolute percentage error (MAPE)', 'tracking signal', 'bias', 'cumulative forecast error (CFE)'] },
+        { id: 'm3c2', title: 'Bullwhip effect', desc: 'Demand variability amplification mitigation', terms: ['bullwhip effect', 'demand amplification'] }
       ]}
     ]
   },
   {
     id: 'mod4', number: 4, title: 'Supply Management', weight: 16, hours: 4, v9: '→ LS 9.0 Modules 4 (12%) + 5 (11%)',
     topics: [
-      { group: 'A. Functional & Operational Strategies', v9group: '→ 9.0 Mod4 Sec A + B', items: [
-        { id: 'm4a1', title: 'Analysis for functional strategies', desc: 'Make-buy, technology choices, strategy alignment', terms: ['make-or-buy', 'technology strategy'], v9map: { status: 'same', to: '4.A.T01', note: 'Analysis for Functional and Operational Strategies' } },
-        { id: 'm4a2', title: 'Push-pull strategy', desc: 'MTS, ATO, MTO, ETO environments', priority: 'high', terms: ['make-to-stock', 'assemble-to-order', 'make-to-order', 'engineer-to-order'], v9map: { status: 'same', to: '4.B.T01', note: 'Push-Pull Strategy and Manufacturing Environment' } },
-        { id: 'm4a3', title: 'Product-process matrix', desc: 'Project, job shop, batch, line, continuous', terms: ['product-process matrix', 'job shop', 'batch', 'continuous flow'], v9map: { status: 'same', to: '4.B.T02', note: 'Product-Process Matrix' } },
-        { id: 'm4a4', title: 'Process type & layout', desc: 'Fixed position, process, cellular, product layout', terms: ['layout', 'cellular manufacturing'], v9map: { status: 'same', to: '4.B.T03', note: 'Determining Process Type and Layout' } },
-        { id: 'm4a5', title: 'Service design, PM, ETO', desc: 'Service process, project management, ETO improvements', terms: ['service design', 'project management', 'ETO'], v9map: { status: 'same', to: '4.B.T04', note: 'Service Design, Project Management, ETO Improvements' } }
+      { group: 'A. Master Scheduling', items: [
+        { id: 'm4a1', title: 'MPS role & inputs', desc: 'Disaggregates production plan to specific products', priority: 'high', terms: ['master production schedule (MPS)', 'master schedule', 'planning hierarchy'] },
+        { id: 'm4a2', title: 'MPS in different environments', desc: 'MTS, ATO, MTO, ETO strategies', terms: ['make-to-stock', 'assemble-to-order', 'planning bill'] },
+        { id: 'm4a3', title: 'Time fences', desc: 'Demand time fence, planning time fence, frozen zones', priority: 'high', terms: ['time fence', 'demand time fence', 'planning time fence', 'frozen zone'] },
+        { id: 'm4a4', title: 'ATP calculations', desc: 'Discrete ATP, cumulative ATP', caseRef: 'Case 2', priority: 'formula', terms: ['available-to-promise (ATP)', 'capable-to-promise (CTP)', 'order promising'] }
       ]},
-      { group: 'B. Master Scheduling', v9group: '→ 9.0 Mod4 Sec C + D + E', items: [
-        { id: 'm4b1', title: 'Master scheduling overview', desc: 'MPS role in planning hierarchy', priority: 'high', terms: ['master production schedule', 'planning hierarchy'], v9map: { status: 'same', to: '4.C.T01', note: 'Master Scheduling Overview' } },
-        { id: 'm4b2', title: 'Environment & product structure impact', desc: 'MPS in different environments, BOM levels, product changes', terms: ['planning bill', 'time fence'], v9map: { status: 'same', to: '4.C.T02', note: 'Environment, Product Structure, Product Change Impact on MS' } },
-        { id: 'm4b3', title: 'Creating the MPS', desc: 'Develop and calculate MPS, production strategies', priority: 'formula', terms: ['MPS calculation', 'chase', 'level'], v9map: { status: 'same', to: '4.C.T03', note: 'Creating the MPS' } },
-        { id: 'm4b4', title: 'Rough-cut capacity planning', desc: 'RCCP, bill of resources, key resources', terms: ['rough-cut capacity planning', 'bill of resources'], v9map: { status: 'same', to: '4.D.T01', note: 'Rough-Cut Capacity Planning' } },
-        { id: 'm4b5', title: 'MPS validation', desc: 'Validate MPS against capacity, efficiency, utilization', terms: ['MPS validation', 'efficiency', 'utilization'], v9map: { status: 'same', to: '4.D.T02', note: 'MPS Validation' } },
-        { id: 'm4b6', title: 'Using the master schedule', desc: 'ATP, order promising, time fences', priority: 'formula', terms: ['available-to-promise', 'capable-to-promise', 'time fence'], v9map: { status: 'same', to: '4.E.T01', note: 'Using the Master Schedule' } },
-        { id: 'm4b7', title: 'Maintaining the master schedule', desc: 'MPS changes, integrity, performance', terms: ['MPS maintenance', 'schedule adherence'], v9map: { status: 'same', to: '4.E.T02', note: 'Maintaining the Master Schedule' } }
+      { group: 'B. Material Requirements Planning', items: [
+        { id: 'm4b1', title: 'MRP inputs', desc: 'MPS, BOM, inventory records, planning factors', priority: 'high', terms: ['material requirements planning (MRP)', 'bill of material', 'item master'] },
+        { id: 'm4b2', title: 'MRP record', desc: 'Gross req, scheduled receipts, PAB, net req, planned receipts, planned releases', caseRef: 'Case 1', priority: 'formula', terms: ['gross requirements', 'scheduled receipts', 'projected available balance (PAB)', 'net requirements', 'planned order release'] },
+        { id: 'm4b3', title: 'Lot sizing rules', desc: 'LFL, FOQ, POQ, EOQ', caseRef: 'Case 4', priority: 'formula', terms: ['lot-for-lot', 'fixed order quantity', 'period order quantity', 'economic order quantity (EOQ)'] },
+        { id: 'm4b4', title: 'Action messages', desc: 'Release, reschedule in/out, cancel', terms: ['action message', 'exception message', 'reschedule'] }
       ]},
-      { group: 'C. Material Requirements Planning', v9group: '→ 9.0 Mod4 Sec F', items: [
-        { id: 'm4c1', title: 'MRP overview & design', desc: 'MRP inputs, BOM, item master', priority: 'high', terms: ['material requirements planning', 'bill of material', 'item master'], v9map: { status: 'same', to: '4.F.T01', note: 'MRP Overview and Design' } },
-        { id: 'm4c2', title: 'MRP inputs, process, outputs', desc: 'MRP record, gross/net requirements, PAB', priority: 'formula', terms: ['gross requirements', 'net requirements', 'projected available balance', 'planned order'], v9map: { status: 'same', to: '4.F.T02', note: 'MRP Inputs, Process and Outputs' } },
-        { id: 'm4c3', title: 'Using and managing MRP', desc: 'Action messages, lot sizing, pegging, closed-loop', terms: ['action message', 'lot sizing', 'pegging'], v9map: { status: 'same', to: '4.F.T03', note: 'Using and Managing MRP' } }
-      ]},
-      { group: 'D. CRP, ATP, Final Assembly', v9group: '→ 9.0 Mod4 Sec G', items: [
-        { id: 'm4d1', title: 'Capacity requirements planning', desc: 'CRP from MRP, load profiles', terms: ['capacity requirements planning', 'load profile'], v9map: { status: 'same', to: '4.G.T01', note: 'Capacity Requirements Planning' } },
-        { id: 'm4d2', title: 'ATP, CTP, order promising', desc: 'Discrete/cumulative ATP calculations', priority: 'formula', terms: ['available-to-promise', 'capable-to-promise'], v9map: { status: 'same', to: '4.G.T02', note: 'ATP, CTP, Order Promising' } },
-        { id: 'm4d3', title: 'Final assembly scheduling', desc: 'FAS creation, maintenance, performance', terms: ['final assembly schedule', 'FAS'], v9map: { status: 'same', to: '4.G.T03', note: 'Final Assembly Scheduling' } }
-      ]},
-      { group: 'E. Changes & Disruptions', v9group: '→ 9.0 Mod4 Sec H', items: [
-        { id: 'm4e1', title: 'Supply disruptions overview', desc: 'Types of disruptions, BCP', terms: ['supply disruption', 'business continuity'], v9map: { status: 'same', to: '4.H.T01', note: 'Supply Disruptions Overview' } },
-        { id: 'm4e2', title: 'Replanning & revision', desc: 'Lead time/lot size adjustments, what-if, simulation', terms: ['replanning', 'what-if analysis', 'simulation'], v9map: { status: 'same', to: '4.H.T02', note: 'Replanning and Revision' } }
-      ]},
-      { group: 'F. Supplier Management', v9group: '★ MOVED → 9.0 NEW Module 5', items: [
-        { id: 'm4f1', title: 'Supply & purchasing planning', desc: 'Procurement planning, supplier selection', terms: ['procurement', 'supplier selection'], v9map: { status: 'moved', to: '5.A.T01', note: '★ MOVED to Mod5 Supply and Purchasing Planning' } },
-        { id: 'm4f2', title: 'Supplier relationships & strategies', desc: 'Partnership, alliance, transactional, nearshore/reshore', terms: ['supplier partnership', 'strategic alliance', 'nearshoring'], v9map: { status: 'moved', to: '5.A.T02', note: '★ MOVED to Mod5 Supplier Relationships' } },
-        { id: 'm4f3', title: 'Capable suppliers & contracts', desc: 'Supplier certification, contract terms', terms: ['supplier certification', 'contract'], v9map: { status: 'moved', to: '5.A.T03', note: '★ MOVED to Mod5 Capable Suppliers' } },
-        { id: 'm4f4', title: 'Purchasing cycle & contract buying', desc: 'Procurement methods, blanket orders, VMI', terms: ['blanket order', 'VMI', 'consignment'], v9map: { status: 'moved', to: '5.B.T01', note: '★ MOVED to Mod5 Purchasing Cycle' } },
-        { id: 'm4f5', title: 'Supplier performance', desc: 'SRM, supplier metrics, ESG', priority: 'high', terms: ['supplier scorecard', 'ESG metrics'], v9map: { status: 'moved', to: '5.B.T02', note: '★ MOVED to Mod5 Supplier Performance' } }
+      { group: 'C. Supplier Management', items: [
+        { id: 'm4c1', title: 'Sourcing strategies', desc: 'Sole, single, multi-source; make-buy decisions', priority: 'high', terms: ['sole source', 'single source', 'multiple sourcing'] },
+        { id: 'm4c2', title: 'Supplier relationships', desc: 'Partnership, strategic alliance, transactional', terms: ['supplier partnership', 'strategic alliance'] },
+        { id: 'm4c3', title: 'Procurement methods', desc: 'Blanket orders, VMI, consignment, e-procurement', terms: ['blanket order', 'vendor-managed inventory (VMI)', 'consignment', 'e-procurement'] }
       ]}
     ]
   },
   {
     id: 'mod5', number: 5, title: 'Inventory Management', weight: 19, hours: 4.5, v9: '→ LS 9.0 Module 6 (14%)',
     topics: [
-      { group: 'A. Inventory Planning', v9group: '→ 9.0 Mod6 Sec A', items: [
-        { id: 'm5a1', title: 'Purposes & goals of inventory', desc: 'Why hold inventory, service vs cost tradeoffs', terms: ['inventory', 'service level'], v9map: { status: 'same', to: '6.A.T01', note: 'Purposes and Goals of Inventory' } },
-        { id: 'm5a2', title: 'Inventory types & classifications', desc: 'Raw, WIP, FG, MRO; cycle, safety, pipeline', priority: 'high', terms: ['cycle stock', 'safety stock', 'pipeline inventory', 'WIP'], v9map: { status: 'same', to: '6.A.T02', note: 'Inventory Types and Classifications' } },
-        { id: 'm5a3', title: 'Inventory policy', desc: 'ABC classification, centralized vs decentralized', terms: ['ABC classification', 'inventory policy'], v9map: { status: 'same', to: '6.A.T03', note: 'Inventory Policy' } }
+      { group: 'A. Inventory Planning', items: [
+        { id: 'm5a1', title: 'Inventory types', desc: 'Raw materials, WIP, finished goods, MRO', priority: 'high', terms: ['raw materials', 'work in process (WIP)', 'finished goods', 'MRO supplies'] },
+        { id: 'm5a2', title: 'Inventory functions', desc: 'Cycle, safety, anticipation, hedge, transportation, decoupling', priority: 'high', terms: ['cycle stock', 'safety stock', 'anticipation inventory', 'hedge inventory', 'decoupling inventory', 'pipeline inventory'] },
+        { id: 'm5a3', title: 'ABC classification', desc: 'Pareto analysis for inventory segmentation', terms: ['ABC classification', 'Pareto analysis'] }
       ]},
-      { group: 'B. Inventory Costs & Accounting', v9group: '→ 9.0 Mod6 Sec B', items: [
-        { id: 'm5b1', title: 'Inventory costs', desc: 'Carrying, ordering, stockout costs', priority: 'high', terms: ['carrying cost', 'ordering cost', 'stockout cost'], v9map: { status: 'same', to: '6.B.T01', note: 'Inventory Costs' } },
-        { id: 'm5b2', title: 'Accounting & costing', desc: 'FIFO, LIFO, average cost, standard cost', priority: 'formula', terms: ['FIFO', 'LIFO', 'average cost'], v9map: { status: 'same', to: '6.B.T02', note: 'Accounting and Costing' } },
-        { id: 'm5b3', title: 'Variance analysis', desc: 'Cost variances, obsolescence, scrap', terms: ['variance analysis', 'obsolescence', 'scrap'], v9map: { status: 'same', to: '6.B.T03', note: 'Variance Analysis' } },
-        { id: 'm5b4', title: 'Financial performance measures', desc: 'Inventory turns, days of supply, GMROI', priority: 'formula', terms: ['inventory turnover', 'days of supply', 'GMROI'], v9map: { status: 'same', to: '6.B.T04', note: 'Financial Performance Measures' } }
+      { group: 'B. Replenishment Systems', items: [
+        { id: 'm5b1', title: 'Push vs pull', desc: 'MRP/DRP vs ROP, min-max, two-bin, kanban', priority: 'high', terms: ['push system', 'pull system', 'reorder point', 'kanban', 'two-bin system'] },
+        { id: 'm5b2', title: 'EOQ & variations', desc: 'Basic EOQ, quantity discounts, production order quantity', caseRef: 'Case 4', priority: 'formula', terms: ['economic order quantity (EOQ)', 'quantity discount'] },
+        { id: 'm5b3', title: 'Safety stock calculation', desc: 'Service level, demand/lead time variability', caseRef: 'Case 5', priority: 'formula', terms: ['safety stock', 'service level', 'safety factor', 'standard deviation'] }
       ]},
-      { group: 'C. Inventory Management', v9group: '→ 9.0 Mod6 Sec C', items: [
-        { id: 'm5c1', title: 'Push or pull replenishment', desc: 'MRP vs ROP, periodic review, kanban', priority: 'high', terms: ['reorder point', 'periodic review', 'kanban', 'min-max'], v9map: { status: 'same', to: '6.C.T01', note: 'Push or Pull Replenishment' } },
-        { id: 'm5c2', title: 'EOQ & lot size rules', desc: 'EOQ formula, LFL, FOQ, POQ', priority: 'formula', terms: ['economic order quantity', 'lot-for-lot', 'fixed order quantity'], v9map: { status: 'same', to: '6.C.T02', note: 'EOQ and Lot Size Rules' } },
-        { id: 'm5c3', title: 'Safety stock & lead time', desc: 'Safety stock calculations, safety lead time', priority: 'formula', terms: ['safety stock', 'safety lead time', 'service level'], v9map: { status: 'same', to: '6.C.T03', note: 'Safety Stock and Safety Lead Time' } },
-        { id: 'm5c4', title: 'Special inventory & MRO', desc: 'Hazardous materials, MRO, special handling', terms: ['MRO', 'hazardous materials', 'special handling'], v9map: { status: 'same', to: '6.C.T04', note: 'Special Inventory and Overhaul Supplies' } }
+      { group: 'C. Inventory Costs', items: [
+        { id: 'm5c1', title: 'Cost components', desc: 'Carrying, ordering, stockout costs', priority: 'high', terms: ['carrying cost', 'ordering cost', 'stockout cost', 'holding cost'] },
+        { id: 'm5c2', title: 'Inventory valuation', desc: 'FIFO, LIFO, average cost', caseRef: 'Case 3', priority: 'formula', terms: ['first in first out (FIFO)', 'last in first out (LIFO)', 'average cost'] },
+        { id: 'm5c3', title: 'Inventory metrics', desc: 'Turns, days of supply, GMROI', caseRef: 'Case 8', priority: 'formula', terms: ['inventory turnover', 'days of supply', 'gross margin return on investment (GMROI)'] }
       ]},
-      { group: 'D. Inventory Control', v9group: '→ 9.0 Mod6 Sec D', items: [
-        { id: 'm5d1', title: 'Inventory storage, flow & handling', desc: 'Stock locations, AS/RS, VMI, material handling', terms: ['stock location', 'AS/RS', 'material handling'], v9map: { status: 'same', to: '6.D.T01', note: 'Inventory Storage, Flow and Handling' } },
-        { id: 'm5d2', title: 'Inventory accuracy', desc: 'Cycle counting, physical inventory, accuracy sources', priority: 'high', terms: ['cycle counting', 'physical inventory', 'inventory accuracy'], v9map: { status: 'same', to: '6.D.T02', note: 'Inventory Accuracy' } }
-      ]},
-      { group: 'E. Returns & Disposition', v9group: '★ MOVED → 9.0 Mod5 Sec E', items: [
-        { id: 'm5e1', title: 'Waste hierarchy', desc: 'Reduce, reuse, recycle, recover, dispose', terms: ['waste hierarchy', 'circular economy'], v9map: { status: 'moved', to: '5.E.T01', note: '★ MOVED to Mod5 Waste Hierarchy' } },
-        { id: 'm5e2', title: 'Reverse logistics & disposition', desc: 'Returns processing, product disposition', terms: ['reverse logistics', 'product disposition'], v9map: { status: 'moved', to: '5.E.T02', note: '★ MOVED to Mod5 Reverse Logistics' } }
+      { group: 'D. Inventory Control', items: [
+        { id: 'm5d1', title: 'Cycle counting', desc: 'ABC-based count frequency', priority: 'high', terms: ['cycle counting', 'physical inventory', 'inventory accuracy'] },
+        { id: 'm5d2', title: 'Traceability', desc: 'Lot control, serial numbers, barcoding, RFID', terms: ['lot control', 'serial number', 'RFID', 'barcode'] }
       ]}
     ]
   },
   {
     id: 'mod6', number: 6, title: 'Detailed Scheduling & Planning', weight: 16, hours: 4, v9: '→ LS 9.0 Module 7 (12%)',
     topics: [
-      { group: 'A. Planning Detailed Schedules', v9group: '→ 9.0 Mod7 Sec A', items: [
-        { id: 'm6a1', title: 'Detailed scheduling & throughput', desc: 'Lead time elements, load calculation, throughput', priority: 'high', terms: ['lead time', 'queue time', 'setup time', 'throughput'], v9map: { status: 'same', to: '7.A.T01', note: 'Detailed Scheduling and Throughput' } },
-        { id: 'm6a2', title: 'Production activity control', desc: 'PAC, dispatching, work sequencing', priority: 'high', terms: ['production activity control', 'dispatch list'], v9map: { status: 'same', to: '7.A.T02', note: 'Production Activity Control' } }
+      { group: 'A. Capacity Planning', items: [
+        { id: 'm6a1', title: 'Capacity types', desc: 'Theoretical, demonstrated, rated, available', caseRef: 'Case 6', priority: 'high', terms: ['theoretical capacity', 'demonstrated capacity', 'rated capacity', 'available capacity'] },
+        { id: 'm6a2', title: 'CRP process', desc: 'Capacity requirements planning from MRP', terms: ['capacity requirements planning (CRP)', 'load profile'] },
+        { id: 'm6a3', title: 'Efficiency & utilization', desc: 'Calculations and relationship', caseRef: 'Case 6', priority: 'formula', terms: ['efficiency', 'utilization', 'productivity'] }
       ]},
-      { group: 'B. Scheduling & PAC Methods', v9group: '→ 9.0 Mod7 Sec B', items: [
-        { id: 'm6b1', title: 'Intermittent flow scheduling', desc: 'Job shop, batch scheduling, dispatching rules', terms: ['job shop', 'dispatching rules', 'priority rules'], v9map: { status: 'same', to: '7.B.T01', note: 'Intermittent Flow Manufacturing Scheduling' } },
-        { id: 'm6b2', title: 'MRP-based scheduling & PAC', desc: 'MRP-driven scheduling, action messages', terms: ['MRP scheduling', 'action message'], v9map: { status: 'same', to: '7.B.T02', note: 'MRP-Based Scheduling and PAC' } },
-        { id: 'm6b3', title: 'Lean environments scheduling', desc: 'Kanban, takt time, level scheduling', priority: 'formula', terms: ['kanban', 'takt time', 'level scheduling', 'heijunka'], v9map: { status: 'same', to: '7.B.T03', note: 'Lean Environments Scheduling and PAC' } },
-        { id: 'm6b4', title: 'TOC scheduling & PAC', desc: 'Drum-buffer-rope, bottleneck management', priority: 'high', terms: ['theory of constraints', 'drum-buffer-rope', 'bottleneck'], v9map: { status: 'same', to: '7.B.T04', note: 'TOC Scheduling and PAC' } },
-        { id: 'm6b5', title: 'Nonstandard demand', desc: 'Samples, tests, prototypes, rework, by-products', terms: ['nonstandard demand', 'rework', 'by-product'], v9map: { status: 'same', to: '7.B.T05', note: 'Nonstandard Demand' } }
+      { group: 'B. Production Scheduling', items: [
+        { id: 'm6b1', title: 'Lead time elements', desc: 'Queue, setup, run, wait, move', caseRef: 'Case 9', priority: 'high', terms: ['lead time', 'queue time', 'setup time', 'run time', 'wait time', 'move time'] },
+        { id: 'm6b2', title: 'Scheduling techniques', desc: 'Forward/backward, finite/infinite loading', terms: ['forward scheduling', 'backward scheduling', 'finite loading', 'infinite loading'] },
+        { id: 'm6b3', title: 'Dispatching rules', desc: 'FCFS, SPT, EDD, CR, slack', caseRef: 'Case 6', priority: 'high', terms: ['dispatching', 'first come first served', 'shortest processing time', 'earliest due date', 'critical ratio', 'slack time'] }
       ]},
-      { group: 'C. Production & Service Schedules', v9group: '→ 9.0 Mod7 Sec C', items: [
-        { id: 'm6c1', title: 'Capacity planning & service capacity', desc: 'Capacity types, service capacity considerations', priority: 'high', terms: ['theoretical capacity', 'demonstrated capacity', 'service capacity'], v9map: { status: 'same', to: '7.C.T01', note: 'Capacity Planning and Service Capacity' } },
-        { id: 'm6c2', title: 'Capacity requirements planning', desc: 'CRP process, load profiles, load balancing', priority: 'formula', terms: ['CRP', 'load profile', 'finite loading'], v9map: { status: 'same', to: '7.C.T02', note: 'Capacity Requirements Planning (CRP)' } }
-      ]},
-      { group: 'D. Managing Schedules', v9group: '→ 9.0 Mod7 Sec D', items: [
-        { id: 'm6d1', title: 'Labor & production scheduling', desc: 'Labor schedules, HR policies, staffing', terms: ['labor scheduling', 'staffing', 'skills matrix'], v9map: { status: 'same', to: '7.D.T01', note: 'Labor, Production Scheduling and Managing HR' } },
-        { id: 'm6d2', title: 'Execution & capacity performance', desc: 'I/O control, queue management, performance', priority: 'high', terms: ['input/output control', 'queue management', 'backflush'], v9map: { status: 'same', to: '7.D.T02', note: 'Execution and Capacity Performance' } }
+      { group: 'C. Execution & Control', items: [
+        { id: 'm6c1', title: 'Input/output control', desc: 'Manage WIP and queue lengths', priority: 'high', terms: ['input/output control', 'work in process', 'queue management'] },
+        { id: 'm6c2', title: 'Bottleneck management', desc: 'TOC principles, drum-buffer-rope', priority: 'high', terms: ['theory of constraints (TOC)', 'bottleneck', 'drum-buffer-rope', 'constraint'] },
+        { id: 'm6c3', title: 'Pull systems', desc: 'Kanban calculations, takt time, line balancing', caseRef: 'Case 9', priority: 'formula', terms: ['kanban', 'takt time', 'cycle time', 'line balancing'] }
       ]}
     ]
   },
   {
     id: 'mod7', number: 7, title: 'Distribution Management', weight: 5, hours: 1.5, v9: '→ LS 9.0 Module 8 (8%)',
     topics: [
-      { group: 'A. Planning Distribution', v9group: '→ 9.0 Mod8 Sec A', items: [
-        { id: 'm7a1', title: 'Distribution & inventory planning', desc: 'Inventory positioning in distribution networks', terms: ['distribution planning', 'inventory positioning'], v9map: { status: 'same', to: '8.A.T01', note: 'Distribution and Inventory Planning' } },
-        { id: 'm7a2', title: 'Network configuration', desc: 'Centralized vs decentralized, DC locations', terms: ['network configuration', 'distribution center'], v9map: { status: 'same', to: '8.A.T02', note: 'Network Configuration' } },
-        { id: 'm7a3', title: 'Network design/redesign', desc: 'Design logistics network', terms: ['logistics network', 'network design'], v9map: { status: 'same', to: '8.A.T03', note: 'Design or Redesign a Logistics Network' } },
-        { id: 'm7a4', title: 'Transportation requirements', desc: 'Modes, 3PL/4PL, intermodal', terms: ['transportation mode', '3PL', '4PL', 'intermodal'], v9map: { status: 'same', to: '8.A.T04', note: 'Evaluate Network and Transportation Requirements' } },
-        { id: 'm7a5', title: 'Facility requirements', desc: 'Warehouse, cross-docking, layout', terms: ['warehouse', 'cross-docking'], v9map: { status: 'same', to: '8.A.T05', note: 'Evaluate Facility Requirements' } },
-        { id: 'm7a6', title: 'Facility decisions', desc: 'Number, type, location of facilities', terms: ['facility location', 'DC location'], v9map: { status: 'same', to: '8.A.T06', note: 'Make Facility Number, Type and Location Decisions' } },
-        { id: 'm7a7', title: 'Network modeling', desc: 'Modeling approaches for network design', terms: ['network modeling', 'optimization'], v9map: { status: 'same', to: '8.A.T07', note: 'Network Modeling Approaches' } },
-        { id: 'm7a8', title: 'Distribution plans', desc: 'Develop distribution plans to support S&OP', terms: ['distribution plan', 'S&OP'], v9map: { status: 'same', to: '8.A.T08', note: 'Distribution Plans' } }
+      { group: 'A. Distribution Planning', items: [
+        { id: 'm7a1', title: 'DRP logic', desc: 'Time-phased planning for distribution networks', priority: 'high', terms: ['distribution requirements planning (DRP)', 'time-phased planning'] },
+        { id: 'm7a2', title: 'Network design', desc: 'Centralized vs decentralized, number of DCs', terms: ['distribution network', 'distribution center'] }
       ]},
-      { group: 'B. Replenishment', v9group: '→ 9.0 Mod8 Sec B', items: [
-        { id: 'm7b1', title: 'Replenishment planning', desc: 'SKU-level replenishment parameters', terms: ['replenishment planning', 'SKU'], v9map: { status: 'same', to: '8.B.T01', note: 'Replenishment Planning' } },
-        { id: 'm7b2', title: 'Distribution requirements planning', desc: 'DRP time-phased planning logic', priority: 'high', terms: ['DRP', 'time-phased planning'], v9map: { status: 'same', to: '8.B.T02', note: 'Distribution Requirements Planning' } }
-      ]},
-      { group: 'C. Order Mgmt & Traceability', v9group: '→ 9.0 Mod8 Sec C', items: [
-        { id: 'm7c1', title: 'Customer order management', desc: 'Backlog, backorders, on-time delivery', terms: ['customer order', 'backlog', 'backorder'], v9map: { status: 'same', to: '8.C.T01', note: 'Customer Order Management' } },
-        { id: 'm7c2', title: 'Inventory traceability & tracking', desc: 'ASN, lot control, RFID, IoT', terms: ['traceability', 'ASN', 'RFID', 'IoT'], v9map: { status: 'same', to: '8.C.T02', note: 'Inventory Traceability and Tracking' } },
-        { id: 'm7c3', title: 'Distribution KPIs', desc: 'Service level, lead time, turns, stockouts', priority: 'high', terms: ['distribution KPI', 'service level'], v9map: { status: 'same', to: '8.C.T03', note: 'Distribution Performance KPIs' } }
+      { group: 'B. Logistics', items: [
+        { id: 'm7b1', title: 'Transportation modes', desc: 'Rail, truck, air, water, intermodal, pipeline', terms: ['transportation mode', 'intermodal', 'full truckload (FTL)', 'less-than-truckload (LTL)'] },
+        { id: 'm7b2', title: '3PL/4PL', desc: 'Outsourced logistics services', terms: ['third-party logistics (3PL)', 'fourth-party logistics (4PL)'] },
+        { id: 'm7b3', title: 'Warehousing', desc: 'Cross-docking, flow-through, postponement', terms: ['cross-docking', 'warehousing', 'postponement'] }
       ]}
     ]
   },
   {
     id: 'mod8', number: 8, title: 'Quality, CI & Technology', weight: 11, hours: 2.5, v9: '→ LS 9.0 Module 9 (9%)',
     topics: [
-      { group: 'A. Quality', v9group: '→ 9.0 Mod9 Sec A', items: [
-        { id: 'm8a1', title: 'Quality planning & control', desc: 'Quality assurance, quality control processes', terms: ['quality assurance', 'quality control'], v9map: { status: 'same', to: '9.A.T01', note: 'Quality Planning and Assurance Control' } },
-        { id: 'm8a2', title: 'Measuring quality costs', desc: 'Prevention, appraisal, internal/external failure', terms: ['cost of quality', 'prevention cost', 'appraisal cost'], v9map: { status: 'same', to: '9.A.T02', note: 'Measuring Quality Costs' } },
-        { id: 'm8a3', title: 'Quality tools', desc: 'Seven tools of quality, root cause analysis', priority: 'high', terms: ['seven tools of quality', 'Pareto', 'fishbone', 'root cause'], v9map: { status: 'same', to: '9.A.T03', note: 'Quality Tools' } }
+      { group: 'A. Quality Management', items: [
+        { id: 'm8a1', title: 'Seven quality tools', desc: 'Pareto, fishbone, histogram, control chart, scatter, check sheet, flowchart', priority: 'high', terms: ['seven tools of quality', 'Pareto chart', 'cause-and-effect diagram', 'histogram', 'control chart'] },
+        { id: 'm8a2', title: 'Cost of quality', desc: 'Prevention, appraisal, internal failure, external failure', terms: ['cost of quality', 'prevention cost', 'appraisal cost', 'failure cost'] }
       ]},
-      { group: 'B. Capital Equipment & Facilities', v9group: '→ 9.0 Mod9 Sec B', items: [
-        { id: 'm8b1', title: 'Business planning & capital budgeting', desc: 'Capital investments, ROI, payback', terms: ['capital budgeting', 'ROI', 'payback period'], v9map: { status: 'same', to: '9.B.T01', note: 'Business Planning and Capital Budgeting' } },
-        { id: 'm8b2', title: 'TPM and HSE', desc: 'Total productive maintenance, health/safety/environment', priority: 'high', terms: ['TPM', 'OEE', 'HSE'], v9map: { status: 'same', to: '9.B.T02', note: 'Total Productive Maintenance and HSE' } }
+      { group: 'B. Continuous Improvement', items: [
+        { id: 'm8b1', title: 'Lean principles', desc: 'Value, value stream, flow, pull, perfection', priority: 'high', terms: ['lean manufacturing', 'value stream', 'waste', 'muda'] },
+        { id: 'm8b2', title: 'Lean tools', desc: '5S, kaizen, VSM, SMED, TPM, poka-yoke', priority: 'high', terms: ['5S', 'kaizen', 'value stream mapping', 'single-minute exchange of die (SMED)', 'total productive maintenance (TPM)', 'poka-yoke'] },
+        { id: 'm8b3', title: 'Six Sigma', desc: 'DMAIC, statistical process control, variation', caseRef: 'Case 11', priority: 'high', terms: ['Six Sigma', 'DMAIC', 'statistical process control (SPC)', 'common cause variation', 'special cause variation'] }
       ]},
-      { group: 'C. Technology', v9group: '→ 9.0 Mod9 Sec C', items: [
-        { id: 'm8c1', title: 'Requirements & gap analysis', desc: 'Current state, ideal state, gap identification', terms: ['gap analysis', 'requirements'], v9map: { status: 'same', to: '9.C.T01', note: 'Requirements, Gap Analysis, Selection' } },
-        { id: 'm8c2', title: 'Implementing & maintaining tech', desc: 'Technology implementation, maintenance, data integrity', terms: ['implementation', 'master data'], v9map: { status: 'same', to: '9.C.T02', note: 'Implementing and Maintaining Technologies' } },
-        { id: 'm8c3', title: 'Emerging technologies', desc: 'AI, IoT, 3D printing, RPA, blockchain', terms: ['AI', 'IoT', 'additive manufacturing', 'RPA'], v9map: { status: 'same', to: '9.C.T03', note: 'Technologies' } }
-      ]},
-      { group: 'D. Continuous Improvement', v9group: '→ 9.0 Mod9 Sec D', items: [
-        { id: 'm8d1', title: 'CI strategies', desc: 'Kaizen, waste reduction, throughput improvement', terms: ['continuous improvement', 'kaizen'], v9map: { status: 'same', to: '9.D.T01', note: 'Continuous Improvement Strategies' } },
-        { id: 'm8d2', title: 'Lean', desc: 'Pull systems, kanban, SMED, 5S, VSM', priority: 'high', terms: ['lean', 'kanban', 'SMED', '5S', 'value stream mapping'], v9map: { status: 'same', to: '9.D.T02', note: 'Lean' } },
-        { id: 'm8d3', title: 'Employee empowerment', desc: 'Team involvement, empowerment', terms: ['empowerment', 'team'], v9map: { status: 'same', to: '9.D.T03', note: 'Employee Empowerment' } },
-        { id: 'm8d4', title: 'Relationship improvement tools', desc: 'VOC, supplier audit/certification', terms: ['VOC', 'supplier certification'], v9map: { status: 'same', to: '9.D.T04', note: 'Relationship Improvement Tools' } },
-        { id: 'm8d5', title: 'Structured problem solving', desc: 'PDCA, DMAIC, Six Sigma', priority: 'high', terms: ['PDCA', 'DMAIC', 'Six Sigma'], v9map: { status: 'same', to: '9.D.T05', note: 'Structured Problem Solving Tools' } },
-        { id: 'm8d6', title: 'Additional process improvement', desc: 'A3 method, gemba walk, benchmarking', terms: ['A3', 'gemba walk', 'benchmarking'], v9map: { status: 'same', to: '9.D.T06', note: 'Additional Process Improvement Tools' } },
-        { id: 'm8d7', title: 'Work area design', desc: '5S, visual management, andon, layouts', terms: ['5S', 'visual management', 'andon'], v9map: { status: 'same', to: '9.D.T07', note: 'Work Area Design' } },
-        { id: 'm8d8', title: 'Process variation', desc: 'SPC, control charts, capability', priority: 'formula', terms: ['SPC', 'control chart', 'process capability'], v9map: { status: 'same', to: '9.D.T08', note: 'Process Variation' } }
+      { group: 'C. Technology', items: [
+        { id: 'm8c1', title: 'ERP systems', desc: 'Integrated planning and control', terms: ['enterprise resources planning (ERP)', 'manufacturing execution system (MES)'] },
+        { id: 'm8c2', title: 'Emerging tech', desc: 'IoT, AI, blockchain, additive manufacturing', terms: ['Internet of Things (IoT)', 'artificial intelligence (AI)', 'blockchain', 'additive manufacturing'] }
       ]}
     ]
   }
@@ -885,6 +773,33 @@ const allModules = [
 
 // Practice modules (always at end)
 const practiceModules = [
+  {
+    id: 'casestudies', number: '📊', title: 'Case Study Exercises (Excel Workbook)', weight: 'PRACTICE', hours: 6,
+    topics: [
+      { group: 'Inventory Management Cases', items: [
+        { id: 'cs1', title: 'Case 1: MRP Multi-Level BOM', desc: 'Complete MRP records for 3-level BOM with different lot sizes', terms: ['MRP', 'PAB', 'planned order release'] },
+        { id: 'cs4', title: 'Case 4: EOQ with Constraints', desc: 'Calculate EOQ, analyze sensitivity, handle real-world constraints', terms: ['EOQ', 'ordering cost', 'holding cost'] },
+        { id: 'cs5', title: 'Case 5: Safety Stock Calculation', desc: 'Compare demand-only, LT-only, and combined variability formulas', terms: ['safety stock', 'service level', 'Z-factor'] },
+        { id: 'cs3', title: 'Case 3: Inventory Valuation', desc: 'FIFO vs LIFO vs Weighted Average costing methods', terms: ['FIFO', 'LIFO', 'COGS'] },
+        { id: 'cs8', title: 'Case 8: Inventory Performance', desc: 'Calculate turns, days of supply, carrying cost %', terms: ['inventory turns', 'days of supply'] }
+      ]},
+      { group: 'Planning & Scheduling Cases', items: [
+        { id: 'cs2', title: 'Case 2: ATP Methods', desc: 'Discrete vs Cumulative ATP calculation and order promising', terms: ['ATP', 'MPS', 'customer orders'] },
+        { id: 'cs13', title: 'Case 13: S&OP Production Planning', desc: 'Level vs Chase vs Hybrid strategies with full cost analysis', terms: ['level production', 'chase', 'hybrid', 'S&OP'] },
+        { id: 'cs14', title: 'Case 14: RCCP & Resource Load', desc: 'Bill of resources, load calculation, constraint identification', terms: ['RCCP', 'load %', 'demonstrated capacity'] },
+        { id: 'cs6', title: 'Case 6: Capacity & Critical Ratio', desc: 'Demonstrated capacity, job prioritization, CR dispatch rule', terms: ['capacity', 'efficiency', 'utilization', 'critical ratio'] },
+        { id: 'cs9', title: 'Case 9: Lean Scheduling', desc: 'Takt time, cycle time, throughput time, work center load', terms: ['takt time', 'cycle time', 'throughput time'] }
+      ]},
+      { group: 'Forecasting & Quality Cases', items: [
+        { id: 'cs10', title: 'Case 10: Forecasting Methods', desc: 'SMA, WMA, Exponential Smoothing comparison with MAD', terms: ['SMA', 'WMA', 'exponential smoothing'] },
+        { id: 'cs7', title: 'Case 7: Forecast Error Metrics', desc: 'Calculate MAD, MAPE, Bias, Tracking Signal', terms: ['MAD', 'MAPE', 'tracking signal'] },
+        { id: 'cs11', title: 'Case 11: Quality & Process Capability', desc: 'Cp, Cpk calculation and OEE analysis', terms: ['Cp', 'Cpk', 'OEE'] }
+      ]},
+      { group: 'Financial KPIs', items: [
+        { id: 'cs12', title: 'Case 12: Strategic Financial KPIs', desc: 'Cash-to-Cash cycle, liquidity ratios, profitability metrics', terms: ['C2C', 'current ratio', 'debt ratio', 'profit margin'] }
+      ]}
+    ]
+  },
   {
     id: 'practice1', number: '★', title: 'Practice Exam', weight: 'DRILL', hours: 4,
     topics: [
@@ -942,8 +857,6 @@ let state = {};
 let openNotes = new Set();
 let studyPeriods = 10;
 let timeUnit = 'day';
-let viewMode = 'list';
-let currentSlide = 0;
 
 const TIME_UNIT_LABELS = {
   day: { singular: 'Day', plural: 'Days', abbrev: 'DAY', perLabel: 'day' },
@@ -1123,7 +1036,6 @@ function renderMain() {
   const studyPlan = generateStudyPlan(studyPeriods);
   const unit = TIME_UNIT_LABELS[timeUnit];
   const main = document.getElementById('mainContent');
-  const isCarousel = viewMode === 'carousel';
   
   let html = `<div class="exam-info"><h3>📋 CPIM 8.0 Exam Overview</h3>
     <div class="exam-info-grid">
@@ -1149,41 +1061,14 @@ function renderMain() {
           <button class="preset-btn ${studyPeriods===14?'active':''}" data-periods="14" onclick="setDuration(14)">14</button>
           <button class="preset-btn ${studyPeriods===21?'active':''}" data-periods="21" onclick="setDuration(21)">21</button>
         </div>
-        <div class="view-toggle">
-          <button class="view-btn ${viewMode==='list'?'active':''}" onclick="setViewMode('list')" title="List view - See all days">☰ List</button>
-          <button class="view-btn ${viewMode==='carousel'?'active':''}" onclick="setViewMode('carousel')" title="Carousel view - One day at a time">◀▶ Flip</button>
-        </div>
       </div>
       <div class="duration-summary" id="durationSummary"><span><strong>${TOTAL_STUDY_HOURS.toFixed(1)}</strong> total hours</span><span><strong>${(TOTAL_STUDY_HOURS / studyPeriods).toFixed(1)}</strong> hrs/${unit.perLabel}</span><span><strong>8</strong> modules + practice</span></div>
     </div>
-    <div class="version-note"><strong>Note:</strong> CPIM 8.0 is current until May 31, 2026. CPIM 9.0 becomes effective June 1, 2026. Each topic shows its 9.0 ECM mapping below.</div>
-    <div class="v9-legend">
-      <strong style="margin-right:8px">9.0 Mapping:</strong>
-      <div class="v9-legend-item"><span class="v9-status same">SAME</span> Unchanged</div>
-      <div class="v9-legend-item"><span class="v9-status enhanced">ENHANCED</span> Content added</div>
-      <div class="v9-legend-item"><span class="v9-status moved">MOVED</span> Different module</div>
-      <div class="v9-legend-item"><span class="v9-status new">NEW</span> Study for 9.0!</div>
-      <div class="v9-legend-item"><span class="v9-status removed">REMOVED</span> Not in 9.0</div>
-    </div>
+    <div class="version-note"><strong>Note:</strong> CPIM 8.0 is current until May 31, 2026. CPIM 9.0 becomes effective June 1, 2026. Each module shows its 9.0 Learning System mapping.</div>
   </div>`;
   
-  if (isCarousel) {
-    html += `<div class="carousel-nav">
-      <button class="carousel-nav-btn" onclick="carouselPrev()" ${currentSlide === 0 ? 'disabled' : ''}>◀</button>
-      <div class="carousel-indicator">
-        <span class="carousel-label">${unit.singular} ${currentSlide + 1} of ${studyPlan.length}</span>
-        <div class="carousel-dots">${studyPlan.map((_, i) => `<div class="carousel-dot ${i === currentSlide ? 'active' : ''}" onclick="goToSlide(${i})"></div>`).join('')}</div>
-      </div>
-      <button class="carousel-nav-btn" onclick="carouselNext()" ${currentSlide === studyPlan.length - 1 ? 'disabled' : ''}>▶</button>
-    </div>
-    <div class="carousel-swipe-hint">👆 Swipe left/right to navigate</div>`;
-  }
-  
-  html += `<div class="carousel-container" id="carouselContainer">`;
-  
-  studyPlan.forEach((p, idx) => {
-    const slideClass = isCarousel ? `carousel-slide ${idx === currentSlide ? 'active' : ''}` : 'carousel-slide active';
-    html += `<div id="${p.id}" class="${slideClass}" data-slide="${idx}"><div class="day-header" data-day="${((p.period - 1) % 14) + 1}"><div class="day-number">${unit.singular.charAt(0)}${p.period}</div><div class="day-info"><h2>${p.title}</h2><p>${p.focus}</p></div><div class="day-hours">${p.hours} hrs</div></div>`;
+  studyPlan.forEach(p => {
+    html += `<div id="${p.id}"><div class="day-header" data-day="${((p.period - 1) % 14) + 1}"><div class="day-number">${unit.singular.charAt(0)}${p.period}</div><div class="day-info"><h2>${p.title}</h2><p>${p.focus}</p></div><div class="day-hours">${p.hours} hrs</div></div>`;
     p.modules.forEach(mod => {
       const allItems = []; mod.topics.forEach(t => t.items.forEach(i => allItems.push(i.id)));
       const done = allItems.filter(id => isChecked(id)).length, total = allItems.length;
@@ -1201,25 +1086,13 @@ function renderMain() {
         </div><div class="module-body">`;
       
       mod.topics.forEach(topic => {
-        const groupV9 = topic.v9group ? `<span class="topic-group-v9-summary">${topic.v9group}</span>` : '';
-        html += `<div class="topic-group"><div class="topic-group-title">${topic.group} ${groupV9}</div>`;
+        html += `<div class="topic-group"><div class="topic-group-title">${topic.group}</div>`;
         topic.items.forEach(item => {
           const checked = isChecked(item.id), noteText = getNote(item.id), noteExists = !!noteText, noteOpen = openNotes.has(item.id);
           const escapedNote = (noteText || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
           let tag = item.priority === 'high' ? '<span class="tag high">HIGH</span>' : item.priority === 'medium' ? '<span class="tag medium">MEDIUM</span>' : item.priority === 'formula' ? '<span class="tag formula">FORMULA</span>' : '';
+          if (item.caseRef) tag += '<span class="tag case">📊 ' + item.caseRef + '</span>';
           let termsHtml = item.terms?.length ? `<div class="key-terms"><div class="key-terms-label">Key Terms</div><div class="key-terms-list">${item.terms.map(t => `<span class="term">${t}</span>`).join('')}</div></div>` : '';
-          
-          // V9 mapping display
-          let v9Html = '';
-          if (item.v9map) {
-            const m = item.v9map;
-            const statusClass = m.status || 'same';
-            const statusLabels = { same: 'SAME', moved: 'MOVED', enhanced: 'ENHANCED', new: 'NEW', removed: 'REMOVED', split: 'SPLIT' };
-            const statusLabel = statusLabels[statusClass] || statusClass.toUpperCase();
-            const toText = m.to ? `→ ${m.to}` : '';
-            const noteText = m.note ? `<span class="v9-note">${m.note}</span>` : '';
-            v9Html = `<div class="v9-mapping"><span class="v9-status ${statusClass}">${statusLabel}</span><span class="v9-arrow">${toText}</span>${noteText}</div>`;
-          }
           
           html += `<div class="step"><div class="step-check ${checked ? 'checked' : ''} ${noteExists ? 'has-note' : ''}" onclick="toggleCheck('${item.id}')">✓</div>
             <div class="step-content ${checked ? 'checked-text' : ''}">
@@ -1228,7 +1101,7 @@ function renderMain() {
               <div class="note-area ${noteOpen ? 'open' : ''}" id="note_area_${item.id}">
                 <textarea id="note_ta_${item.id}" placeholder="Add your notes here…" oninput="saveNote('${item.id}')">${escapedNote}</textarea>
                 <div class="note-saved" id="note_saved_${item.id}">✓ Saved</div></div>
-              <div class="step-desc">${item.desc}</div>${termsHtml}${v9Html}
+              <div class="step-desc">${item.desc}</div>${termsHtml}
             </div></div>`;
         });
         html += '</div>';
@@ -1237,11 +1110,7 @@ function renderMain() {
     });
     html += '</div>';
   });
-  html += '</div>';
   main.innerHTML = html;
-  document.body.classList.toggle('carousel-view', isCarousel);
-  document.body.classList.toggle('list-view', !isCarousel);
-  if (isCarousel) setupSwipeGestures();
 }
 
 function updateProgress() {
@@ -1302,86 +1171,6 @@ function importProgress(e) {
   reader.readAsText(file);
 }
 
-// ========== CAROUSEL ==========
-function setViewMode(mode) {
-  viewMode = mode;
-  localStorage.setItem('cpim8_viewmode', mode);
-  if (mode === 'carousel') currentSlide = 0;
-  updateUI();
-}
-
-function carouselNext() {
-  const studyPlan = generateStudyPlan(studyPeriods);
-  if (currentSlide < studyPlan.length - 1) {
-    currentSlide++;
-    updateCarouselView();
-  }
-}
-
-function carouselPrev() {
-  if (currentSlide > 0) {
-    currentSlide--;
-    updateCarouselView(true);
-  }
-}
-
-function goToSlide(idx) {
-  const studyPlan = generateStudyPlan(studyPeriods);
-  if (idx >= 0 && idx < studyPlan.length) {
-    const reverse = idx < currentSlide;
-    currentSlide = idx;
-    updateCarouselView(reverse);
-  }
-}
-
-function updateCarouselView(reverse = false) {
-  const studyPlan = generateStudyPlan(studyPeriods);
-  const unit = TIME_UNIT_LABELS[timeUnit];
-  const slides = document.querySelectorAll('.carousel-slide');
-  slides.forEach((slide, i) => {
-    slide.classList.remove('active', 'slide-reverse');
-    if (i === currentSlide) {
-      slide.classList.add('active');
-      if (reverse) slide.classList.add('slide-reverse');
-    }
-  });
-  const dots = document.querySelectorAll('.carousel-dot');
-  dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
-  const label = document.querySelector('.carousel-label');
-  if (label) label.textContent = `${unit.singular} ${currentSlide + 1} of ${studyPlan.length}`;
-  const prevBtn = document.querySelector('.carousel-nav-btn:first-child');
-  const nextBtn = document.querySelector('.carousel-nav-btn:last-child');
-  if (prevBtn) prevBtn.disabled = currentSlide === 0;
-  if (nextBtn) nextBtn.disabled = currentSlide === studyPlan.length - 1;
-}
-
-function setupSwipeGestures() {
-  const container = document.getElementById('carouselContainer');
-  if (!container) return;
-  let startX = 0, startY = 0, distX = 0, distY = 0;
-  const threshold = 50;
-  container.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  }, { passive: true });
-  container.addEventListener('touchmove', e => {
-    distX = e.touches[0].clientX - startX;
-    distY = e.touches[0].clientY - startY;
-  }, { passive: true });
-  container.addEventListener('touchend', () => {
-    if (Math.abs(distX) > Math.abs(distY) && Math.abs(distX) > threshold) {
-      if (distX > 0) carouselPrev();
-      else carouselNext();
-    }
-    distX = 0; distY = 0;
-  });
-}
-
-function loadViewMode() {
-  const saved = localStorage.getItem('cpim8_viewmode');
-  if (saved && (saved === 'list' || saved === 'carousel')) viewMode = saved;
-}
-
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
 function toggleTheme() {
   const html = document.documentElement, current = html.getAttribute('data-theme');
@@ -1428,7 +1217,6 @@ function initApp() {
 
 loadTheme();
 loadFontSize();
-loadViewMode();
 </script>
 </body>
 </html>
