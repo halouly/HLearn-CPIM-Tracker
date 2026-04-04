@@ -638,39 +638,46 @@ const allModules = [
   {
     id: 'mod1', number: 1, title: 'Align Supply Chain to Business Strategy', weight: 15, hours: 3.5, v9: '→ LS 9.0 Module 1 (12%)',
     topics: [
-      { group: 'A. Business Environment & Corporate Strategy', v9group: '9.0: I.A — minor changes', items: [
-        { id: 'm1a1', title: 'External environment scanning', desc: 'Industry analysis, competitive landscape', terms: ['benchmarking', 'industry standards'], v9map: { status: 'removed', note: 'Absorbed into competitive analysis I.A.3' } },
-        { id: 'm1a2', title: 'Five-force model analysis', desc: "Porter's framework: suppliers, buyers, substitutes, new entrants, rivalry", priority: 'medium', terms: ['five forces', 'competitive analysis'], v9map: { status: 'same', to: 'I.A.3', note: 'Now includes SWOT explicitly' } },
-        { id: 'm1a3', title: 'SWOT analysis', desc: 'Strengths, Weaknesses, Opportunities, Threats', terms: ['SWOT', 'strategic planning'], v9map: { status: 'same', to: 'I.A.3', note: 'Merged with competitive analysis' } },
+      { group: 'A. Business Environment & Corporate Strategy', v9group: '9.0: I.A + I.B.1', items: [
+        { id: 'm1a1', title: 'External environment scanning', desc: 'Industry analysis, competitive landscape', terms: ['benchmarking', 'industry standards'], v9map: { status: 'moved', to: 'I.B.1', note: 'Now part of operations strategy (core competencies, resources)' } },
+        { id: 'm1a2', title: 'Five-force model analysis', desc: "Porter's framework: suppliers, buyers, substitutes, new entrants, rivalry", priority: 'medium', terms: ['five forces', 'competitive analysis'], v9map: { status: 'same', to: 'I.A.3', note: 'Combined with SWOT, benchmarking' } },
+        { id: 'm1a3', title: 'SWOT analysis', desc: 'Strengths, Weaknesses, Opportunities, Threats', terms: ['SWOT', 'strategic planning'], v9map: { status: 'same', to: 'I.A.3', note: 'Combined with five-force, benchmarking' } },
         { id: 'm1a4', title: 'Value chain analysis', desc: 'Identify activities that create customer value', terms: ['value chain', 'core competency'], v9map: { status: 'same', to: 'I.A.4' } },
-        { id: 'm1a5', title: 'Order winners vs qualifiers', desc: 'What wins orders vs minimum requirements', priority: 'high', terms: ['order winner', 'order qualifier', 'competitive priority'], v9map: { status: 'same', to: 'I.A.2', note: 'Merged with competitive priorities' } },
-        { id: 'm1a6', title: 'Competitive priorities', desc: 'Cost, quality, delivery, flexibility, availability', terms: ['competitive priority', 'trade-off'], v9map: { status: 'enhanced', to: 'I.A.2', note: 'Added reliability, responsiveness, agility' } }
+        { id: 'm1a5', title: 'Order winners vs qualifiers', desc: 'What wins orders vs minimum requirements', priority: 'high', terms: ['order winner', 'order qualifier', 'competitive priority'], v9map: { status: 'same', to: 'I.A.2', note: 'Combined with competitive priorities' } },
+        { id: 'm1a6', title: 'Competitive priorities', desc: 'Cost, quality, delivery, flexibility, availability', terms: ['competitive priority', 'trade-off'], v9map: { status: 'enhanced', to: 'I.A.2', note: '★ Added reliability, responsiveness, agility' } },
+        { id: 'm1a7', title: 'Mission, vision, values', desc: 'Corporate mission statement and values alignment', terms: ['mission', 'vision', 'values'], v9map: { status: 'same', to: 'I.A.1', note: 'Now "Support" instead of "Define"' } }
       ]},
-      { group: 'B. Functional & Operational Strategies', v9group: '9.0: I.B + some moved to IV.A', items: [
-        { id: 'm1b1', title: 'Make-buy analysis', desc: 'Cost, capacity, quality, strategic considerations', terms: ['make-or-buy decision', 'outsourcing', 'insourcing'], v9map: { status: 'enhanced', to: 'I.B.3', note: 'Added inventory levels & risk' } },
-        { id: 'm1b2', title: 'Production strategies', desc: 'Chase, level, hybrid, subcontracting', priority: 'high', terms: ['chase strategy', 'level strategy', 'hybrid strategy'], v9map: { status: 'moved', to: 'IV.A.7.e', note: 'Now in Master Scheduling with capacity strategies' } },
-        { id: 'm1b3', title: 'Capacity strategies', desc: 'Lead vs lag capacity', terms: ['capacity strategy', 'lead capacity strategy', 'lag capacity strategy'], v9map: { status: 'moved', to: 'IV.A.7.e', note: 'Combined with production strategies' } },
-        { id: 'm1b4', title: 'Manufacturing environments', desc: 'MTS, ATO/CTO, MTO, ETO — know the push-pull boundary', priority: 'high', terms: ['make-to-stock', 'assemble-to-order', 'make-to-order', 'engineer-to-order', 'decoupling point'], v9map: { status: 'enhanced', to: 'I.A.5', note: 'Added postponement, remanufacturing' } }
+      { group: 'B. Functional & Operational Strategies', v9group: '9.0: I.A.5 + I.B + IV.A.7.e', items: [
+        { id: 'm1b1', title: 'Make-buy analysis', desc: 'Cost, capacity, quality, strategic considerations', terms: ['make-or-buy decision', 'outsourcing', 'insourcing'], v9map: { status: 'enhanced', to: 'I.B.3', note: '★ Added inventory levels & risk' } },
+        { id: 'm1b2', title: 'Production strategies', desc: 'Chase, level, hybrid, subcontracting', priority: 'high', terms: ['chase strategy', 'level strategy', 'hybrid strategy'], v9map: { status: 'moved', to: 'IV.A.7.e', note: '★ MOVED to Master Scheduling with capacity strategies' } },
+        { id: 'm1b3', title: 'Capacity strategies', desc: 'Lead vs lag capacity', terms: ['capacity strategy', 'lead capacity strategy', 'lag capacity strategy'], v9map: { status: 'moved', to: 'IV.A.7.e', note: '★ MOVED to Master Scheduling' } },
+        { id: 'm1b4', title: 'Manufacturing environments', desc: 'MTS, ATO/CTO, MTO, ETO — know the push-pull boundary', priority: 'high', terms: ['make-to-stock', 'assemble-to-order', 'make-to-order', 'engineer-to-order', 'decoupling point'], v9map: { status: 'enhanced', to: 'I.A.5', note: '★ Added postponement, remanufacturing' } },
+        { id: 'm1b5', title: 'Technology choices', desc: 'Automation, ERP, advanced planning, AI', terms: ['automation', 'ERP', 'artificial intelligence'], v9map: { status: 'enhanced', to: 'I.B.2', note: '★ Added ERP, AI explicitly' } }
       ]},
-      { group: 'C. Process Design & Layout', v9group: '9.0: I.C — identical', items: [
+      { group: 'C. Process Design & Layout', v9group: '9.0: I.C — minor additions', items: [
         { id: 'm1c1', title: 'Product-process matrix', desc: 'Project, job shop, batch, line, continuous flow', terms: ['product-process matrix', 'job shop', 'batch', 'continuous flow', 'repetitive manufacturing'], v9map: { status: 'same', to: 'I.C.1' } },
-        { id: 'm1c2', title: 'Layout types', desc: 'Fixed position, process/functional, cellular, assembly line', terms: ['fixed-position layout', 'process layout', 'product layout', 'cellular manufacturing', 'group technology'], v9map: { status: 'enhanced', to: 'I.C.3', note: 'Added front room, back room' } },
-        { id: 'm1c3', title: 'Product life cycle alignment', desc: 'Match process choices to life cycle stage', terms: ['product life cycle', 'introduction', 'growth', 'maturity', 'decline'], v9map: { status: 'same', to: 'I.C.4' } }
+        { id: 'm1c2', title: 'Layout types', desc: 'Fixed position, process/functional, cellular, assembly line', terms: ['fixed-position layout', 'process layout', 'product layout', 'cellular manufacturing', 'group technology'], v9map: { status: 'enhanced', to: 'I.C.3', note: '★ Added front room, back room' } },
+        { id: 'm1c3', title: 'Service trade-offs', desc: 'Degree of contact, sales opportunity, efficiency', terms: ['service operations', 'customer contact'], v9map: { status: 'same', to: 'I.C.2' } },
+        { id: 'm1c4', title: 'Product life cycle alignment', desc: 'Match process choices to life cycle stage', terms: ['product life cycle', 'introduction', 'growth', 'maturity', 'decline'], v9map: { status: 'same', to: 'I.C.4' } }
       ]},
       { group: 'D. KPIs & Performance', v9group: '9.0: I.D — enhanced metrics', items: [
-        { id: 'm1d1', title: 'Financial metrics', desc: 'Cash-to-cash cycle, cash conversion cycle, cash flow', terms: ['cash-to-cash cycle time', 'cash flow', 'working capital'], v9map: { status: 'enhanced', to: 'I.D.1', note: 'Added cost per unit' } },
-        { id: 'm1d2', title: 'Operational metrics', desc: 'Service levels, fill rate, stockout %', terms: ['customer service level', 'fill rate', 'stockout'], v9map: { status: 'enhanced', to: 'I.D.2', note: 'Added schedule adherence' } },
-        { id: 'm1d3', title: 'Balanced scorecard', desc: 'Financial, customer, internal, learning perspectives', terms: ['balanced scorecard', 'key performance indicator (KPI)'], v9map: { status: 'same', to: 'I.D.3', note: 'Added improvement initiatives focus' } }
+        { id: 'm1d1', title: 'Financial metrics', desc: 'Cash-to-cash cycle, cash conversion cycle, cash flow', terms: ['cash-to-cash cycle time', 'cash flow', 'working capital'], v9map: { status: 'enhanced', to: 'I.D.1', note: '★ Added cost per unit' } },
+        { id: 'm1d2', title: 'Operational metrics', desc: 'Service levels, fill rate, stockout %', terms: ['customer service level', 'fill rate', 'stockout'], v9map: { status: 'enhanced', to: 'I.D.2', note: '★ Added schedule adherence' } },
+        { id: 'm1d3', title: 'KPI tools', desc: 'SCOR metrics, balanced scorecard, maturity assessment', terms: ['balanced scorecard', 'key performance indicator (KPI)', 'SCOR'], v9map: { status: 'same', to: 'I.D.3', note: 'Focus on driving improvement initiatives' } }
       ]},
       { group: 'E. Risk Management', v9group: '9.0: I.E — added BCP', items: [
-        { id: 'm1e1', title: 'Risk types', desc: 'Supply disruption, financial, environmental, cyber, IP, political', terms: ['supply chain risk', 'risk management'], v9map: { status: 'same', to: 'I.E.2' } },
-        { id: 'm1e2', title: 'FMEA', desc: 'Failure Modes and Effects Analysis', priority: 'medium', terms: ['failure mode and effects analysis (FMEA)', 'risk priority number'], v9map: { status: 'same', to: 'I.E.4' } },
-        { id: 'm1e3', title: 'Risk mitigation strategies', desc: 'Prevention, mitigation, recovery, pooling, resiliency', terms: ['risk mitigation', 'contingency planning', 'resiliency'], v9map: { status: 'enhanced', to: 'I.E.3', note: '★ Added BCP, risk avoidance, acceptance, transfer' } }
+        { id: 'm1e1', title: 'Supply chain mapping & monitoring', desc: 'Risk identification, regulatory requirements, risk tolerance', terms: ['supply chain mapping', 'risk tolerance'], v9map: { status: 'same', to: 'I.E.1' } },
+        { id: 'm1e2', title: 'Risk types & impact', desc: 'Supply disruption, financial, environmental, cyber, IP, political', terms: ['supply chain risk', 'risk management'], v9map: { status: 'same', to: 'I.E.2' } },
+        { id: 'm1e3', title: 'Risk mitigation & BCP', desc: 'Prevention, mitigation, recovery, pooling, resiliency', terms: ['risk mitigation', 'contingency planning', 'resiliency'], v9map: { status: 'enhanced', to: 'I.E.3', note: '★ Added BCP, risk avoidance, acceptance, transfer, replacement' } },
+        { id: 'm1e4', title: 'FMEA & ISO standards', desc: 'Failure Modes and Effects Analysis, ISO risk standards', priority: 'medium', terms: ['failure mode and effects analysis (FMEA)', 'ISO 31000'], v9map: { status: 'same', to: 'I.E.4' } },
+        { id: 'm1e5', title: 'Security compliance', desc: 'Physical and cyber security requirements', terms: ['cybersecurity', 'physical security'], v9map: { status: 'same', to: 'I.E.5' } }
       ]},
       { group: 'F. Sustainability', v9group: '9.0: I.F — added sustainable procurement', items: [
-        { id: 'm1f1', title: 'Triple Bottom Line (TBL)', desc: 'Environmental, financial, social sustainability', terms: ['triple bottom line', 'sustainability', 'carbon footprint'], v9map: { status: 'same', to: 'I.F.1' } },
-        { id: 'm1f2', title: 'GRI & UN Global Compact', desc: 'Sustainability reporting standards', terms: ['Global Reporting Initiative', 'ISO 14001'], v9map: { status: 'same', to: 'I.F.3' } },
-        { id: 'm1f3', title: 'Sustainable procurement (NEW in 9.0)', desc: 'Support organizational sustainable procurement strategy and goals', terms: ['sustainable procurement', 'ESG'], v9map: { status: 'new', to: 'I.F.5', note: '★ NEW in 9.0 — study this!' } }
+        { id: 'm1f1', title: 'Triple Bottom Line (TBL)', desc: 'Environmental, economic, social sustainability', terms: ['triple bottom line', 'sustainability', 'carbon footprint'], v9map: { status: 'same', to: 'I.F.1' } },
+        { id: 'm1f2', title: 'Sustainability metrics', desc: 'Monitor and report sustainability performance', terms: ['sustainability metrics', 'ESG'], v9map: { status: 'same', to: 'I.F.2' } },
+        { id: 'm1f3', title: 'GRI, ISO, UN Global Compact', desc: 'Sustainability reporting standards and guidelines', terms: ['Global Reporting Initiative', 'ISO 14001', 'UN Global Compact'], v9map: { status: 'same', to: 'I.F.3' } },
+        { id: 'm1f4', title: 'Safety & environmental standards', desc: 'Control and protect organization and environment', terms: ['environmental standards', 'safety standards'], v9map: { status: 'same', to: 'I.F.4' } },
+        { id: 'm1f5', title: 'Sustainable procurement (NEW in 9.0)', desc: 'Support organizational sustainable procurement strategy and goals', terms: ['sustainable procurement', 'green procurement'], v9map: { status: 'new', to: 'I.F.5', note: '★ NEW in 9.0 — study this!' } }
       ]}
     ]
   },
