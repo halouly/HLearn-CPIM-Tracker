@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CPIM 8.0 Study Tracker — With Case Studies</title>
+<title>CPIM 8.0 Study Tracker — With Case Studies v9</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -672,8 +672,9 @@ const allModules = [
       ]},
       { group: 'D. KPIs & Performance', v9group: '→ 9.0 Mod1 Sec D', items: [
         { id: 'm1d1', title: 'Performance monitoring systems', desc: 'Balanced scorecard, maturity assessment, SCOR', terms: ['balanced scorecard', 'SCOR', 'maturity assessment'], v9map: { status: 'same', to: '1.D.T01', note: 'Performance Monitoring Systems' } },
-        { id: 'm1d2', title: 'Financial metrics', desc: 'Cash-to-cash cycle, cash flow, ROI', terms: ['cash-to-cash cycle time', 'cash flow', 'return on investment'], caseRef: 'Case 12', v9map: { status: 'same', to: '1.D.T02', note: 'Strategic, Financial and Operational Metrics' } },
+        { id: 'm1d2', title: 'Financial metrics', desc: 'Cash-to-cash cycle, cash flow, ROI', terms: ['cash-to-cash cycle time', 'cash flow', 'return on investment'], caseRef: 'Case 12, 15', v9map: { status: 'same', to: '1.D.T02', note: 'Strategic, Financial and Operational Metrics' } },
         { id: 'm1d2_case', title: '📊 Practice Case 12: Financial KPIs', desc: 'Cash-to-Cash, ratios, margins.', priority: 'formula', terms: [], formulas: 'C2C = DIO + DSO - DPO' },
+        { id: 'm1d2_case15', title: '📊 Practice Case 15: Investment Analysis', desc: 'ROI, Payback, EPS, Profitability Index.', priority: 'formula', terms: [], formulas: 'ROI = (Benefits-Costs)/Costs | Payback = Invest/Savings' },
         { id: 'm1d3', title: 'Operational metrics', desc: 'Service levels, fill rate, stockout %, schedule adherence', terms: ['customer service level', 'fill rate', 'stockout'], v9map: { status: 'same', to: '1.D.T02', note: 'Strategic, Financial and Operational Metrics' } }
       ]},
       { group: 'E. Risk Management', v9group: '★ MOVED → 9.0 Mod5 Sec C', items: [
@@ -731,8 +732,9 @@ const allModules = [
         { id: 'm3b1', title: 'Demand channels & sources', desc: 'Retail, wholesale, B2B, B2C, omnichannel, service', terms: ['demand channel', 'independent demand', 'dependent demand', 'omnichannel'], v9map: { status: 'same', to: '3.B.T01', note: 'Demand Channels and Sources' } },
         { id: 'm3b2', title: 'Forecasting overview & selection', desc: 'Forecast method selection, horizons, aggregation', terms: ['forecasting', 'time horizon', 'aggregation level'], v9map: { status: 'same', to: '3.B.T02', note: 'Forecasting Overview and Selection' } },
         { id: 'm3b3', title: 'Qualitative forecasting', desc: 'Delphi, panel consensus, sales force polling', priority: 'medium', terms: ['qualitative forecasting', 'Delphi method', 'panel consensus'], v9map: { status: 'same', to: '3.B.T03', note: 'Qualitative Forecasting' } },
-        { id: 'm3b4', title: 'Quantitative forecasting', desc: 'Time series, moving avg, exponential smoothing, regression', priority: 'formula', terms: ['time series', 'moving average', 'exponential smoothing', 'regression'], caseRef: 'Case 10', v9map: { status: 'same', to: '3.B.T04', note: 'Quantitative Forecasting' } },
-        { id: 'm3b4_case', title: '📊 Practice Case 10: Forecasting Methods', desc: 'SMA, WMA, Exponential Smoothing.', priority: 'formula', terms: [], formulas: 'ES: Ft+1 = α(A) + (1-α)(F)' }
+        { id: 'm3b4', title: 'Quantitative forecasting', desc: 'Time series, moving avg, exponential smoothing, regression', priority: 'formula', terms: ['time series', 'moving average', 'exponential smoothing', 'regression'], caseRef: 'Case 10, 16', v9map: { status: 'same', to: '3.B.T04', note: 'Quantitative Forecasting' } },
+        { id: 'm3b4_case', title: '📊 Practice Case 10: Forecasting Methods', desc: 'SMA, WMA, Exponential Smoothing.', priority: 'formula', terms: [], formulas: 'ES: Ft+1 = α(A) + (1-α)(F)' },
+        { id: 'm3b4_case16', title: '📊 Practice Case 16: Seasonal Forecasting', desc: 'Seasonal indices, deseasonalized demand.', priority: 'formula', terms: [], formulas: 'SI = Period Avg / Overall Avg' }
       ]},
       { group: 'C. Forecast Performance', v9group: '→ 9.0 Mod3 Sec C', items: [
         { id: 'm3c1', title: 'Evaluating forecast performance', desc: 'Bias, MAD, MAPE, MSE, tracking signal', priority: 'formula', terms: ['MAD', 'MAPE', 'tracking signal', 'bias', 'CFE'], caseRef: 'Case 7', v9map: { status: 'same', to: '3.C.T01', note: 'Evaluating Forecast Performance' } },
@@ -763,8 +765,9 @@ const allModules = [
       ]},
       { group: 'C. Material Requirements Planning', v9group: '→ 9.0 Mod4 Sec F', items: [
         { id: 'm4c1', title: 'MRP overview & design', desc: 'MRP inputs, BOM, item master', priority: 'high', terms: ['material requirements planning', 'bill of material', 'item master'], v9map: { status: 'same', to: '4.F.T01', note: 'MRP Overview and Design' } },
-        { id: 'm4c2', title: 'MRP inputs, process, outputs', desc: 'MRP record, gross/net requirements, PAB', priority: 'formula', terms: ['gross requirements', 'net requirements', 'projected available balance', 'planned order'], caseRef: 'Case 1', v9map: { status: 'same', to: '4.F.T02', note: 'MRP Inputs, Process and Outputs' } },
+        { id: 'm4c2', title: 'MRP inputs, process, outputs', desc: 'MRP record, gross/net requirements, PAB', priority: 'formula', terms: ['gross requirements', 'net requirements', 'projected available balance', 'planned order'], caseRef: 'Case 1, 19', v9map: { status: 'same', to: '4.F.T02', note: 'MRP Inputs, Process and Outputs' } },
         { id: 'm4c2_case', title: '📊 Practice Case 1: MRP Multi-Level BOM', desc: 'Complete MRP records for 3-level BOM. PAB, net req, planned releases.', priority: 'formula', terms: [], formulas: 'PAB = Prior PAB + SR + PORec - GR' },
+        { id: 'm4c2_case19', title: '📊 Practice Case 19: BOM Explosion & Yield', desc: 'Multi-level explosion, yield losses, cumulative yield.', priority: 'formula', terms: [], formulas: 'Start Qty = Output / Yield%' },
         { id: 'm4c3', title: 'Using and managing MRP', desc: 'Action messages, lot sizing, pegging, closed-loop', terms: ['action message', 'lot sizing', 'pegging'], v9map: { status: 'same', to: '4.F.T03', note: 'Using and Managing MRP' } }
       ]},
       { group: 'D. CRP, ATP, Final Assembly', v9group: '→ 9.0 Mod4 Sec G', items: [
@@ -824,8 +827,9 @@ const allModules = [
     id: 'mod6', number: 6, title: 'Detailed Scheduling & Planning', weight: 16, hours: 4, v9: '→ LS 9.0 Module 7 (12%)',
     topics: [
       { group: 'A. Planning Detailed Schedules', v9group: '→ 9.0 Mod7 Sec A', items: [
-        { id: 'm6a1', title: 'Detailed scheduling & throughput', desc: 'Lead time elements, load calculation, throughput', priority: 'high', terms: ['lead time', 'queue time', 'setup time', 'throughput'], caseRef: 'Case 9', v9map: { status: 'same', to: '7.A.T01', note: 'Detailed Scheduling and Throughput' } },
+        { id: 'm6a1', title: 'Detailed scheduling & throughput', desc: 'Lead time elements, load calculation, throughput', priority: 'high', terms: ['lead time', 'queue time', 'setup time', 'throughput'], caseRef: 'Case 9, 18', v9map: { status: 'same', to: '7.A.T01', note: 'Detailed Scheduling and Throughput' } },
         { id: 'm6a1_case', title: '📊 Practice Case 9: Lean Scheduling', desc: 'Takt time, cycle time, throughput time.', priority: 'formula', terms: [], formulas: 'Takt = Avail Time / Demand' },
+        { id: 'm6a1_case18', title: '📊 Practice Case 18: Facility Location', desc: 'Center of Gravity, location cost, Law of Squares.', priority: 'formula', terms: [], formulas: 'CoG = Σ(Coord×Vol)/Σ(Vol)' },
         { id: 'm6a2', title: 'Production activity control', desc: 'PAC, dispatching, work sequencing', priority: 'high', terms: ['production activity control', 'dispatch list'], caseRef: 'Case 6', v9map: { status: 'same', to: '7.A.T02', note: 'Production Activity Control' } },
         { id: 'm6a2_case', title: '📊 Practice Case 6: Capacity & Critical Ratio', desc: 'Demonstrated capacity, CR dispatch rule.', priority: 'formula', terms: [], formulas: 'CR = Time Remaining / Work Remaining' }
       ]},
@@ -838,8 +842,9 @@ const allModules = [
         { id: 'm6b5', title: 'Nonstandard demand', desc: 'Samples, tests, prototypes, rework, by-products', terms: ['nonstandard demand', 'rework', 'by-product'], v9map: { status: 'same', to: '7.B.T05', note: 'Nonstandard Demand' } }
       ]},
       { group: 'C. Production & Service Schedules', v9group: '→ 9.0 Mod7 Sec C', items: [
-        { id: 'm6c1', title: 'Capacity planning & service capacity', desc: 'Capacity types, service capacity considerations', priority: 'high', terms: ['theoretical capacity', 'demonstrated capacity', 'service capacity'], caseRef: 'Case 6', v9map: { status: 'same', to: '7.C.T01', note: 'Capacity Planning and Service Capacity' } },
+        { id: 'm6c1', title: 'Capacity planning & service capacity', desc: 'Capacity types, service capacity considerations', priority: 'high', terms: ['theoretical capacity', 'demonstrated capacity', 'service capacity'], caseRef: 'Case 6, 17', v9map: { status: 'same', to: '7.C.T01', note: 'Capacity Planning and Service Capacity' } },
         { id: 'm6c1_case', title: '📊 Practice Case 6: Capacity & Critical Ratio', desc: 'Demonstrated capacity, CR dispatch rule.', priority: 'formula', terms: [], formulas: 'CR = Time Remaining / Work Remaining' },
+        { id: 'm6c1_case17', title: '📊 Practice Case 17: TOC Constraint Analysis', desc: 'Internal/external constraints, CCR, throughput.', priority: 'formula', terms: [], formulas: 'Throughput = (Price-Material) × Rate' },
         { id: 'm6c2', title: 'Capacity requirements planning', desc: 'CRP process, load profiles, load balancing', priority: 'formula', terms: ['CRP', 'load profile', 'finite loading'], v9map: { status: 'same', to: '7.C.T02', note: 'Capacity Requirements Planning (CRP)' } }
       ]},
       { group: 'D. Managing Schedules', v9group: '→ 9.0 Mod7 Sec D', items: [
@@ -894,8 +899,9 @@ const allModules = [
         { id: 'm8d2', title: 'Lean', desc: 'Pull systems, kanban, SMED, 5S, VSM', priority: 'high', terms: ['lean', 'kanban', 'SMED', '5S', 'value stream mapping'], v9map: { status: 'same', to: '9.D.T02', note: 'Lean' } },
         { id: 'm8d3', title: 'Employee empowerment', desc: 'Team involvement, empowerment', terms: ['empowerment', 'team'], v9map: { status: 'same', to: '9.D.T03', note: 'Employee Empowerment' } },
         { id: 'm8d4', title: 'Relationship improvement tools', desc: 'VOC, supplier audit/certification', terms: ['VOC', 'supplier certification'], v9map: { status: 'same', to: '9.D.T04', note: 'Relationship Improvement Tools' } },
-        { id: 'm8d5', title: 'Structured problem solving', desc: 'PDCA, DMAIC, Six Sigma', priority: 'high', terms: ['PDCA', 'DMAIC', 'Six Sigma'], caseRef: 'Case 11', v9map: { status: 'same', to: '9.D.T05', note: 'Structured Problem Solving Tools' } },
+        { id: 'm8d5', title: 'Structured problem solving', desc: 'PDCA, DMAIC, Six Sigma', priority: 'high', terms: ['PDCA', 'DMAIC', 'Six Sigma'], caseRef: 'Case 11, 20', v9map: { status: 'same', to: '9.D.T05', note: 'Structured Problem Solving Tools' } },
         { id: 'm8d5_case', title: '📊 Practice Case 11: Quality & Cp/Cpk', desc: 'Process capability indices, OEE.', priority: 'formula', terms: [], formulas: 'Cpk = min[(USL-μ)/3σ, (μ-LSL)/3σ]' },
+        { id: 'm8d5_case20', title: '📊 Practice Case 20: Risk & PERT Analysis', desc: 'PERT estimates, risk rating, project uncertainty.', priority: 'formula', terms: [], formulas: 'PERT = (O+4M+P)/6 | Risk = P×I' },
         { id: 'm8d6', title: 'Additional process improvement', desc: 'A3 method, gemba walk, benchmarking', terms: ['A3', 'gemba walk', 'benchmarking'], v9map: { status: 'same', to: '9.D.T06', note: 'Additional Process Improvement Tools' } },
         { id: 'm8d7', title: 'Work area design', desc: '5S, visual management, andon, layouts', terms: ['5S', 'visual management', 'andon'], v9map: { status: 'same', to: '9.D.T07', note: 'Work Area Design' } },
         { id: 'm8d8', title: 'Process variation', desc: 'SPC, control charts, capability', priority: 'formula', terms: ['SPC', 'control chart', 'process capability'], v9map: { status: 'same', to: '9.D.T08', note: 'Process Variation' } }
@@ -907,7 +913,7 @@ const allModules = [
 // Practice modules (always at end)
 const practiceModules = [
   {
-    id: 'casestudies', number: '📊', title: 'Case Study Exercises (Excel Workbook)', weight: 'PRACTICE', hours: 8,
+    id: 'casestudies', number: '📊', title: 'Case Study Exercises (Excel Workbook)', weight: 'PRACTICE', hours: 12,
     topics: [
       { group: 'A. MRP & Master Scheduling Cases', items: [
         { id: 'cs01', title: 'Case 1: MRP Multi-Level BOM', desc: '3-level BOM (X→Y→Z). Practice PAB, net requirements, planned order releases with LFL, Fixed, Min lot sizes. 6 exam questions.', priority: 'formula', terms: ['MRP record', 'PAB', 'net requirements', 'planned order release', 'lot-for-lot', 'lead time offset'], formulas: 'PAB = Prior PAB + SR + PORec - GR | Net Req = GR - PAB - SR | PORel offset by lead time' },
@@ -932,6 +938,16 @@ const practiceModules = [
       ]},
       { group: 'E. Financial KPIs Case', items: [
         { id: 'cs12', title: 'Case 12: Strategic Financial KPIs', desc: 'Cash-to-Cash, Current/Quick/Debt Ratios, Margins, ROA, ROE. 6 questions.', priority: 'formula', terms: ['C2C', 'current ratio', 'quick ratio', 'debt ratio', 'ROA', 'ROE'], formulas: 'C2C = DIO+DSO-DPO | CR = CA/CL | QR = (CA-Inv)/CL | PM = NI/Sales' }
+      ]},
+      { group: 'F. Advanced Financial & Investment Cases', items: [
+        { id: 'cs15', title: 'Case 15: Investment & Profitability Analysis', desc: 'ROI, Payback Period, EPS, Benefit-Cost, Profitability Index. 6 questions.', priority: 'formula', terms: ['ROI', 'payback period', 'EPS', 'profitability index', 'benefit-cost'], formulas: 'ROI = (Benefits-Costs)/Costs | Payback = Investment/Savings | EPS = (NI-PrefDiv)/Shares' },
+        { id: 'cs16', title: 'Case 16: Seasonal Forecasting', desc: 'Seasonal indices, deseasonalized demand, seasonalized forecasts. 5 questions.', priority: 'formula', terms: ['seasonal index', 'deseasonalized', 'seasonality'], formulas: 'SI = Period Avg / Overall Avg | Forecast = Deseas × SI' }
+      ]},
+      { group: 'G. Advanced Operations Cases', items: [
+        { id: 'cs17', title: 'Case 17: TOC Constraint Analysis', desc: 'Internal/external constraints, CCR identification, throughput. 6 questions.', priority: 'formula', terms: ['TOC', 'bottleneck', 'CCR', 'throughput', 'constraint'], formulas: 'Throughput = (Price-Material) × Rate | CCR ≈ 90% capacity' },
+        { id: 'cs18', title: 'Case 18: Facility Location Analysis', desc: 'Center of Gravity, location cost comparison, Law of Squares. 5 questions.', priority: 'formula', terms: ['center of gravity', 'location cost', 'law of squares'], formulas: 'CoG = Σ(Coord×Vol)/Σ(Vol) | Cost = d×Q×rate' },
+        { id: 'cs19', title: 'Case 19: BOM Explosion with Yield', desc: 'Multi-level MRP explosion, yield losses, cumulative yield. 6 questions.', priority: 'formula', terms: ['BOM explosion', 'yield', 'MRP offset', 'cumulative yield'], formulas: 'Child GR = Parent PORel × Qty Per | Start Qty = Output/Yield%' },
+        { id: 'cs20', title: 'Case 20: Risk Analysis & PERT', desc: 'PERT time estimates, risk rating, project uncertainty. 6 questions.', priority: 'formula', terms: ['PERT', 'risk rating', 'variance', 'probability', 'impact'], formulas: 'PERT = (O+4M+P)/6 | Risk = P×I | Var = [(P-O)/6]²' }
       ]}
     ]
   },
