@@ -807,8 +807,9 @@ const allModules = [
       ]},
       { group: 'C. Inventory Management', v9group: '→ 9.0 Mod6 Sec C', items: [
         { id: 'm5c1', title: 'Push or pull replenishment', desc: 'MRP vs ROP, periodic review, kanban', priority: 'high', terms: ['reorder point', 'periodic review', 'kanban', 'min-max'], v9map: { status: 'same', to: '6.C.T01', note: 'Push or Pull Replenishment' } },
-        { id: 'm5c2', title: 'EOQ & lot size rules', desc: 'EOQ formula, LFL, FOQ, POQ', priority: 'formula', terms: ['economic order quantity', 'lot-for-lot', 'fixed order quantity'], caseRef: 'Case 4', v9map: { status: 'same', to: '6.C.T02', note: 'EOQ and Lot Size Rules' } },
+        { id: 'm5c2', title: 'EOQ & lot size rules', desc: 'EOQ formula, LFL, FOQ, POQ', priority: 'formula', terms: ['economic order quantity', 'lot-for-lot', 'fixed order quantity'], caseRef: 'Case 4, 23', v9map: { status: 'same', to: '6.C.T02', note: 'EOQ and Lot Size Rules' } },
         { id: 'm5c2_case', title: '📊 Practice Case 4: EOQ Analysis', desc: 'EOQ calculation with sensitivity analysis.', priority: 'formula', terms: [], formulas: 'EOQ = √(2DS/H)' },
+        { id: 'm5c2_case23', title: '📊 Practice Case 23: Periodic Review System', desc: '(R,S) vs (Q,R), target inventory, order quantity.', priority: 'formula', terms: [], formulas: 'T = d(R+L) + SS | Order = T - I' },
         { id: 'm5c3', title: 'Safety stock & lead time', desc: 'Safety stock calculations, safety lead time', priority: 'formula', terms: ['safety stock', 'safety lead time', 'service level'], caseRef: 'Case 5', v9map: { status: 'same', to: '6.C.T03', note: 'Safety Stock and Safety Lead Time' } },
         { id: 'm5c3_case', title: '📊 Practice Case 5: Safety Stock', desc: 'Demand/LT variability, combined formula.', priority: 'formula', terms: [], formulas: 'SS = Z × σd × √LT' },
         { id: 'm5c4', title: 'Special inventory & MRO', desc: 'Hazardous materials, MRO, special handling', terms: ['MRO', 'hazardous materials', 'special handling'], v9map: { status: 'same', to: '6.C.T04', note: 'Special Inventory and Overhaul Supplies' } }
@@ -827,17 +828,19 @@ const allModules = [
     id: 'mod6', number: 6, title: 'Detailed Scheduling & Planning', weight: 16, hours: 4, v9: '→ LS 9.0 Module 7 (12%)',
     topics: [
       { group: 'A. Planning Detailed Schedules', v9group: '→ 9.0 Mod7 Sec A', items: [
-        { id: 'm6a1', title: 'Detailed scheduling & throughput', desc: 'Lead time elements, load calculation, throughput', priority: 'high', terms: ['lead time', 'queue time', 'setup time', 'throughput'], caseRef: 'Case 9, 18', v9map: { status: 'same', to: '7.A.T01', note: 'Detailed Scheduling and Throughput' } },
+        { id: 'm6a1', title: 'Detailed scheduling & throughput', desc: 'Lead time elements, load calculation, throughput', priority: 'high', terms: ['lead time', 'queue time', 'setup time', 'throughput'], caseRef: 'Case 9, 18, 22', v9map: { status: 'same', to: '7.A.T01', note: 'Detailed Scheduling and Throughput' } },
         { id: 'm6a1_case', title: '📊 Practice Case 9: Lean Scheduling', desc: 'Takt time, cycle time, throughput time.', priority: 'formula', terms: [], formulas: 'Takt = Avail Time / Demand' },
         { id: 'm6a1_case18', title: '📊 Practice Case 18: Facility Location', desc: 'Center of Gravity, location cost, Law of Squares.', priority: 'formula', terms: [], formulas: 'CoG = Σ(Coord×Vol)/Σ(Vol)' },
+        { id: 'm6a1_case22', title: '📊 Practice Case 22: Lead Time Analysis', desc: 'Queue, Setup, Run, Wait, Move. Overlap reduction.', priority: 'formula', terms: [], formulas: 'LT = Q + S + R + W + M' },
         { id: 'm6a2', title: 'Production activity control', desc: 'PAC, dispatching, work sequencing', priority: 'high', terms: ['production activity control', 'dispatch list'], caseRef: 'Case 6', v9map: { status: 'same', to: '7.A.T02', note: 'Production Activity Control' } },
         { id: 'm6a2_case', title: '📊 Practice Case 6: Capacity & Critical Ratio', desc: 'Demonstrated capacity, CR dispatch rule.', priority: 'formula', terms: [], formulas: 'CR = Time Remaining / Work Remaining' }
       ]},
       { group: 'B. Scheduling & PAC Methods', v9group: '→ 9.0 Mod7 Sec B', items: [
         { id: 'm6b1', title: 'Intermittent flow scheduling', desc: 'Job shop, batch scheduling, dispatching rules', terms: ['job shop', 'dispatching rules', 'priority rules'], v9map: { status: 'same', to: '7.B.T01', note: 'Intermittent Flow Manufacturing Scheduling' } },
         { id: 'm6b2', title: 'MRP-based scheduling & PAC', desc: 'MRP-driven scheduling, action messages', terms: ['MRP scheduling', 'action message'], v9map: { status: 'same', to: '7.B.T02', note: 'MRP-Based Scheduling and PAC' } },
-        { id: 'm6b3', title: 'Lean environments scheduling', desc: 'Kanban, takt time, level scheduling', priority: 'formula', terms: ['kanban', 'takt time', 'level scheduling', 'heijunka'], caseRef: 'Case 9', v9map: { status: 'same', to: '7.B.T03', note: 'Lean Environments Scheduling and PAC' } },
+        { id: 'm6b3', title: 'Lean environments scheduling', desc: 'Kanban, takt time, level scheduling', priority: 'formula', terms: ['kanban', 'takt time', 'level scheduling', 'heijunka'], caseRef: 'Case 9, 21', v9map: { status: 'same', to: '7.B.T03', note: 'Lean Environments Scheduling and PAC' } },
         { id: 'm6b3_case', title: '📊 Practice Case 9: Lean Scheduling', desc: 'Takt time, cycle time, throughput time.', priority: 'formula', terms: [], formulas: 'Takt = Avail Time / Demand' },
+        { id: 'm6b3_case21', title: '📊 Practice Case 21: Kanban System Design', desc: 'Number of kanbans, container sizing, WIP.', priority: 'formula', terms: [], formulas: '# Kanbans = (D×LT×(1+α)) / Container' },
         { id: 'm6b4', title: 'TOC scheduling & PAC', desc: 'Drum-buffer-rope, bottleneck management', priority: 'high', terms: ['theory of constraints', 'drum-buffer-rope', 'bottleneck'], v9map: { status: 'same', to: '7.B.T04', note: 'TOC Scheduling and PAC' } },
         { id: 'm6b5', title: 'Nonstandard demand', desc: 'Samples, tests, prototypes, rework, by-products', terms: ['nonstandard demand', 'rework', 'by-product'], v9map: { status: 'same', to: '7.B.T05', note: 'Nonstandard Demand' } }
       ]},
@@ -913,7 +916,7 @@ const allModules = [
 // Practice modules (always at end)
 const practiceModules = [
   {
-    id: 'casestudies', number: '📊', title: 'Case Study Exercises (Excel Workbook)', weight: 'PRACTICE', hours: 12,
+    id: 'casestudies', number: '📊', title: 'Case Study Exercises (Excel Workbook)', weight: 'PRACTICE', hours: 14,
     topics: [
       { group: 'A. MRP & Master Scheduling Cases', items: [
         { id: 'cs01', title: 'Case 1: MRP Multi-Level BOM', desc: '3-level BOM (X→Y→Z). Practice PAB, net requirements, planned order releases with LFL, Fixed, Min lot sizes. 6 exam questions.', priority: 'formula', terms: ['MRP record', 'PAB', 'net requirements', 'planned order release', 'lot-for-lot', 'lead time offset'], formulas: 'PAB = Prior PAB + SR + PORec - GR | Net Req = GR - PAB - SR | PORel offset by lead time' },
@@ -948,6 +951,11 @@ const practiceModules = [
         { id: 'cs18', title: 'Case 18: Facility Location Analysis', desc: 'Center of Gravity, location cost comparison, Law of Squares. 5 questions.', priority: 'formula', terms: ['center of gravity', 'location cost', 'law of squares'], formulas: 'CoG = Σ(Coord×Vol)/Σ(Vol) | Cost = d×Q×rate' },
         { id: 'cs19', title: 'Case 19: BOM Explosion with Yield', desc: 'Multi-level MRP explosion, yield losses, cumulative yield. 6 questions.', priority: 'formula', terms: ['BOM explosion', 'yield', 'MRP offset', 'cumulative yield'], formulas: 'Child GR = Parent PORel × Qty Per | Start Qty = Output/Yield%' },
         { id: 'cs20', title: 'Case 20: Risk Analysis & PERT', desc: 'PERT time estimates, risk rating, project uncertainty. 6 questions.', priority: 'formula', terms: ['PERT', 'risk rating', 'variance', 'probability', 'impact'], formulas: 'PERT = (O+4M+P)/6 | Risk = P×I | Var = [(P-O)/6]²' }
+      ]},
+      { group: 'H. Lean & Inventory Systems Cases', items: [
+        { id: 'cs21', title: 'Case 21: Kanban System Design', desc: 'Number of kanbans, container sizing, loop time. 8 questions.', priority: 'formula', terms: ['kanban', 'pull system', 'container size', 'WIP'], formulas: '# Kanbans = (D×LT×(1+α)) / Container' },
+        { id: 'cs22', title: 'Case 22: Lead Time Analysis', desc: 'Queue, Setup, Run, Wait, Move breakdown. Overlap/lap phasing. 8 questions.', priority: 'formula', terms: ['lead time', 'queue time', 'overlap', 'lap phasing'], formulas: 'LT = Q + S + R + W + M' },
+        { id: 'cs23', title: 'Case 23: Periodic Review System', desc: '(R,S) vs (Q,R) comparison. Target inventory, order quantity. 11 questions.', priority: 'formula', terms: ['periodic review', 'continuous review', 'target inventory'], formulas: 'T = d(R+L) + SS | Order = T - I' }
       ]}
     ]
   },
